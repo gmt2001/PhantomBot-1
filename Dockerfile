@@ -66,7 +66,9 @@ RUN set -eux; \
     mkdir "${DATADIR}/scripts/custom"; \
     mkdir "${DATADIR}/scripts/discord"; \
     mkdir "${DATADIR}/scripts/lang"; \
+    mkdir "${DATADIR}/datastores"; \
     mkdir "${DATADIR}/logs"; \
+    mkdir "${DATADIR}/modules"; \
     mv "./addons" "${DATADIR}/"; \
     mv "./config" "${DATADIR}/"; \
     mv "./scripts/custom" "${DATADIR}/scripts/custom/"; \
@@ -127,8 +129,10 @@ RUN set -eux; \
     mkdir "${DATADIR}/gameslist"; \
     ln -s "${DATADIR}/addons"; \
     ln -s "${DATADIR}/config"; \
+    ln -s "${DATADIR}/datastores"; \
     ln -s "${DATADIR}/dbbackup"; \
     ln -s "${DATADIR}/logs"; \
+    ln -s "${DATADIR}/modules"; \
     ln -s "${DATADIR}/scripts/custom" "${BASEDIR}/scripts/custom"; \
     ln -s "${DATADIR}/scripts/discord" "${BASEDIR}/scripts/discord/custom"; \
     ln -s "${DATADIR}/scripts/lang" "${BASEDIR}/scripts/lang/custom"; \
