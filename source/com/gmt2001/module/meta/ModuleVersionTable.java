@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.gmt2001.module;
+package com.gmt2001.module.meta;
 
 import java.util.Optional;
 
@@ -29,6 +29,7 @@ import org.jooq.impl.TableImpl;
 import com.gmt2001.datastore2.Datastore2;
 import com.gmt2001.datastore2.meta.TableVersion;
 import com.gmt2001.datastore2.meta.TableVersionRecord;
+import com.gmt2001.module.Module;
 
 /**
  * Stores the current version of {@link Module}s for upgrade tracking

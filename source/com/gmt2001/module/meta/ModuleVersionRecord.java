@@ -14,9 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.gmt2001.module;
+package com.gmt2001.module.meta;
 
 import com.gmt2001.datastore2.record.Record2;
+import com.gmt2001.module.Module;
 
 /**
  * A record in {@link ModuleVersionTable} denoting the version of a {@link Module} for version tracking
