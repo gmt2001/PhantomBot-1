@@ -41,4 +41,14 @@ public abstract class CoreModule extends Module {
     public int afterCoreLoadOrder() {
         return Integer.MAX_VALUE;
     }
+
+    @Override
+    public boolean defaultEnabledState() {
+        return true;
+    }
+
+    @Override
+    public void onDisable() {
+        throw new UnsupportedOperationException("Core modules can not be disabled");
+    }
 }
