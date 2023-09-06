@@ -1,0 +1,169 @@
+/*
+ * Copyright (C) 2016-2023 phantombot.github.io/PhantomBot
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package com.gmt2001.module;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.FileVisitOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
+
+import com.gmt2001.util.Reflect;
+
+/**
+ * Loads and manages {@link Module}
+ *
+ * @author gmt2001
+ */
+public final class ModuleManager {
+    /**
+     * Instance
+     */
+    private static final ModuleManager INSTANCE = new ModuleManager();
+    /**
+     * Available modules
+     */
+    private final Map<Class<? extends Module>, Module> modules = new ConcurrentHashMap<>();
+
+    /**
+     * Provides an instance of ModuleManager
+     *
+     * @return the instance
+     */
+    public static ModuleManager instance() {
+        return INSTANCE;
+    }
+
+    /**
+     * Generates a custom data map for Rollbar
+     *
+     * @param c the class object of the failing module
+     * @param failLocation the method call where the throwable was caught
+     * @return the data map
+     */
+    private static Map<String, Object> failMap(Class<? extends Module> c, String failLocation) {
+        return Map.of(
+            "module", c.getName(),
+            "moduleType", CoreModule.class.isAssignableFrom(c) ? CoreModule.class.getSimpleName() : Module.class.getSimpleName(),
+            "failLocation", failLocation
+        );
+    }
+
+    /**
+     * Constructor
+     * <p>
+     * Finds all modules and performs loading
+     */
+    private ModuleManager() {
+        com.gmt2001.Console.out.println("Searching for custom Java modules...");
+        try (Stream<Path> entries = Files.walk(Paths.get("./modules"), FileVisitOption.FOLLOW_LINKS)) {
+            entries.filter(e -> Files.isRegularFile(e) && e.getFileName().toString().toLowerCase().endsWith(".jar")).map(e -> {
+                try {
+                    return new URL("file://" + e.toString());
+                } catch (MalformedURLException ex) {
+                    com.gmt2001.Console.err.println("Failed to prep module file " + e.toString());
+                    com.gmt2001.Console.err.printStackTrace(ex, Map.of("file", e.toString()));
+                    return null;
+                }
+            }).filter(e -> e != null).forEach(e -> Reflect.instance().loadPackageRecursive(e));
+        } catch (IOException ex) {
+            com.gmt2001.Console.err.printStackTrace(ex);
+        }
+
+        com.gmt2001.Console.out.println("Loading core Java modules...");
+
+        Reflect.instance().loadPackageRecursive(ModuleManager.class.getName()
+                    .substring(0, ModuleManager.class.getName().lastIndexOf('.')))
+                .getSubTypesOf(CoreModule.class).stream().forEach(c -> {
+                    CoreModule m;
+                    try {
+                        m = c.getConstructor().newInstance();
+                        Module r = modules.putIfAbsent(c, m);
+                        if (r != null) {
+                            return;
+                        }
+                    } catch (Throwable e) {
+                        com.gmt2001.Console.err.println("Failed to construct Java core module " + c.getName());
+                        com.gmt2001.Console.err.printStackTrace(e, failMap(c, "ctor"));
+                        return;
+                    }
+
+                    try {
+                        m.onLoad();
+                        com.gmt2001.Console.out.println("Loaded Java core module " + c.getName());
+                    } catch (Throwable e) {
+                        com.gmt2001.Console.err.println("Failed to onLoad Java core module " + c.getName());
+                        com.gmt2001.Console.err.printStackTrace(e, failMap(c, "onLoad"));
+                    }
+                });
+
+        com.gmt2001.Console.out.println("Running afterCoreLoad...");
+
+        modules.entrySet().stream().filter(e -> CoreModule.class.isAssignableFrom(e.getValue().getClass()))
+            .map(e -> (CoreModule)e.getValue()).sorted((e1, e2) -> Integer.compare(e1.afterCoreLoadOrder(), e2.afterCoreLoadOrder()))
+            .forEachOrdered(m -> {
+                try {
+                    m.afterCoreLoad();
+                } catch (Throwable e) {
+                    com.gmt2001.Console.err.println("Failed to afterCoreLoad Java core module " + m.getClass().getName());
+                    com.gmt2001.Console.err.printStackTrace(e, failMap(m.getClass(), "afterCoreLoad"));
+                }
+            });
+
+        com.gmt2001.Console.out.println("Loading Java modules...");
+
+        Reflect.instance().getSubTypesOf(Module.class).stream()
+            .filter(e -> !CoreModule.class.isAssignableFrom(e.getClass())).forEach(c -> {
+                    Module m;
+                    try {
+                        m = c.getConstructor().newInstance();
+                        Module r = modules.putIfAbsent(c, m);
+                        if (r != null) {
+                            return;
+                        }
+                    } catch (Throwable e) {
+                        com.gmt2001.Console.err.println("Failed to construct Java module " + c.getName());
+                        com.gmt2001.Console.err.printStackTrace(e, failMap(c, "ctor"));
+                        return;
+                    }
+
+                    try {
+                        m.onLoad();
+                        com.gmt2001.Console.out.println("Loaded Java module " + c.getName());
+                    } catch (Throwable e) {
+                        com.gmt2001.Console.err.println("Failed to onLoad Java module " + c.getName());
+                        com.gmt2001.Console.err.printStackTrace(e, failMap(c, "onLoad"));
+                    }
+                });
+
+        com.gmt2001.Console.out.println("Running afterLoad...");
+
+        modules.entrySet().stream().forEachOrdered(m -> {
+                try {
+                    m.getValue().afterLoad();
+                } catch (Throwable e) {
+                    com.gmt2001.Console.err.println("Failed to afterLoad Java module " + m.getValue().getClass().getName());
+                    com.gmt2001.Console.err.printStackTrace(e, failMap(m.getValue().getClass(), "afterLoad"));
+                }
+            });
+    }
+}
