@@ -38,7 +38,7 @@ public abstract class Module {
     public void onLoad() {}
 
     /**
-     * Executes after all models have been loaded
+     * Executes after all modules have been loaded
      */
     public void afterLoad() {}
 

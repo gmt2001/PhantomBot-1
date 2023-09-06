@@ -47,6 +47,9 @@ public abstract class CoreModule extends Module {
         return true;
     }
 
+    /**
+     * @throws UnsupportedOperationException because core modules can not be disabled
+     */
     @Override
     public void onDisable() {
         throw new UnsupportedOperationException("Core modules can not be disabled");
