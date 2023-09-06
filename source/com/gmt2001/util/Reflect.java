@@ -93,6 +93,18 @@ public final class Reflect {
     }
 
     /**
+     * Loads all classes visible to the default {@link ClassLoader} in the specified jar file into the local cache
+     * <p>
+     * This process also triggers static initializers in classes
+     *
+     * @param jarFile the {@link URL} representing the path to the jar file which will be searched
+     * @return {@code this}
+     */
+    public Reflect loadPackageRecursive(URL jarFile) {
+        return this.loadPackageRecursive(jarFile, "", Collections.emptyList());
+    }
+
+    /**
      * Loads all classes visible to the default {@link ClassLoader} which have the specified package prefix into the local cache
      * <p>
      * If any paths return {@code true} on a {@link String#contains(CharSequence)} of any entry in {@code exclude}, the class will be excluded from loading
