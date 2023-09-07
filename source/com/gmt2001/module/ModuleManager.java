@@ -172,8 +172,7 @@ public final class ModuleManager {
 
         com.gmt2001.Console.out.println("Initializing enabled state of Java modules...");
 
-        List<String> moduleSet = modules.keySet().stream().filter(e -> !CoreModule.class.isAssignableFrom(e))
-            .map(e -> e.getName()).collect(Collectors.toList());
+        List<String> moduleSet = modules.keySet().stream().map(e -> e.getName()).collect(Collectors.toList());
 
         final Map<String, Boolean> recordSet = Datastore2.instance().dslContext()
             .fetch(ModuleStatusTable.instance(), ModuleStatusTable.instance().MODULE.in(moduleSet))
