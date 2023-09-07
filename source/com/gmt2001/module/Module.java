@@ -30,7 +30,7 @@ public abstract class Module {
     /**
      * Current enabled state
      */
-    private boolean isEnabled = false;
+    private boolean isEnabled = this.defaultEnabledState();
 
     /**
      * Executes immediately after loading this module
