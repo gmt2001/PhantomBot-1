@@ -36,6 +36,7 @@ import com.gmt2001.util.Reflect;
 
 import net.engio.mbassy.listener.Handler;
 import tv.phantombot.event.Event;
+import tv.phantombot.event.EventBus;
 import tv.phantombot.event.Listener;
 import tv.phantombot.event.command.CommandEvent;
 import tv.phantombot.event.discord.channel.DiscordChannelCommandEvent;
@@ -203,6 +204,7 @@ public final class ModuleManager implements Listener {
                 }
             });
 
+        EventBus.instance().register(this);
     }
 
     /**
