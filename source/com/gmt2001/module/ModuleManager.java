@@ -23,10 +23,14 @@ import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.gmt2001.datastore2.Datastore2;
+import com.gmt2001.module.meta.ModuleStatusTable;
 import com.gmt2001.util.Reflect;
 
 /**
@@ -102,16 +106,16 @@ public final class ModuleManager {
                             return;
                         }
                     } catch (Throwable e) {
-                        com.gmt2001.Console.err.println("Failed to construct Java core module " + c.getName());
+                        com.gmt2001.Console.err.println("    Failed to construct Java core module " + c.getName());
                         com.gmt2001.Console.err.printStackTrace(e, failMap(c, "ctor"));
                         return;
                     }
 
                     try {
                         m.onLoad();
-                        com.gmt2001.Console.out.println("Loaded Java core module " + c.getName());
+                        com.gmt2001.Console.out.println("    Loaded Java core module " + c.getName());
                     } catch (Throwable e) {
-                        com.gmt2001.Console.err.println("Failed to onLoad Java core module " + c.getName());
+                        com.gmt2001.Console.err.println("    Failed to onLoad Java core module " + c.getName());
                         com.gmt2001.Console.err.printStackTrace(e, failMap(c, "onLoad"));
                     }
                 });
@@ -124,7 +128,7 @@ public final class ModuleManager {
                 try {
                     m.afterCoreLoad();
                 } catch (Throwable e) {
-                    com.gmt2001.Console.err.println("Failed to afterCoreLoad Java core module " + m.getClass().getName());
+                    com.gmt2001.Console.err.println("    Failed to afterCoreLoad Java core module " + m.getClass().getName());
                     com.gmt2001.Console.err.printStackTrace(e, failMap(m.getClass(), "afterCoreLoad"));
                 }
             });
@@ -141,16 +145,16 @@ public final class ModuleManager {
                             return;
                         }
                     } catch (Throwable e) {
-                        com.gmt2001.Console.err.println("Failed to construct Java module " + c.getName());
+                        com.gmt2001.Console.err.println("    Failed to construct Java module " + c.getName());
                         com.gmt2001.Console.err.printStackTrace(e, failMap(c, "ctor"));
                         return;
                     }
 
                     try {
                         m.onLoad();
-                        com.gmt2001.Console.out.println("Loaded Java module " + c.getName());
+                        com.gmt2001.Console.out.println("    Loaded Java module " + c.getName());
                     } catch (Throwable e) {
-                        com.gmt2001.Console.err.println("Failed to onLoad Java module " + c.getName());
+                        com.gmt2001.Console.err.println("    Failed to onLoad Java module " + c.getName());
                         com.gmt2001.Console.err.printStackTrace(e, failMap(c, "onLoad"));
                     }
                 });
@@ -161,9 +165,36 @@ public final class ModuleManager {
                 try {
                     m.getValue().afterLoad();
                 } catch (Throwable e) {
-                    com.gmt2001.Console.err.println("Failed to afterLoad Java module " + m.getValue().getClass().getName());
-                    com.gmt2001.Console.err.printStackTrace(e, failMap(m.getValue().getClass(), "afterLoad"));
+                    com.gmt2001.Console.err.println("    Failed to afterLoad Java module " + m.getKey().getName());
+                    com.gmt2001.Console.err.printStackTrace(e, failMap(m.getKey(), "afterLoad"));
                 }
             });
+
+        com.gmt2001.Console.out.println("Initializing enabled state of Java modules...");
+
+        List<String> moduleSet = modules.keySet().stream().filter(e -> !CoreModule.class.isAssignableFrom(e))
+            .map(e -> e.getName()).collect(Collectors.toList());
+
+        final Map<String, Boolean> recordSet = Datastore2.instance().dslContext()
+            .fetch(ModuleStatusTable.instance(), ModuleStatusTable.instance().MODULE.in(moduleSet))
+            .intoMap(ModuleStatusTable.instance().MODULE, ModuleStatusTable.instance().ENABLED);
+
+        modules.entrySet().stream().forEachOrdered(m -> {
+                try {
+                    boolean enabled = recordSet.getOrDefault(m.getKey().getName(), m.getValue().defaultEnabledState());
+
+                    if (enabled) {
+                        m.getValue().onEnable();
+                    } else {
+                        m.getValue().onDisable();
+                    }
+
+                    com.gmt2001.Console.out.println("    " + m.getKey().getName() + " => " + (enabled ? "Enabled" : "Disabled"));
+                } catch (Throwable e) {
+                    com.gmt2001.Console.err.println("    Failed to enable/disable Java module " + m.getKey().getName());
+                    com.gmt2001.Console.err.printStackTrace(e, failMap(m.getKey(), "enableDisableInit"));
+                }
+            });
+
     }
 }
