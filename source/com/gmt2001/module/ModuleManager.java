@@ -26,6 +26,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,12 +34,19 @@ import com.gmt2001.datastore2.Datastore2;
 import com.gmt2001.module.meta.ModuleStatusTable;
 import com.gmt2001.util.Reflect;
 
+import net.engio.mbassy.listener.Handler;
+import tv.phantombot.event.Event;
+import tv.phantombot.event.Listener;
+import tv.phantombot.event.command.CommandEvent;
+import tv.phantombot.event.discord.channel.DiscordChannelCommandEvent;
+import tv.phantombot.event.irc.message.IrcModerationEvent;
+
 /**
  * Loads and manages {@link Module}
  *
  * @author gmt2001
  */
-public final class ModuleManager {
+public final class ModuleManager implements Listener {
     /**
      * Instance
      */
@@ -101,7 +109,7 @@ public final class ModuleManager {
                     CoreModule m;
                     try {
                         m = c.getConstructor().newInstance();
-                        Module r = modules.putIfAbsent(c, m);
+                        Module r = this.modules.putIfAbsent(c, m);
                         if (r != null) {
                             return;
                         }
@@ -122,7 +130,7 @@ public final class ModuleManager {
 
         com.gmt2001.Console.out.println("Running afterCoreLoad...");
 
-        modules.entrySet().stream().filter(e -> CoreModule.class.isAssignableFrom(e.getValue().getClass()))
+        this.modules.entrySet().stream().filter(e -> CoreModule.class.isAssignableFrom(e.getValue().getClass()))
             .map(e -> (CoreModule)e.getValue()).sorted((e1, e2) -> Integer.compare(e1.afterCoreLoadOrder(), e2.afterCoreLoadOrder()))
             .forEachOrdered(m -> {
                 try {
@@ -140,7 +148,7 @@ public final class ModuleManager {
                     Module m;
                     try {
                         m = c.getConstructor().newInstance();
-                        Module r = modules.putIfAbsent(c, m);
+                        Module r = this.modules.putIfAbsent(c, m);
                         if (r != null) {
                             return;
                         }
@@ -161,7 +169,7 @@ public final class ModuleManager {
 
         com.gmt2001.Console.out.println("Running afterLoad...");
 
-        modules.entrySet().stream().forEachOrdered(m -> {
+        this.modules.entrySet().stream().forEachOrdered(m -> {
                 try {
                     m.getValue().afterLoad();
                 } catch (Throwable e) {
@@ -172,13 +180,13 @@ public final class ModuleManager {
 
         com.gmt2001.Console.out.println("Initializing enabled state of Java modules...");
 
-        List<String> moduleSet = modules.keySet().stream().map(e -> e.getName()).collect(Collectors.toList());
+        List<String> moduleSet = this.modules.keySet().stream().map(e -> e.getName()).collect(Collectors.toList());
 
         final Map<String, Boolean> recordSet = Datastore2.instance().dslContext()
             .fetch(ModuleStatusTable.instance(), ModuleStatusTable.instance().MODULE.in(moduleSet))
             .intoMap(ModuleStatusTable.instance().MODULE, ModuleStatusTable.instance().ENABLED);
 
-        modules.entrySet().stream().forEachOrdered(m -> {
+        this.modules.entrySet().stream().forEachOrdered(m -> {
                 try {
                     boolean enabled = recordSet.getOrDefault(m.getKey().getName(), m.getValue().defaultEnabledState());
 
@@ -195,5 +203,88 @@ public final class ModuleManager {
                 }
             });
 
+    }
+
+    /**
+     * Receives events from the event bus and dispatches them to modules
+     * <p>
+     * {@link IrcModerationEvent}, {@link CommandEvent}, and {@link DiscordChannelCommandEvent} are instead sent to their handler methods
+     *
+     * @param event the event data
+     */
+    @Handler
+    public void onEvent(Event event) {
+        if (event instanceof IrcModerationEvent ime) {
+            this.onIrcModerationEvent(ime);
+        } else if (event instanceof CommandEvent ce) {
+            this.onCommandEvent(ce);
+        } else if (event instanceof DiscordChannelCommandEvent dce) {
+            this.onDiscordChannelCommandEvent(dce);
+        } else {
+            this.modules.entrySet().stream().forEachOrdered(m -> {
+                try {
+                    m.getValue().onEvent(event);
+                } catch (Throwable e) {
+                    com.gmt2001.Console.err.println("Failed to dispatch " + event.getClass().getSimpleName() + " to Java module " + m.getKey().getName());
+                    com.gmt2001.Console.err.printStackTrace(e, failMap(m.getKey(), "onEvent#" + event.getClass().getSimpleName()));
+                }
+            });
+        }
+    }
+
+    /**
+     * Handles processing and dispatching specific to {@link IrcModerationEvent}
+     *
+     * @param event the event data
+     */
+    public void onIrcModerationEvent(IrcModerationEvent event) {
+        this.modules.entrySet().stream().forEachOrdered(m -> {
+            try {
+                m.getValue().onIrcModerationEvent(event);
+            } catch (Throwable e) {
+                com.gmt2001.Console.err.println("Failed to dispatch " + event.getClass().getSimpleName() + " to Java module " + m.getKey().getName());
+                com.gmt2001.Console.err.printStackTrace(e, failMap(m.getKey(), "onEvent#" + event.getClass().getSimpleName()));
+            }
+        });
+
+        event.complete();
+    }
+
+    /**
+     * Handles processing and dispatching specific to {@link CommandEvent}
+     *
+     * @param event the event data
+     */
+    public void onCommandEvent(CommandEvent event) {
+        AtomicBoolean handled = new AtomicBoolean(false);
+        this.modules.entrySet().stream().forEachOrdered(m -> {
+            try {
+                if (m.getValue().onCommandEvent(event)) {
+                    handled.set(true);
+                }
+            } catch (Throwable e) {
+                com.gmt2001.Console.err.println("Failed to dispatch " + event.getClass().getSimpleName() + " to Java module " + m.getKey().getName());
+                com.gmt2001.Console.err.printStackTrace(e, failMap(m.getKey(), "onEvent#" + event.getClass().getSimpleName()));
+            }
+        });
+    }
+
+    /**
+     * Handles processing and dispatching specific to {@link DiscordChannelCommandEvent}
+     *
+     * @param event the event data
+     */
+    public void onDiscordChannelCommandEvent(DiscordChannelCommandEvent event) {
+        AtomicBoolean handled = new AtomicBoolean(false);
+        this.modules.entrySet().stream().forEachOrdered(m -> {
+            try {
+                if (m.getValue().onDiscordChannelCommandEvent(event)) {
+                    handled.set(true);
+                }
+            } catch (Throwable e) {
+                com.gmt2001.Console.err.println("Failed to dispatch " + event.getClass().getSimpleName() + " to Java module " + m.getKey().getName());
+                com.gmt2001.Console.err.printStackTrace(e, failMap(m.getKey(), "onEvent#" + event.getClass().getSimpleName()));
+            }
+        });
     }
 }

@@ -90,7 +90,7 @@ public abstract class Module {
      *
      * @param event the event data
      */
-    public void onIRCModerationEvent(IrcModerationEvent event) {}
+    public void onIrcModerationEvent(IrcModerationEvent event) {}
 
     /**
      * Receives {@link CommandEvent}
