@@ -33,7 +33,7 @@ public interface AttachableDataType {
     /**
      * Attaches this {@link AttachableDataType} to a record and field to mark when changed
      *
-     * @param record the record whichis storing this map
+     * @param record the record which is storing this map
      * @param fieldIndex the field index where this map is located in the record
      */
     public void attach(UpdatableRecord<?> record, int fieldIndex);

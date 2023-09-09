@@ -47,8 +47,8 @@ public abstract class AbstractDatabaseMap<K,V> extends HashMap<K, V> implements 
 
     @Override
     public void clear() {
-        if (fieldIndex >= 0) {
-            record.changed(fieldIndex, true);
+        if (this.fieldIndex >= 0) {
+            this.record.changed(this.fieldIndex, true);
         }
 
         super.clear();
@@ -56,8 +56,8 @@ public abstract class AbstractDatabaseMap<K,V> extends HashMap<K, V> implements 
 
     @Override
     public V put(K key, V value) {
-        if (fieldIndex >= 0) {
-            record.changed(fieldIndex, true);
+        if (this.fieldIndex >= 0) {
+            this.record.changed(this.fieldIndex, true);
         }
 
         return super.put(key, value);
@@ -65,8 +65,8 @@ public abstract class AbstractDatabaseMap<K,V> extends HashMap<K, V> implements 
 
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-        if (fieldIndex >= 0) {
-            record.changed(fieldIndex, true);
+        if (this.fieldIndex >= 0) {
+            this.record.changed(this.fieldIndex, true);
         }
 
         super.putAll(m);
@@ -74,8 +74,8 @@ public abstract class AbstractDatabaseMap<K,V> extends HashMap<K, V> implements 
 
     @Override
     public V putIfAbsent(K key, V value) {
-        if (fieldIndex >= 0) {
-            record.changed(fieldIndex, true);
+        if (this.fieldIndex >= 0) {
+            this.record.changed(this.fieldIndex, true);
         }
 
         return super.putIfAbsent(key, value);
@@ -83,8 +83,8 @@ public abstract class AbstractDatabaseMap<K,V> extends HashMap<K, V> implements 
 
     @Override
     public V remove(Object key) {
-        if (fieldIndex >= 0) {
-            record.changed(fieldIndex, true);
+        if (this.fieldIndex >= 0) {
+            this.record.changed(this.fieldIndex, true);
         }
 
         return super.remove(key);
@@ -92,8 +92,8 @@ public abstract class AbstractDatabaseMap<K,V> extends HashMap<K, V> implements 
 
     @Override
     public V replace(K key, V value) {
-        if (fieldIndex >= 0) {
-            record.changed(fieldIndex, true);
+        if (this.fieldIndex >= 0) {
+            this.record.changed(this.fieldIndex, true);
         }
 
         return super.replace(key, value);
@@ -102,8 +102,8 @@ public abstract class AbstractDatabaseMap<K,V> extends HashMap<K, V> implements 
     @Override
     public V compute(K key,
             BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
-        if (fieldIndex >= 0) {
-            record.changed(fieldIndex, true);
+        if (this.fieldIndex >= 0) {
+            this.record.changed(this.fieldIndex, true);
         }
 
         return super.compute(key, remappingFunction);
@@ -111,8 +111,8 @@ public abstract class AbstractDatabaseMap<K,V> extends HashMap<K, V> implements 
 
     @Override
     public V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
-        if (fieldIndex >= 0) {
-            record.changed(fieldIndex, true);
+        if (this.fieldIndex >= 0) {
+            this.record.changed(this.fieldIndex, true);
         }
 
         return super.computeIfAbsent(key, mappingFunction);
@@ -121,8 +121,8 @@ public abstract class AbstractDatabaseMap<K,V> extends HashMap<K, V> implements 
     @Override
     public V merge(K key, V value,
             BiFunction<? super V, ? super V, ? extends V> remappingFunction) {
-        if (fieldIndex >= 0) {
-            record.changed(fieldIndex, true);
+        if (this.fieldIndex >= 0) {
+            this.record.changed(this.fieldIndex, true);
         }
 
         return super.merge(key, value, remappingFunction);
@@ -130,8 +130,8 @@ public abstract class AbstractDatabaseMap<K,V> extends HashMap<K, V> implements 
 
     @Override
     public boolean remove(Object key, Object value) {
-        if (fieldIndex >= 0) {
-            record.changed(fieldIndex, true);
+        if (this.fieldIndex >= 0) {
+            this.record.changed(this.fieldIndex, true);
         }
 
         return super.remove(key, value);
@@ -139,8 +139,8 @@ public abstract class AbstractDatabaseMap<K,V> extends HashMap<K, V> implements 
 
     @Override
     public boolean replace(K key, V oldValue, V newValue) {
-        if (fieldIndex >= 0) {
-            record.changed(fieldIndex, true);
+        if (this.fieldIndex >= 0) {
+            this.record.changed(this.fieldIndex, true);
         }
 
         return super.replace(key, oldValue, newValue);
@@ -148,8 +148,8 @@ public abstract class AbstractDatabaseMap<K,V> extends HashMap<K, V> implements 
 
     @Override
     public void replaceAll(BiFunction<? super K, ? super V, ? extends V> function) {
-        if (fieldIndex >= 0) {
-            record.changed(fieldIndex, true);
+        if (this.fieldIndex >= 0) {
+            this.record.changed(this.fieldIndex, true);
         }
 
         super.replaceAll(function);
