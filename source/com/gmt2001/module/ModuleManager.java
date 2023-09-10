@@ -35,6 +35,7 @@ import com.gmt2001.module.meta.ModuleStatusTable;
 import com.gmt2001.util.Reflect;
 
 import net.engio.mbassy.listener.Handler;
+import tv.phantombot.PhantomBot;
 import tv.phantombot.event.Event;
 import tv.phantombot.event.EventBus;
 import tv.phantombot.event.Listener;
@@ -106,6 +107,8 @@ public final class ModuleManager implements Listener {
 
         Reflect.instance().loadPackageRecursive(ModuleManager.class.getName()
                     .substring(0, ModuleManager.class.getName().lastIndexOf('.')))
+                    .loadPackageRecursive(PhantomBot.class.getName()
+                    .substring(0, PhantomBot.class.getName().lastIndexOf('.')) + ".scripts")
                 .getSubTypesOf(CoreModule.class).stream().forEach(c -> {
                     CoreModule m;
                     try {
