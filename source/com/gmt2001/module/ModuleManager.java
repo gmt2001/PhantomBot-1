@@ -23,6 +23,7 @@ import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -208,6 +209,27 @@ public final class ModuleManager implements Listener {
             });
 
         EventBus.instance().register(this);
+    }
+
+    /**
+     * Retrives an unmodifiable view of the loaded modules
+     *
+     * @return the unmodifiable map of loaded modules
+     */
+    public Map<Class<? extends Module>, Module> modules() {
+        return Collections.unmodifiableMap(this.modules);
+    }
+
+    /**
+     * Retrives an instance of the specified module
+     *
+     * @param <T> the type of the module
+     * @param type a class object of the module type
+     * @return the module instance; {@code null} if no module with the specified type has been loaded
+     */
+    @SuppressWarnings({"unchecked"})
+    public <T extends Module> T module(Class<T> type) {
+        return (T) this.modules.get(type);
     }
 
     /**
