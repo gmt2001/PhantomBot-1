@@ -47,6 +47,17 @@ public final class ExecutorService {
     }
 
     /**
+     * An {@link java.util.concurrent.ExecutorService} that provides virtual threads
+     * <p>
+     * **IMPL** currently returns {@link #executorService()} until Java 21 is implemented
+     *
+     * @return the virtual threads {@link java.util.concurrent.ExecutorService}
+     */
+    public static java.util.concurrent.ExecutorService virtualExecutorService() {
+        return executorService();
+    }
+
+    /**
      * Creates and executes a {@link ScheduledFuture} that becomes enabled after the given delay
      *
      * @param <V> the return type of the callable
