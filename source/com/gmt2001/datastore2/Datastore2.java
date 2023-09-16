@@ -77,7 +77,11 @@ public abstract class Datastore2 {
      */
     private static Datastore2 INSTANCE = null;
     /**
-     * Instance of {@link MiniConnectionPoolManager} that provides pooled {@link Connection} objects on demand
+     * Instance of {@link MiniConnectionPoolManager} that provides pooled {@link Connection} objects on demand for use by JOOQ
+     */
+    private MiniConnectionPoolManager jooqConnectionPoolManager;
+    /**
+     * Instance of {@link MiniConnectionPoolManager} that provides pooled {@link Connection} objects on demand for {@link #getConnection()} and {@link #testConnection()}
      */
     private MiniConnectionPoolManager connectionPoolManager;
     /**
@@ -239,7 +243,7 @@ public abstract class Datastore2 {
     }
 
     /**
-     * Instance Initializer. Sets a max connections of 30 and a timeout of 20
+     * Instance Initializer. Sets a max connections of 30 per connection pool and a timeout of 20
      * <p>
      * Valid dialects:
      * <ul>
@@ -253,6 +257,8 @@ public abstract class Datastore2 {
      * <li>{@link SQLDialect#SQLITE}</li>
      * <li>{@link SQLDialect#YUGABYTEDB}</li>
      * </ul>
+     * <p>
+     * Two connection pools are initialized. One is used exclusively by JOOQ and the other by calls to {@link #getConnection()} and {@link #testConnection()}
      * <p>
      * <i>NOTE: SQL will be generated according to the latest supported version of the selected database dialect</i>
      *
@@ -280,20 +286,23 @@ public abstract class Datastore2 {
      * </ul>
      * <p>
      * <i>NOTE: SQL will be generated according to the latest supported version of the selected database dialect</i>
+     * <p>
+     * Two connection pools are initialized. One is used exclusively by JOOQ and the other by calls to {@link #getConnection()} and {@link #testConnection()}
      *
      * @param dataSource a {@link ConnectionPoolDataSource} which can be used with {@link MiniConnectionPoolManager}
-     * @param maxConnections the maximum number of {@link Connection} objects to hold in the pool
+     * @param maxConnections the maximum number of {@link Connection} objects to hold per connection pool
      * @param timeout the number of seconds until a call to {@link MiniConnectionPoolManager#getConnection()} fails waiting for a {@link Connection} to become available
      * @param sqlDialect the dialect to use with objects created from the {@link DSLContext}
      */
     protected void init(ConnectionPoolDataSource dataSource, int maxConnections, int timeout, SQLDialect sqlDialect) {
         this.connectionPoolManager = new MiniConnectionPoolManager(dataSource, maxConnections, timeout);
+        this.jooqConnectionPoolManager = new MiniConnectionPoolManager(dataSource, maxConnections, timeout);
 
         Configuration configuration = new DefaultConfiguration().set(new ConnectionProvider() {
             @Override
             public Connection acquire() throws DataAccessException {
                 try {
-                    return getConnection();
+                    return jooqConnectionPoolManager.getConnection();
                 } catch (SQLException ex) {
                     throw new DataAccessException("failed to acquire connection", ex);
                 }
@@ -533,6 +542,14 @@ public abstract class Datastore2 {
         this.isDisposed = true;
 
         this.driverDispose();
+
+        if (this.jooqConnectionPoolManager != null) {
+            try {
+                this.jooqConnectionPoolManager.dispose();
+            } catch (SQLException ex) {
+                com.gmt2001.Console.err.printStackTrace(ex);
+            }
+        }
 
         if (this.connectionPoolManager != null) {
             try {
