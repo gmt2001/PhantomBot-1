@@ -24,7 +24,7 @@ import org.jooq.UpdatableRecord;
  * This interface is used to allow the {@link UpdatableRecord} to automatically detect and trigger the attachment so that the
  * {@link DataType} can mark itself as changed when an internal state is updated which requires storage
  * <p>
- * It is up to the implmenting class to store the {@code record} and {@code fieldIndex} variables, override methods which
+ * It is up to the implementing class to store the {@code record} and {@code fieldIndex} variables, override methods which
  * change their internal state, and call {@link UpdatableRecord#changed(int, boolean)} when appropriate
  *
  * @author gmt2001

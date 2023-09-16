@@ -16,6 +16,8 @@
  */
 package com.gmt2001.datastore2.datatype;
 
+import java.util.Map;
+
 import org.jooq.UpdatableRecord;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,6 +72,17 @@ public final class AttachableJSONObject extends JSONObject implements Attachable
      */
     public AttachableJSONObject(JSONObject jo, String... names) {
         super(jo, names);
+    }
+
+    /**
+     * Construct a JSONObject from a Map
+     *
+     * @param m a Map that contains values to initialize the JSONObject with
+     * @throws JSONException if a value in the map is a non-finite number
+     * @throws NullPointerException if the map contains {@code null} as a key
+     */
+    public AttachableJSONObject(Map<?, ?> m) {
+        super(m);
     }
 
     @Override

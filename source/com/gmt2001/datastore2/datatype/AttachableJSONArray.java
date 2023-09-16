@@ -64,6 +64,15 @@ public final class AttachableJSONArray extends JSONArray implements AttachableDa
         super(array);
     }
 
+    /**
+     * Construct a JSONArray from a Collection
+     *
+     * @param collection a collection
+     */
+    public AttachableJSONArray(Collection<?> collection) {
+        super(collection);
+    }
+
     @Override
     public void attach(UpdatableRecord<?> record, int fieldIndex) {
         this.record = record;
