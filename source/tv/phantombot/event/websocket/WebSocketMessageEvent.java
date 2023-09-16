@@ -70,11 +70,11 @@ public final class WebSocketMessageEvent extends JSONObject implements Event {
      * Construct a JSONObject from another JSONObject
      *
      * @param channel the channel to send replies to
-     * @param source a JSONObject
+     * @param jo a JSONObject
      * @throws JSONException if there is no string value for any of the keys {@code id}, {@code target}, or {@code type}
      */
-    public WebSocketMessageEvent(Channel channel, JSONObject source) {
-        super(source, source.keySet().toArray(new String[0]));
+    public WebSocketMessageEvent(Channel channel, JSONObject jo) {
+        super(jo, jo.keySet().toArray(new String[0]));
         this.channel = new WeakReference<Channel>(channel);
         this.id = this.getString("id");
         this.target = this.getString("target");

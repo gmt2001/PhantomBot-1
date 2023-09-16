@@ -54,6 +54,15 @@ public final class AttachableJSONObject extends JSONObject implements Attachable
     }
 
     /**
+     * Construct a JSONObject from another JSONObject
+     *
+     * @param jo a JSONObject
+     */
+    public AttachableJSONObject(JSONObject jo) {
+        super(jo, jo.keySet().toArray(new String[0]));
+    }
+
+    /**
      * Construct a JSONObject from a subset of another JSONObject. An array of strings is used to identify the keys that should be copied. Missing keys are ignored
      *
      * @param jo a JSONObject
@@ -83,7 +92,7 @@ public final class AttachableJSONObject extends JSONObject implements Attachable
         Object o = super.opt(key);
 
         if (o != null && o instanceof JSONObject jso) {
-            AttachableJSONObject ajso = new AttachableJSONObject(jso, jso.keySet().toArray(new String[0]));
+            AttachableJSONObject ajso = new AttachableJSONObject(jso);
             ajso.attach(this.record, this.fieldIndex);
             o = ajso;
         } else if (o != null && o instanceof JSONArray jsa) {

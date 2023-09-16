@@ -84,7 +84,7 @@ public final class AttachableJSONArray extends JSONArray implements AttachableDa
         Object o = super.opt(index);
 
         if (o != null && o instanceof JSONObject jso) {
-            AttachableJSONObject ajso = new AttachableJSONObject(jso, jso.keySet().toArray(new String[0]));
+            AttachableJSONObject ajso = new AttachableJSONObject(jso);
             ajso.attach(this.record, this.fieldIndex);
             o = ajso;
         } else if (o != null && o instanceof JSONArray jsa) {
