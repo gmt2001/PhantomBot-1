@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import tv.phantombot.event.Event;
 
-public class DiscordGuildCreateEvent extends Event {
+public class DiscordGuildCreateEvent implements Event {
 
     private final List<Role> roles;
 

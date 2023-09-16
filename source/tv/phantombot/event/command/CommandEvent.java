@@ -24,7 +24,7 @@ import java.util.Map;
 import tv.phantombot.CaselessProperties;
 import tv.phantombot.event.Event;
 
-public class CommandEvent extends Event {
+public class CommandEvent implements Event {
 
     private final String sender;
     private final String command;

@@ -18,6 +18,6 @@ package tv.phantombot.event.webpanel;
 
 import tv.phantombot.event.Event;
 
-public abstract class WebPanelEvent extends Event {
+public abstract class WebPanelEvent implements Event {
 
 }

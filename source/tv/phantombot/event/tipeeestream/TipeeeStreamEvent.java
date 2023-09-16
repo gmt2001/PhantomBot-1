@@ -18,6 +18,6 @@ package tv.phantombot.event.tipeeestream;
 
 import tv.phantombot.event.Event;
 
-public abstract class TipeeeStreamEvent extends Event {
+public abstract class TipeeeStreamEvent implements Event {
 
 }

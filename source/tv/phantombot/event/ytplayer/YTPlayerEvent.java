@@ -18,6 +18,6 @@ package tv.phantombot.event.ytplayer;
 
 import tv.phantombot.event.Event;
 
-public abstract class YTPlayerEvent extends Event {
+public abstract class YTPlayerEvent implements Event {
 
 }

@@ -19,7 +19,7 @@ package tv.phantombot.event.irc;
 import tv.phantombot.event.Event;
 import tv.phantombot.twitch.irc.TwitchSession;
 
-public abstract class IrcEvent extends Event {
+public abstract class IrcEvent implements Event {
 
     private final TwitchSession session;
 

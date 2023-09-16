@@ -23,7 +23,7 @@ import tv.phantombot.event.Event;
  *
  * @author gmt2001
  */
-public abstract class JVMEvent extends Event {
+public abstract class JVMEvent implements Event {
 
     /**
      * Class constructor

@@ -27,7 +27,7 @@ import tv.phantombot.event.Event;
  *
  * @author gmt2001
  */
-public abstract class EventSubInternalEvent extends Event {
+public abstract class EventSubInternalEvent implements Event {
 
     private final String challenge;
     private final JSONObject event;

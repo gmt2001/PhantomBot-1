@@ -18,6 +18,6 @@ package tv.phantombot.event.streamlabs;
 
 import tv.phantombot.event.Event;
 
-public abstract class StreamLabsEvent extends Event {
+public abstract class StreamLabsEvent implements Event {
 
 }

@@ -25,7 +25,7 @@ import tv.phantombot.event.Event;
  *
  * @author gmt2001
  */
-public abstract class EventSubEvent<T> extends Event {
+public abstract class EventSubEvent<T> implements Event {
     private final T event;
 
     public EventSubEvent(T event) {

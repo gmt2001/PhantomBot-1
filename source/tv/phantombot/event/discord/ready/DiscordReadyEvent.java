@@ -22,7 +22,7 @@ import tv.phantombot.event.Event;
  *
  * @author ScaniaTV
  */
-public class DiscordReadyEvent extends Event {
+public class DiscordReadyEvent implements Event {
 
     /**
      * Class constructor.

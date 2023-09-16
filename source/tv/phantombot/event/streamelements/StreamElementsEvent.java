@@ -18,6 +18,6 @@ package tv.phantombot.event.streamelements;
 
 import tv.phantombot.event.Event;
 
-public class StreamElementsEvent extends Event {
+public class StreamElementsEvent implements Event {
 
 }

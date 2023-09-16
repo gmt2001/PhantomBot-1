@@ -18,6 +18,6 @@ package tv.phantombot.event.emotes;
 
 import tv.phantombot.event.Event;
 
-public abstract class EmotesEvent extends Event {
+public abstract class EmotesEvent implements Event {
 
 }

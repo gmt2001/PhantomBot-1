@@ -18,6 +18,6 @@ package tv.phantombot.event.twitch;
 
 import tv.phantombot.event.Event;
 
-public abstract class TwitchEvent extends Event {
+public abstract class TwitchEvent implements Event {
 
 }

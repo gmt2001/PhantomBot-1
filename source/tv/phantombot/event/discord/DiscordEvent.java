@@ -23,7 +23,7 @@ import discord4j.core.object.entity.channel.VoiceChannel;
 import tv.phantombot.discord.util.DiscordUtil;
 import tv.phantombot.event.Event;
 
-public abstract class DiscordEvent extends Event {
+public abstract class DiscordEvent implements Event {
 
     private final User user;
     private final VoiceChannel voicechannel;
