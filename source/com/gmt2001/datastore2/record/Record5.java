@@ -16,18 +16,11 @@
  */
 package com.gmt2001.datastore2.record;
 
-import java.util.List;
 import java.util.function.Supplier;
 
-import org.jooq.Configuration;
 import org.jooq.Field;
 import org.jooq.Row5;
 import org.jooq.Table;
-import org.jooq.conf.Settings;
-import org.jooq.impl.UpdatableRecordImpl;
-
-import com.gmt2001.datastore2.Datastore2;
-import com.gmt2001.datastore2.datatype.AttachableDataType;
 
 /**
  * Abstract class which simplifies setup and usage of {@link org.jooq.Record5} on an {@link UpdateableRecordImpl}
@@ -42,7 +35,7 @@ import com.gmt2001.datastore2.datatype.AttachableDataType;
  * @author gmt2001
  */
 public abstract class Record5 <RR extends Record5<RR, A, B, C, D, E>, A, B, C, D, E>
-    extends UpdatableRecordImpl<RR> implements org.jooq.Record5<A, B, C, D, E>, AttachableRecord {
+    extends RecordN<RR> implements org.jooq.Record5<A, B, C, D, E> {
     /**
      * The {@link Supplier} for the {@code A} {@link Field}, which is also the primary key
      */
@@ -94,20 +87,12 @@ public abstract class Record5 <RR extends Record5<RR, A, B, C, D, E>, A, B, C, D
      */
     protected Record5(Table<RR> table, boolean allowUpdatingPrimaryKeys, Supplier<Field<A>> field1Supplier, Supplier<Field<B>> field2Supplier,
         Supplier<Field<C>> field3Supplier, Supplier<Field<D>> field4Supplier, Supplier<Field<E>> field5Supplier) {
-        super(table);
+        super(table, allowUpdatingPrimaryKeys);
         this.field1Supplier = field1Supplier;
         this.field2Supplier = field2Supplier;
         this.field3Supplier = field3Supplier;
         this.field4Supplier = field4Supplier;
         this.field5Supplier = field5Supplier;
-
-        Configuration c = Datastore2.instance().dslContext().configuration();
-
-        if (allowUpdatingPrimaryKeys) {
-            c = c.derive(new Settings().withUpdatablePrimaryKeys(allowUpdatingPrimaryKeys));
-        }
-
-        this.attach(c);
     }
 
     @Override
@@ -185,46 +170,31 @@ public abstract class Record5 <RR extends Record5<RR, A, B, C, D, E>, A, B, C, D
 
     @Override
     public org.jooq.Record5<A, B, C, D, E> value1(A value) {
-        this.set(0, value);
-        if (value != null && AttachableDataType.class.isAssignableFrom(value.getClass())) {
-            ((AttachableDataType) value).attach(this, 0);
-        }
+        this.doSet(0, value);
         return this;
     }
 
     @Override
     public org.jooq.Record5<A, B, C, D, E> value2(B value) {
-        this.set(1, value);
-        if (value != null && AttachableDataType.class.isAssignableFrom(value.getClass())) {
-            ((AttachableDataType) value).attach(this, 1);
-        }
+        this.doSet(1, value);
         return this;
     }
 
     @Override
     public org.jooq.Record5<A, B, C, D, E> value3(C value) {
-        this.set(2, value);
-        if (value != null && AttachableDataType.class.isAssignableFrom(value.getClass())) {
-            ((AttachableDataType) value).attach(this, 2);
-        }
+        this.doSet(2, value);
         return this;
     }
 
     @Override
     public org.jooq.Record5<A, B, C, D, E> value4(D value) {
-        this.set(3, value);
-        if (value != null && AttachableDataType.class.isAssignableFrom(value.getClass())) {
-            ((AttachableDataType) value).attach(this, 3);
-        }
+        this.doSet(3, value);
         return this;
     }
 
     @Override
     public org.jooq.Record5<A, B, C, D, E> value5(E value) {
-        this.set(4, value);
-        if (value != null && AttachableDataType.class.isAssignableFrom(value.getClass())) {
-            ((AttachableDataType) value).attach(this, 4);
-        }
+        this.doSet(4, value);
         return this;
     }
 
@@ -256,16 +226,5 @@ public abstract class Record5 <RR extends Record5<RR, A, B, C, D, E>, A, B, C, D
     @Override
     public E component5() {
         return this.value5();
-    }
-
-    @Override
-    public void doAttachments() {
-        List<Object> values = this.intoList();
-
-        for (int i = 0; i < values.size(); i++) {
-            if (values.get(i) != null && AttachableDataType.class.isAssignableFrom(values.get(i).getClass())) {
-                ((AttachableDataType) values.get(i)).attach(this, i);
-            }
-        }
     }
 }

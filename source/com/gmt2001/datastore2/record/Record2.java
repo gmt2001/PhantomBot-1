@@ -16,18 +16,11 @@
  */
 package com.gmt2001.datastore2.record;
 
-import java.util.List;
 import java.util.function.Supplier;
 
-import org.jooq.Configuration;
 import org.jooq.Field;
 import org.jooq.Row2;
 import org.jooq.Table;
-import org.jooq.conf.Settings;
-import org.jooq.impl.UpdatableRecordImpl;
-
-import com.gmt2001.datastore2.Datastore2;
-import com.gmt2001.datastore2.datatype.AttachableDataType;
 
 /**
  * Abstract class which simplifies setup and usage of {@link org.jooq.Record2} on an {@link UpdateableRecordImpl}
@@ -39,7 +32,7 @@ import com.gmt2001.datastore2.datatype.AttachableDataType;
  * @author gmt2001
  */
 public abstract class Record2 <RR extends Record2<RR, A, B>, A, B>
-    extends UpdatableRecordImpl<RR> implements org.jooq.Record2<A, B>, AttachableRecord {
+    extends RecordN<RR> implements org.jooq.Record2<A, B> {
     /**
      * The {@link Supplier} for the {@code A} {@link Field}, which is also the primary key
      */
@@ -71,17 +64,9 @@ public abstract class Record2 <RR extends Record2<RR, A, B>, A, B>
      * @param field2Supplier the {@link Supplier} for the {@code B} {@link Field}
      */
     protected Record2(Table<RR> table, boolean allowUpdatingPrimaryKeys, Supplier<Field<A>> field1Supplier, Supplier<Field<B>> field2Supplier) {
-        super(table);
+        super(table, allowUpdatingPrimaryKeys);
         this.field1Supplier = field1Supplier;
         this.field2Supplier = field2Supplier;
-
-        Configuration c = Datastore2.instance().dslContext().configuration();
-
-        if (allowUpdatingPrimaryKeys) {
-            c = c.derive(new Settings().withUpdatablePrimaryKeys(allowUpdatingPrimaryKeys));
-        }
-
-        this.attach(c);
     }
 
     @Override
@@ -126,19 +111,13 @@ public abstract class Record2 <RR extends Record2<RR, A, B>, A, B>
 
     @Override
     public org.jooq.Record2<A, B> value1(A value) {
-        this.set(0, value);
-        if (value != null && AttachableDataType.class.isAssignableFrom(value.getClass())) {
-            ((AttachableDataType) value).attach(this, 0);
-        }
+        this.doSet(0, value);
         return this;
     }
 
     @Override
     public org.jooq.Record2<A, B> value2(B value) {
-        this.set(1, value);
-        if (value != null && AttachableDataType.class.isAssignableFrom(value.getClass())) {
-            ((AttachableDataType) value).attach(this, 1);
-        }
+        this.doSet(1, value);
         return this;
     }
 
@@ -155,16 +134,5 @@ public abstract class Record2 <RR extends Record2<RR, A, B>, A, B>
     @Override
     public B component2() {
         return this.value2();
-    }
-
-    @Override
-    public void doAttachments() {
-        List<Object> values = this.intoList();
-
-        for (int i = 0; i < values.size(); i++) {
-            if (values.get(i) != null && AttachableDataType.class.isAssignableFrom(values.get(i).getClass())) {
-                ((AttachableDataType) values.get(i)).attach(this, i);
-            }
-        }
     }
 }
