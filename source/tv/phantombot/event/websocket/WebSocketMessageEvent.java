@@ -24,9 +24,11 @@ import org.json.JSONObject;
 import org.json.JSONStringer;
 
 import com.gmt2001.httpwsserver.WebSocketFrameHandler;
+import com.gmt2001.httpwsserver.auth.WsSharedRWTokenAuthenticationHandler;
 
 import io.netty.channel.Channel;
 import tv.phantombot.event.Event;
+import tv.phantombot.panel.PanelUser.PanelUser;
 
 /**
  * A message received from a Web Socket on the bots web server
@@ -106,6 +108,19 @@ public final class WebSocketMessageEvent extends JSONObject implements Event {
      */
     public String type() {
         return this.type;
+    }
+
+    /**
+     * The authenticated user who send the command
+     *
+     * @return the user; {@code null} if no user is authenticated or the connection has been closed
+     */
+    public PanelUser user() {
+        if (!this.channel.refersTo(null) && this.channel.get().isActive()) {
+            return this.channel.get().attr(WsSharedRWTokenAuthenticationHandler.ATTR_AUTH_USER).get();
+        }
+
+        return null;
     }
 
     /**
