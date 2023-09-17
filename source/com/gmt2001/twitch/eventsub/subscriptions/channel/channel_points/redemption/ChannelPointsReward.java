@@ -32,7 +32,7 @@ public final class ChannelPointsReward {
     /**
      * Constructor
      *
-     * @param data Input data from the event
+     * @param data input data from the event
      */
     public ChannelPointsReward(JSONObject data) {
         this.id = data.getString("id");
@@ -44,7 +44,7 @@ public final class ChannelPointsReward {
     /**
      * Constructor
      *
-     * @param id The reward id
+     * @param id the reward id
      */
     public ChannelPointsReward(String id) {
         this.id = id;

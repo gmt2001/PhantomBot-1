@@ -139,7 +139,7 @@ public class StreamElementsCache {
     /**
      * Returns the current cache.
      *
-     * @return Current cache.
+     * @return current cache.
      */
     public Map<String, JSONObject> getCache() {
         return cache;

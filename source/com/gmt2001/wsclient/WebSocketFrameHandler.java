@@ -83,9 +83,9 @@ class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> 
     /**
      * Captures {@link HandshakeComplete} events and saves the {@link Channel}
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param evt The event object
-     * @throws Exception Passes any thrown exceptions up the stack
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param evt the event object
+     * @throws Exception passes any thrown exceptions up the stack
      */
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
@@ -123,8 +123,8 @@ class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> 
     /**
      * Creates and prepares a text-type {@link WebSocketFrame} for transmission
      *
-     * @param content The content to send
-     * @return A {@link WebSocketFrame} that is ready to transmit
+     * @param content the content to send
+     * @return a {@link WebSocketFrame} that is ready to transmit
      */
     static WebSocketFrame prepareTextWebSocketResponse(String content) {
         return new TextWebSocketFrame(content);
@@ -134,8 +134,8 @@ class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> 
      * Creates and prepares a text-type {@link WebSocketFrame} for transmission from
      * a {@link JSONObject}
      *
-     * @param json The {@link JSONObject} to send
-     * @return A {@link WebSocketFrame} that is ready to transmit
+     * @param json the {@link JSONObject} to send
+     * @return a {@link WebSocketFrame} that is ready to transmit
      */
     static WebSocketFrame prepareTextWebSocketResponse(JSONObject json) {
         return new TextWebSocketFrame(json.toString());
@@ -145,8 +145,8 @@ class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> 
      * Creates and prepares a text-type {@link WebSocketFrame} for transmission from
      * a {@link JSONStringer}
      *
-     * @param json The {@link JSONStringer} to send
-     * @return A {@link WebSocketFrame} that is ready to transmit
+     * @param json the {@link JSONStringer} to send
+     * @return a {@link WebSocketFrame} that is ready to transmit
      */
     static WebSocketFrame prepareTextWebSocketResponse(JSONStringer json) {
         return new TextWebSocketFrame(json.toString());
@@ -155,8 +155,8 @@ class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> 
     /**
      * Creates and prepares a binary-type {@link WebSocketFrame} for transmission
      *
-     * @param content The binary content to send
-     * @return A {@link WebSocketFrame} that is ready to transmit
+     * @param content the binary content to send
+     * @return a {@link WebSocketFrame} that is ready to transmit
      */
     static WebSocketFrame prepareBinaryWebSocketResponse(byte[] content) {
         return new BinaryWebSocketFrame(Unpooled.copiedBuffer(content));
@@ -165,8 +165,8 @@ class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> 
     /**
      * Creates and prepares a Close {@link WebSocketFrame} for transmission
      *
-     * @param status The {@link WebSocketCloseStatus} to send
-     * @return A {@link WebSocketFrame} that is ready to transmit
+     * @param status the {@link WebSocketCloseStatus} to send
+     * @return a {@link WebSocketFrame} that is ready to transmit
      */
     static WebSocketFrame prepareCloseWebSocketFrame(WebSocketCloseStatus status) {
         return new CloseWebSocketFrame(status);
@@ -175,9 +175,9 @@ class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> 
     /**
      * Creates and prepares a Close {@link WebSocketFrame} for transmission
      *
-     * @param status The close status code to send
-     * @param reason The reason string to send
-     * @return A {@link WebSocketFrame} that is ready to transmit
+     * @param status the close status code to send
+     * @param reason the reason string to send
+     * @return a {@link WebSocketFrame} that is ready to transmit
      */
     static WebSocketFrame prepareCloseWebSocketFrame(int status, String reason) {
         return new CloseWebSocketFrame(status, reason);

@@ -861,8 +861,8 @@ public class TwitchAPIv5 {
     /**
      * Gets the list of VODs from Twitch
      *
-     * @param channel The channel requesting data for
-     * @param type The type of data: current, highlights, archives
+     * @param channel the channel requesting data for
+     * @param type the type of data: current, highlights, archives
      * @return String List of Twitch VOD URLs (as a JSON String) or empty String in failure.
      */
     public String GetChannelVODs(String channel, String type) throws JSONException {
@@ -1253,7 +1253,7 @@ public class TwitchAPIv5 {
      * tens of thousands, or even more, entries into the followed table for folks that do not visit the stream.
      *
      * @param JSONArray JSON array object containing the followers data
-     * @param DataStore Copy of database object for writing
+     * @param DataStore copy of database object for writing
      * @return int How many objects were inserted into the database
      */
     private int PopulateFollowedTable(JSONArray followsArray, DataStore dataStore) throws JSONException {
@@ -1272,8 +1272,8 @@ public class TwitchAPIv5 {
      * list of followers.
      *
      * @param String ID of the channel to lookup data for
-     * @param DataStore Copy of database object for reading data from
-     * @param int Total number of followers reported from Twitch API
+     * @param DataStore copy of database object for reading data from
+     * @param int total number of followers reported from Twitch API
      */
     @SuppressWarnings("SleepWhileInLoop")
     private void FixFollowedTableWorker(String channelId, DataStore dataStore, int followerCount) throws JSONException {
@@ -1319,9 +1319,9 @@ public class TwitchAPIv5 {
      * Wrapper to perform the followed table updated. In order to ensure that PhantomBot does not get stuck trying to perform this work, a thread is
      * spawned to perform the work.
      *
-     * @param channel Name of the channel to lookup data for
-     * @param dataStore Copy of database object
-     * @param force Force the run even if the number of followers is too high
+     * @param channel name of the channel to lookup data for
+     * @param dataStore copy of database object
+     * @param force force the run even if the number of followers is too high
      */
     public void FixFollowedTable(String channel, DataStore dataStore, boolean force) throws JSONException {
 
@@ -1357,7 +1357,7 @@ public class TwitchAPIv5 {
     /**
      * Returns a username when given an Oauth.
      *
-     * @param userOauth Oauth to check with.
+     * @param userOauth oauth to check with.
      * @return String The name of the user or null to indicate that there was an error.
      */
     public String GetUserFromOauth(String userOauth) throws JSONException {

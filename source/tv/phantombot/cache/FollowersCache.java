@@ -152,8 +152,8 @@ public final class FollowersCache {
 
     /**
      * Adds a follow to the cache, and sends notifications if necessary
-     * @param loginName The login name of the follower
-     * @param followedAt The ISO8601 timestamp when the follow ocurred
+     * @param loginName the login name of the follower
+     * @param followedAt the ISO8601 timestamp when the follow ocurred
      */
     public void addFollow(String loginName, ZonedDateTime followedAt) {
         this.addFollow(loginName, followedAt, false);
@@ -161,9 +161,9 @@ public final class FollowersCache {
 
     /**
      * Adds a follow to the cache, and sends notifications if necessary
-     * @param loginName The login name of the follower
-     * @param followedAt The ISO8601 timestamp when the follow ocurred
-     * @param silent If {@code true}, don't announce the follow
+     * @param loginName the login name of the follower
+     * @param followedAt the ISO8601 timestamp when the follow ocurred
+     * @param silent if {@code true}, don't announce the follow
      */
     public void addFollow(String loginName, ZonedDateTime followedAt, boolean silent) {
         this.addFollow(loginName, followedAt.format(DateTimeFormatter.ISO_INSTANT), silent);
@@ -171,8 +171,8 @@ public final class FollowersCache {
 
     /**
      * Adds a follow to the cache, and sends notifications if necessary
-     * @param loginName The login name of the follower
-     * @param followedAt The ISO8601 timestamp when the follow ocurred
+     * @param loginName the login name of the follower
+     * @param followedAt the ISO8601 timestamp when the follow ocurred
      */
     public void addFollow(String loginName, String followedAt) {
         this.addFollow(loginName, followedAt, false);
@@ -180,9 +180,9 @@ public final class FollowersCache {
 
     /**
      * Adds a follow to the cache, and sends notifications if necessary
-     * @param loginName The login name of the follower
-     * @param followedAt The ISO8601 timestamp when the follow ocurred
-     * @param silent If {@code true}, don't announce the follow
+     * @param loginName the login name of the follower
+     * @param followedAt the ISO8601 timestamp when the follow ocurred
+     * @param silent if {@code true}, don't announce the follow
      */
     public void addFollow(String loginName, String followedAt, boolean silent) {
         DataStore datastore = PhantomBot.instance().getDataStore();
@@ -211,7 +211,7 @@ public final class FollowersCache {
     /**
      * Indicates if the specified user currently follows the channel
      *
-     * @param loginName The login name of the user
+     * @param loginName the login name of the user
      * @return
      */
     public boolean follows(String loginName) {
@@ -230,7 +230,7 @@ public final class FollowersCache {
     /**
      * Indicates if the specified user has followed at some point in the past, within the limits of the bots records
      *
-     * @param loginName The login name of the user
+     * @param loginName the login name of the user
      * @return
      */
     public boolean followed(String loginName) {
@@ -240,7 +240,7 @@ public final class FollowersCache {
     /**
      * Indicates the earliest timestamp when the bot is aware of the specified user following as a string
      *
-     * @param loginName The login name of the user
+     * @param loginName the login name of the user
      * @return
      */
     public String followedDateString(String loginName) {
@@ -250,7 +250,7 @@ public final class FollowersCache {
     /**
      * Indicates the earliest timestamp when the bot is aware of the specified user following
      *
-     * @param loginName The login name of the user
+     * @param loginName the login name of the user
      * @return
      */
     public ZonedDateTime followedDate(String loginName) {

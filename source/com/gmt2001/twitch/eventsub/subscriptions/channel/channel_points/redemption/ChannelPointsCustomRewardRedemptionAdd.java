@@ -84,7 +84,7 @@ public final class ChannelPointsCustomRewardRedemptionAdd extends EventSubSubscr
     /**
      * Used by {@link onEventSubInternalNotificationEvent} to construct an object from an incoming notification
      *
-     * @param e The event
+     * @param e the event
      */
     public ChannelPointsCustomRewardRedemptionAdd(EventSubInternalNotificationEvent e) {
         super(e.subscription(), e.messageId(), e.messageTimestamp());

@@ -169,7 +169,7 @@ public final class EventSubSubscription {
     /**
      * Creates a new subscription from a JSONObject
      *
-     * @param subscriptionJson The JSON object to process
+     * @param subscriptionJson the JSON object to process
      * @return
      */
     static EventSubSubscription fromJSON(JSONObject subscriptionJson) {
@@ -187,7 +187,7 @@ public final class EventSubSubscription {
     /**
      * Clones the subscription with a new status
      *
-     * @param newStatus The new status to apply to the clone
+     * @param newStatus the new status to apply to the clone
      * @return
      */
     EventSubSubscription clone(SubscriptionStatus newStatus) {

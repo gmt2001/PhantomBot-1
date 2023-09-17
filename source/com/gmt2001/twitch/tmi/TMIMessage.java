@@ -62,8 +62,8 @@ public final class TMIMessage {
     /**
      * Constructs a TMIMessage and parses the message into it's individual components
      *
-     * @param messageType The type of message
-     * @param message A single raw IRC line conforming to the BNF in RFC1459
+     * @param messageType the type of message
+     * @param message a single raw IRC line conforming to the BNF in RFC1459
      */
     TMIMessage(TMIMessageType messageType, String message) {
         String[] messageParts = this.parseMessage(message);
@@ -82,7 +82,7 @@ public final class TMIMessage {
     /**
      * Constructs a TMIMessage with only a message type. Only really useful for {@link TMIMessageType.OPEN} and {@link TMIMessageType.CLOSE}
      *
-     * @param messageType The type of message
+     * @param messageType the type of message
      */
     TMIMessage(TMIMessageType messageType) {
         this.messageType = messageType;
@@ -109,7 +109,7 @@ public final class TMIMessage {
      * channel - The channel name. This is the second word, if present, of the rawCommandComponent<br />
      * rawParametersComponent - The IRC parameters component, if present, with the leading {@code :} removed
      *
-     * @param message A single raw IRC line conforming to the BNF in RFC1459
+     * @param message a single raw IRC line conforming to the BNF in RFC1459
      * @return String[] { rawTagsComponent, nick, host, command, channel, rawParametersComponent };
      */
     private String[] parseMessage(String message) {
@@ -179,8 +179,8 @@ public final class TMIMessage {
      * Certain special badges are additionally added to their legacy tags, if not already present, via a call to
      * {@link #parseLegacyBadges(java.lang.String)}
      *
-     * @param sTags The rawTagsComponent
-     * @return A Map of tags
+     * @param sTags the rawTagsComponent
+     * @return a Map of tags
      */
     private Map<String, String> parseTags(String sTags) {
         Map<String, String> rtags = new HashMap<>();
@@ -210,9 +210,9 @@ public final class TMIMessage {
     /**
      * Parses the {@code badges} and {@code badge-info} components of the IRCv3 tags into a Map
      *
-     * @param rawBadges The raw {@code badges} value of {@link #tags}
-     * @param rawBadgeInfo The raw {@code badge-info} value of {@link #tags}
-     * @return A Map of badges
+     * @param rawBadges the raw {@code badges} value of {@link #tags}
+     * @param rawBadgeInfo the raw {@code badge-info} value of {@link #tags}
+     * @return a Map of badges
      */
     private Map<String, String> parseBadges(String rawBadges, String rawBadgeInfo) {
         Map<String, String> rbadges = new HashMap<>();
@@ -243,8 +243,8 @@ public final class TMIMessage {
      *
      * Note: These values are only provided for emotes that Twitch recognizes and that the sender had access to at the time of sending the message
      *
-     * @param rawEmotes The raw {@code emotes} value of {@link #tags}
-     * @return A Map of emotes. The key is the emoteID; the value is a List of {@link TMIMessage.EmoteLocation} that describe which characters of
+     * @param rawEmotes the raw {@code emotes} value of {@link #tags}
+     * @return a Map of emotes. The key is the emoteID; the value is a List of {@link TMIMessage.EmoteLocation} that describe which characters of
      * {@link #parameters} matches that emote and would be replaced by the image in the Twitch chat window
      */
     private Map<String, List<EmoteLocation>> parseEmotes(String rawEmotes) {
@@ -280,8 +280,8 @@ public final class TMIMessage {
      *
      * This list describes the sets of emotes that the sender had access to at the time of sending the message
      *
-     * @param rawEmoteSets The raw {@code emote-sets} value of {@link #tags}
-     * @return A List of emoteSetIDs
+     * @param rawEmoteSets the raw {@code emote-sets} value of {@link #tags}
+     * @return a List of emoteSetIDs
      */
     private List<String> parseEmoteSets(String rawEmoteSets) {
         return Arrays.asList(rawEmoteSets.split(","));
@@ -290,8 +290,8 @@ public final class TMIMessage {
     /**
      * Parses the {@code badges} component of the IRCv3 tags, returning the legacy tags used previously to denote special statuses
      *
-     * @param rawBadges The raw {@code badges} value of {@link #tags}
-     * @return A Map of legacy badges
+     * @param rawBadges the raw {@code badges} value of {@link #tags}
+     * @return a Map of legacy badges
      * @deprecated Please use official Twitch IRC tags instead {@link https://dev.twitch.tv/docs/irc/tags/}
      */
     @Deprecated(since = "3.8.2.0", forRemoval = true)
@@ -343,70 +343,70 @@ public final class TMIMessage {
     }
 
     /**
-     * @return The message type
+     * @return the message type
      */
     public TMIMessageType messageType() {
         return this.messageType;
     }
 
     /**
-     * @return The IRCv3 tags. Badges, emotes, and emote-sets are still in raw form in this Map
+     * @return the IRCv3 tags. Badges, emotes, and emote-sets are still in raw form in this Map
      */
     public Map<String, String> tags() {
         return this.tags;
     }
 
     /**
-     * @return The badges and badge-info components of the IRCv3 tags
+     * @return the badges and badge-info components of the IRCv3 tags
      */
     public Map<String, String> badges() {
         return this.badges;
     }
 
     /**
-     * @return The emotes component of the IRCv3 tags, parsed into emoteId: List<{@link EmoteLocation}> pairs
+     * @return the emotes component of the IRCv3 tags, parsed into emoteId: List<{@link EmoteLocation}> pairs
      */
     public Map<String, List<EmoteLocation>> emotes() {
         return this.emotes;
     }
 
     /**
-     * @return The emote-sets component of the IRCv3 tags
+     * @return the emote-sets component of the IRCv3 tags
      */
     public List<String> emoteSets() {
         return this.emoteSets;
     }
 
     /**
-     * @return The nick that sent the message, if present
+     * @return the nick that sent the message, if present
      */
     public String nick() {
         return this.nick;
     }
 
     /**
-     * @return The host that sent the message, if present
+     * @return the host that sent the message, if present
      */
     public String host() {
         return this.host;
     }
 
     /**
-     * @return The IRC command received
+     * @return the IRC command received
      */
     public String command() {
         return this.command;
     }
 
     /**
-     * @return The channel the command was received in, if present
+     * @return the channel the command was received in, if present
      */
     public String channel() {
         return this.channel;
     }
 
     /**
-     * @return The parameters of the command, if present
+     * @return the parameters of the command, if present
      */
     public String parameters() {
         return this.parameters;
@@ -426,21 +426,21 @@ public final class TMIMessage {
         }
 
         /**
-         * @return The start index for the emote text, for substring functions
+         * @return the start index for the emote text, for substring functions
          */
         public int start() {
             return this.start;
         }
 
         /**
-         * @return The end index for the emote text, for substring functions. Note that this is the index of the last char, not the length
+         * @return the end index for the emote text, for substring functions. Note that this is the index of the last char, not the length
          */
         public int end() {
             return this.end;
         }
 
         /**
-         * @return The length of the emote text
+         * @return the length of the emote text
          */
         public int length() {
             return (this.end - this.start) + 1;

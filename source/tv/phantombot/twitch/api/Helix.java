@@ -80,7 +80,7 @@ public class Helix {
     /**
      * Method that returns the instance of Helix.
      *
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      */
     public static Helix instance() {
         return INSTANCE;
@@ -113,8 +113,8 @@ public class Helix {
     /**
      * Method that update the rate limits in sync.
      *
-     * @param limit The number of requests left.
-     * @param reset The time when our limits will reset.
+     * @param limit the number of requests left.
+     * @param reset the time when our limits will reset.
      */
     private synchronized void updateRateLimits(int maxLimit, int limit, long reset) {
         maxRateLimit = maxLimit;
@@ -124,7 +124,7 @@ public class Helix {
 
     /**
      * The maximum value of {@link #remainingRateLimit()}
-     * @return The max rate limit
+     * @return the max rate limit
      */
     public int maxRateLimit() {
         return this.maxRateLimit;
@@ -132,7 +132,7 @@ public class Helix {
 
     /**
      * The remaining rate limit for Helix
-     * @return The remaining rate limit
+     * @return the remaining rate limit
      */
     public int remainingRateLimit() {
         return this.remainingRateLimit;
@@ -141,7 +141,7 @@ public class Helix {
     /**
      * Method that gets the reset time for the rate limit.
      *
-     * @return The timestamp when the ratelimit resets
+     * @return the timestamp when the ratelimit resets
      */
     private synchronized long getLimitResetTime() {
         return rateLimitResetEpoch;
@@ -150,7 +150,7 @@ public class Helix {
     /**
      * Method that gets the current rate limit.
      *
-     * @return The remaining rate limit
+     * @return the remaining rate limit
      */
     private synchronized int getRemainingRateLimit() {
         return remainingRateLimit;
@@ -218,7 +218,7 @@ public class Helix {
      * @param url
      * @param data
      * @param oauth
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      */
     private JSONObject handleRequest(HttpMethod type, String endPoint, String data, String oauth) throws JSONException {
         try {
@@ -253,7 +253,7 @@ public class Helix {
      * @param data
      * @param isRetry
      * @param oauth
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      */
     private JSONObject handleRequest(HttpMethod type, String endPoint, String data, boolean isRetry, String oauth) throws JSONException, Throwable {
         JSONObject returnObject = new JSONObject();
@@ -338,7 +338,7 @@ public class Helix {
      * @param url
      * @param data
      * @param oauth
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      */
     private JSONObject handleRequest(HttpMethod type, String endPoint, String data) throws JSONException {
         return this.handleRequest(type, endPoint, data, null);
@@ -349,7 +349,7 @@ public class Helix {
      *
      * @param type
      * @param endPoint
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      */
     private JSONObject handleRequest(HttpMethod type, String endPoint) throws JSONException {
         return this.handleRequest(type, endPoint, "", null);
@@ -400,7 +400,7 @@ public class Helix {
      * Gets channel information for users.
      *
      * @param broadcaster_id ID of the channel to be retrieved.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -412,7 +412,7 @@ public class Helix {
      * Gets channel information for users.
      *
      * @param broadcaster_id ID of the channel to be retrieved.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -433,12 +433,12 @@ public class Helix {
      *
      * @param broadcaster_id ID of the channel to be updated.
      * @param game_id The current game ID being played on the channel. Use "0" or "" (an empty string) to unset the game.
-     * @param language The language of the channel. A language value must be either the ISO 639-1 two-letter code for a supported stream language or
+     * @param language the language of the channel. A language value must be either the ISO 639-1 two-letter code for a supported stream language or
      * "other".
-     * @param title The title of the stream. Value must not be an empty string.
-     * @param delay Stream delay in seconds. Stream delay is a Twitch Partner feature; trying to set this value for other account types will return a
+     * @param title the title of the stream. Value must not be an empty string.
+     * @param delay stream delay in seconds. Stream delay is a Twitch Partner feature; trying to set this value for other account types will return a
      * 400 error.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -452,12 +452,12 @@ public class Helix {
      *
      * @param broadcaster_id ID of the channel to be updated.
      * @param game_id The current game ID being played on the channel. Use "0" or "" (an empty string) to unset the game.
-     * @param language The language of the channel. A language value must be either the ISO 639-1 two-letter code for a supported stream language or
+     * @param language the language of the channel. A language value must be either the ISO 639-1 two-letter code for a supported stream language or
      * "other".
-     * @param title The title of the stream. Value must not be an empty string.
-     * @param delay Stream delay in seconds. Stream delay is a Twitch Partner feature; trying to set this value for other account types will return a
+     * @param title the title of the stream. Value must not be an empty string.
+     * @param delay stream delay in seconds. Stream delay is a Twitch Partner feature; trying to set this value for other account types will return a
      * 400 error.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -502,11 +502,11 @@ public class Helix {
     /**
      * Returns a list of games or categories that match the query via name either entirely or partially.
      *
-     * @param query Search query.
-     * @param first Maximum number of objects to return. Maximum: 100. Default: 20.
-     * @param after Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param query search query.
+     * @param first maximum number of objects to return. Maximum: 100. Default: 20.
+     * @param after cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -517,11 +517,11 @@ public class Helix {
     /**
      * Returns a list of games or categories that match the query via name either entirely or partially.
      *
-     * @param query Search query.
-     * @param first Maximum number of objects to return. Maximum: 100. Default: 20.
-     * @param after Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param query search query.
+     * @param first maximum number of objects to return. Maximum: 100. Default: 20.
+     * @param after cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -550,10 +550,10 @@ public class Helix {
      *
      * @param from_id User ID. The request returns information about users who are being followed by the from_id user.
      * @param to_id User ID. The request returns information about users who are following the to_id user.
-     * @param first Maximum number of objects to return. Maximum: 100. Default: 20.
-     * @param after Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param first maximum number of objects to return. Maximum: 100. Default: 20.
+     * @param after cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws UnsupportedOperationException 410 Gone: This API is not available.
      * @deprecated This endpoint is deprecated by Twitch in favor of {@link #getChannelFollowers(String, int, String)}, which requires an OAuth scope
      */
@@ -570,10 +570,10 @@ public class Helix {
      *
      * @param from_id User ID. The request returns information about users who are being followed by the from_id user.
      * @param to_id User ID. The request returns information about users who are following the to_id user.
-     * @param first Maximum number of objects to return. Maximum: 100. Default: 20.
-     * @param after Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param first maximum number of objects to return. Maximum: 100. Default: 20.
+     * @param after cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws UnsupportedOperationException 410 Gone: This API is not available.
      * @deprecated This endpoint is deprecated by Twitch in favor of {@link #getChannelFollowersAsync(String, int, String)}, which requires an OAuth scope
      */
@@ -588,11 +588,11 @@ public class Helix {
      *
      * @param broadcaster_id User ID of the broadcaster. Must match the User ID in the Bearer token.
      * @param user_id Filters results to only include potential subscriptions made by the provided user IDs. Accepts up to 100 values.
-     * @param first Maximum number of objects to return. Maximum: 100. Default: 20.
-     * @param after Cursor for forward pagination: tells the server where to start fetching the next set of results in a multi-page response. This
+     * @param first maximum number of objects to return. Maximum: 100. Default: 20.
+     * @param after cursor for forward pagination: tells the server where to start fetching the next set of results in a multi-page response. This
      * applies only to queries without user_id. If a user_id is specified, it supersedes any cursor/offset combinations. The cursor value specified
      * here is from the pagination response field of a prior query.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -606,11 +606,11 @@ public class Helix {
      *
      * @param broadcaster_id User ID of the broadcaster. Must match the User ID in the Bearer token.
      * @param user_id Filters results to only include potential subscriptions made by the provided user IDs. Accepts up to 100 values.
-     * @param first Maximum number of objects to return. Maximum: 100. Default: 20.
-     * @param after Cursor for forward pagination: tells the server where to start fetching the next set of results in a multi-page response. This
+     * @param first maximum number of objects to return. Maximum: 100. Default: 20.
+     * @param after cursor for forward pagination: tells the server where to start fetching the next set of results in a multi-page response. This
      * applies only to queries without user_id. If a user_id is specified, it supersedes any cursor/offset combinations. The cursor value specified
      * here is from the pagination response field of a prior query.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -644,17 +644,17 @@ public class Helix {
      * Gets information about active streams. Streams are returned sorted by number of current viewers, in descending order. Across multiple pages of
      * results, there may be duplicate or missing streams, as viewers join and leave streams.
      *
-     * @param first Maximum number of objects to return. Maximum: 100. Default: 20.
-     * @param before Cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param first maximum number of objects to return. Maximum: 100. Default: 20.
+     * @param before cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
-     * @param after Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param after cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
      * @param user_id Returns streams broadcast by one or more specified user IDs. You can specify up to 100 IDs.
      * @param user_login Returns streams broadcast by one or more specified user login names. You can specify up to 100 names.
      * @param game_id Returns streams broadcasting a specified game ID. You can specify up to 100 IDs.
-     * @param language Stream language. You can specify up to 100 languages. A language value must be either the ISO 639-1 two-letter code for a
+     * @param language stream language. You can specify up to 100 languages. A language value must be either the ISO 639-1 two-letter code for a
      * supported stream language or "other".
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -667,17 +667,17 @@ public class Helix {
      * Gets information about active streams. Streams are returned sorted by number of current viewers, in descending order. Across multiple pages of
      * results, there may be duplicate or missing streams, as viewers join and leave streams.
      *
-     * @param first Maximum number of objects to return. Maximum: 100. Default: 20.
-     * @param before Cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param first maximum number of objects to return. Maximum: 100. Default: 20.
+     * @param before cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
-     * @param after Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param after cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
      * @param user_id Returns streams broadcast by one or more specified user IDs. You can specify up to 100 IDs.
      * @param user_login Returns streams broadcast by one or more specified user login names. You can specify up to 100 names.
      * @param game_id Returns streams broadcasting a specified game ID. You can specify up to 100 IDs.
-     * @param language Stream language. You can specify up to 100 languages. A language value must be either the ISO 639-1 two-letter code for a
+     * @param language stream language. You can specify up to 100 languages. A language value must be either the ISO 639-1 two-letter code for a
      * supported stream language or "other".
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -730,9 +730,9 @@ public class Helix {
      * nor a login name is specified, the user is looked up by Bearer token. Note: The limit of 100 IDs and login names is the total limit. You can
      * request, for example, 50 of each or 100 of one of them. You cannot request 100 of both.
      *
-     * @param id User ID. Multiple user IDs can be specified. Limit: 100.
-     * @param login User login name. Multiple login names can be specified. Limit: 100.
-     * @return A JSONObject with the response
+     * @param id user ID. Multiple user IDs can be specified. Limit: 100.
+     * @param login user login name. Multiple login names can be specified. Limit: 100.
+     * @return a JSONObject with the response
      * @throws JSONException
      */
     public JSONObject getUsers(@Nullable List<String> id, @Nullable List<String> login) throws JSONException {
@@ -744,9 +744,9 @@ public class Helix {
      * nor a login name is specified, the user is looked up by Bearer token. Note: The limit of 100 IDs and login names is the total limit. You can
      * request, for example, 50 of each or 100 of one of them. You cannot request 100 of both.
      *
-     * @param id User ID. Multiple user IDs can be specified. Limit: 100.
-     * @param login User login name. Multiple login names can be specified. Limit: 100.
-     * @return A JSONObject with the response
+     * @param id user ID. Multiple user IDs can be specified. Limit: 100.
+     * @param login user login name. Multiple login names can be specified. Limit: 100.
+     * @return a JSONObject with the response
      * @throws JSONException
      */
     public Mono<JSONObject> getUsersAsync(@Nullable List<String> id, @Nullable List<String> login) throws JSONException {
@@ -780,8 +780,8 @@ public class Helix {
      * Starts a commercial on a specified channel.
      *
      * @param broadcaster_id ID of the channel requesting a commercial.
-     * @param length Desired length of the commercial in seconds. Valid options are 30, 60, 90, 120, 150, 180.
-     * @return A JSONObject with the response
+     * @param length desired length of the commercial in seconds. Valid options are 30, 60, 90, 120, 150, 180.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -793,8 +793,8 @@ public class Helix {
      * Starts a commercial on a specified channel.
      *
      * @param broadcaster_id ID of the channel requesting a commercial.
-     * @param length Desired length of the commercial in seconds. Valid options are 30, 60, 90, 120, 150, 180.
-     * @return A JSONObject with the response
+     * @param length desired length of the commercial in seconds. Valid options are 30, 60, 90, 120, 150, 180.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -823,7 +823,7 @@ public class Helix {
      * are custom emoticons that viewers may use in Twitch chat once they are subscribed to, cheered in, or followed the channel that owns the emotes.
      *
      * @param broadcaster_id The broadcaster whose emotes are being requested.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -836,7 +836,7 @@ public class Helix {
      * are custom emoticons that viewers may use in Twitch chat once they are subscribed to, cheered in, or followed the channel that owns the emotes.
      *
      * @param broadcaster_id The broadcaster whose emotes are being requested.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -855,7 +855,7 @@ public class Helix {
     /**
      * Gets all global emotes. Global emotes are Twitch-specific emoticons that every user can use in Twitch chat.
      *
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      */
     public JSONObject getGlobalEmotes() throws JSONException {
@@ -865,7 +865,7 @@ public class Helix {
     /**
      * Gets all global emotes. Global emotes are Twitch-specific emoticons that every user can use in Twitch chat.
      *
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      */
     public Mono<JSONObject> getGlobalEmotesAsync() throws JSONException {
@@ -881,7 +881,7 @@ public class Helix {
      * available throughout Twitch, in all Bits-enabled channels.
      *
      * @param broadcaster_id ID for the broadcaster who might own specialized Cheermotes.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      */
     public JSONObject getCheermotes(@Nullable String broadcaster_id) throws JSONException {
@@ -893,7 +893,7 @@ public class Helix {
      * available throughout Twitch, in all Bits-enabled channels.
      *
      * @param broadcaster_id ID for the broadcaster who might own specialized Cheermotes.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      */
     public Mono<JSONObject> getCheermotesAsync(@Nullable String broadcaster_id) throws JSONException {
@@ -912,17 +912,17 @@ public class Helix {
      * @param id ID of the video being queried. Limit: 100. If this is specified, you cannot use any of the other query parameters below.
      * @param user_id ID of the user who owns the video.
      * @param game_id ID of the game the video is of.
-     * @param first Number of values to be returned when getting videos by user or game ID. Limit: 100. Default: 20.
-     * @param before Cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param first number of values to be returned when getting videos by user or game ID. Limit: 100. Default: 20.
+     * @param before cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
-     * @param after Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param after cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
-     * @param language Language of the video being queried. Limit: 1. A language value must be either the ISO 639-1 two-letter code for a supported
+     * @param language language of the video being queried. Limit: 1. A language value must be either the ISO 639-1 two-letter code for a supported
      * stream language or "other".
-     * @param period Period during which the video was created. Valid values: "all", "day", "week", "month". Default: "all".
-     * @param sort Sort order of the videos. Valid values: "time", "trending", "views". Default: "time".
-     * @param type Type of video. Valid values: "all", "upload", "archive", "highlight". Default: "all".
-     * @return A JSONObject with the response
+     * @param period period during which the video was created. Valid values: "all", "day", "week", "month". Default: "all".
+     * @param sort sort order of the videos. Valid values: "time", "trending", "views". Default: "time".
+     * @param type type of video. Valid values: "all", "upload", "archive", "highlight". Default: "all".
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -940,17 +940,17 @@ public class Helix {
      * @param id ID of the video being queried. Limit: 100. If this is specified, you cannot use any of the other query parameters below.
      * @param user_id ID of the user who owns the video.
      * @param game_id ID of the game the video is of.
-     * @param first Number of values to be returned when getting videos by user or game ID. Limit: 100. Default: 20.
-     * @param before Cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param first number of values to be returned when getting videos by user or game ID. Limit: 100. Default: 20.
+     * @param before cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
-     * @param after Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param after cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
-     * @param language Language of the video being queried. Limit: 1. A language value must be either the ISO 639-1 two-letter code for a supported
+     * @param language language of the video being queried. Limit: 1. A language value must be either the ISO 639-1 two-letter code for a supported
      * stream language or "other".
-     * @param period Period during which the video was created. Valid values: "all", "day", "week", "month". Default: "all".
-     * @param sort Sort order of the videos. Valid values: "time", "trending", "views". Default: "time".
-     * @param type Type of video. Valid values: "all", "upload", "archive", "highlight". Default: "all".
-     * @return A JSONObject with the response
+     * @param period period during which the video was created. Valid values: "all", "day", "week", "month". Default: "all".
+     * @param sort sort order of the videos. Valid values: "time", "trending", "views". Default: "time".
+     * @param type type of video. Valid values: "all", "upload", "archive", "highlight". Default: "all".
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1025,7 +1025,7 @@ public class Helix {
      * Retrieves a list of Twitch Teams of which the specified channel/broadcaster is a member.
      *
      * @param broadcaster_id User ID for a Twitch user.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1037,7 +1037,7 @@ public class Helix {
      * Retrieves a list of Twitch Teams of which the specified channel/broadcaster is a member.
      *
      * @param broadcaster_id User ID for a Twitch user.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1056,9 +1056,9 @@ public class Helix {
     /**
      * Gets information for a specific Twitch Team. One of the two query parameters must be specified to return Team information.
      *
-     * @param name Team name.
-     * @param id Team ID.
-     * @return A JSONObject with the response
+     * @param name team name.
+     * @param id team ID.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1069,9 +1069,9 @@ public class Helix {
     /**
      * Gets information for a specific Twitch Team. One of the two query parameters must be specified to return Team information.
      *
-     * @param name Team name.
-     * @param id Team ID.
-     * @return A JSONObject with the response
+     * @param name team name.
+     * @param id team ID.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1098,16 +1098,16 @@ public class Helix {
      * @param id ID of the clip being queried. Limit: 100. If this is specified, you cannot use any of the other query parameters below.
      * @param broadcaster_id ID of the broadcaster for whom clips are returned. Results are ordered by view count.
      * @param game_id ID of the game for which clips are returned. Results are ordered by view count.
-     * @param first Maximum number of objects to return. Maximum: 100. Default: 20.
-     * @param before Cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param first maximum number of objects to return. Maximum: 100. Default: 20.
+     * @param before cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
-     * @param after Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param after cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
      * @param started_at Starting date/time for returned clips, in RFC3339 format. (The seconds value is ignored.) If this is specified, ended_at also
      * should be specified; otherwise, the ended_at date/time will be 1 week after the started_at value.
      * @param ended_at Ending date/time for returned clips, in RFC3339 format. (Note that the seconds value is ignored.) If this is specified,
      * started_at also must be specified; otherwise, the time period is ignored.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1124,16 +1124,16 @@ public class Helix {
      * @param id ID of the clip being queried. Limit: 100. If this is specified, you cannot use any of the other query parameters below.
      * @param broadcaster_id ID of the broadcaster for whom clips are returned. Results are ordered by view count.
      * @param game_id ID of the game for which clips are returned. Results are ordered by view count.
-     * @param first Maximum number of objects to return. Maximum: 100. Default: 20.
-     * @param before Cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param first maximum number of objects to return. Maximum: 100. Default: 20.
+     * @param before cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
-     * @param after Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param after cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
      * @param started_at Starting date/time for returned clips. (The seconds value is ignored.) If this is specified, ended_at also should be
      * specified; otherwise, the ended_at date/time will be 1 week after the started_at value.
      * @param ended_at Ending date/time for returned clips. (Note that the seconds value is ignored.) If this is specified, started_at also must be
      * specified; otherwise, the time period is ignored.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1164,16 +1164,16 @@ public class Helix {
      * @param id ID of the clip being queried. Limit: 100. If this is specified, you cannot use any of the other query parameters below.
      * @param broadcaster_id ID of the broadcaster for whom clips are returned. Results are ordered by view count.
      * @param game_id ID of the game for which clips are returned. Results are ordered by view count.
-     * @param first Maximum number of objects to return. Maximum: 100. Default: 20.
-     * @param before Cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param first maximum number of objects to return. Maximum: 100. Default: 20.
+     * @param before cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
-     * @param after Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
+     * @param after cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The
      * cursor value specified here is from the pagination response field of a prior query.
      * @param started_at Starting date/time for returned clips, in RFC3339 format. (The seconds value is ignored.) If this is specified, ended_at also
      * should be specified; otherwise, the ended_at date/time will be 1 week after the started_at value.
      * @param ended_at Ending date/time for returned clips, in RFC3339 format. (Note that the seconds value is ignored.) If this is specified,
      * started_at also must be specified; otherwise, the time period is ignored.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1270,11 +1270,11 @@ public class Helix {
      * Sends an announcement to the broadcaster's chat room.
      *
      * @param broadcaster_id The ID of the broadcaster that owns the chat room to send the announcement to.
-     * @param message The announcement to make in the broadcaster's chat room. Announcements are limited to a maximum of 500 characters; announcements
+     * @param message the announcement to make in the broadcaster's chat room. Announcements are limited to a maximum of 500 characters; announcements
      * longer than 500 characters are truncated.
-     * @param color The color used to highlight the announcement. If color is set to primary, the channel's accent color is used to highlight the
+     * @param color the color used to highlight the announcement. If color is set to primary, the channel's accent color is used to highlight the
      * announcement (see Profile Accent Color under profile settings, Channel and Videos, and Brand).
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1287,11 +1287,11 @@ public class Helix {
      * Sends an announcement to the broadcaster's chat room.
      *
      * @param broadcaster_id The ID of the broadcaster that owns the chat room to send the announcement to.
-     * @param message The announcement to make in the broadcaster's chat room. Announcements are limited to a maximum of 500 characters; announcements
+     * @param message the announcement to make in the broadcaster's chat room. Announcements are limited to a maximum of 500 characters; announcements
      * longer than 500 characters are truncated.
-     * @param color The color used to highlight the announcement. If color is set to primary, the channel's accent color is used to highlight the
+     * @param color the color used to highlight the announcement. If color is set to primary, the channel's accent color is used to highlight the
      * announcement (see Profile Accent Color under profile settings, Channel and Videos, and Brand).
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1311,11 +1311,11 @@ public class Helix {
      * Sends an announcement to the broadcaster's chat room.
      *
      * @param broadcaster_id The ID of the broadcaster that owns the chat room to send the announcement to.
-     * @param message The announcement to make in the broadcaster's chat room. Announcements are limited to a maximum of 500 characters; announcements
+     * @param message the announcement to make in the broadcaster's chat room. Announcements are limited to a maximum of 500 characters; announcements
      * longer than 500 characters are truncated.
-     * @param color The color used to highlight the announcement. If color is set to primary, the channel's accent color is used to highlight the
+     * @param color the color used to highlight the announcement. If color is set to primary, the channel's accent color is used to highlight the
      * announcement (see Profile Accent Color under profile settings, Channel and Videos, and Brand).
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1328,11 +1328,11 @@ public class Helix {
      * Sends an announcement to the broadcaster's chat room.
      *
      * @param broadcaster_id The ID of the broadcaster that owns the chat room to send the announcement to.
-     * @param message The announcement to make in the broadcaster's chat room. Announcements are limited to a maximum of 500 characters; announcements
+     * @param message the announcement to make in the broadcaster's chat room. Announcements are limited to a maximum of 500 characters; announcements
      * longer than 500 characters are truncated.
-     * @param color The color used to highlight the announcement. If color is set to primary, the channel's accent color is used to highlight the
+     * @param color the color used to highlight the announcement. If color is set to primary, the channel's accent color is used to highlight the
      * announcement (see Profile Accent Color under profile settings, Channel and Videos, and Brand).
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1369,10 +1369,10 @@ public class Helix {
      *
      * @param broadcaster_id The ID of the broadcaster whose chat room the user is being banned from.
      * @param user_id The ID of the user to ban or put in a timeout.
-     * @param reason The reason the user is being banned or put in a timeout. The text is user defined and limited to a maximum of 500 characters.
-     * @param duration To ban a user indefinitely, specify this value as {@code 0}. To put a user in a timeout, specify the timeout period, in
+     * @param reason the reason the user is being banned or put in a timeout. The text is user defined and limited to a maximum of 500 characters.
+     * @param duration to ban a user indefinitely, specify this value as {@code 0}. To put a user in a timeout, specify the timeout period, in
      * seconds. The minimum timeout is 1 second and the maximum is 1,209,600 seconds (2 weeks).
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1389,10 +1389,10 @@ public class Helix {
      *
      * @param broadcaster_id The ID of the broadcaster whose chat room the user is being banned from.
      * @param user_id The ID of the user to ban or put in a timeout.
-     * @param reason The reason the user is being banned or put in a timeout. The text is user defined and limited to a maximum of 500 characters.
-     * @param duration To ban a user indefinitely, specify this value as {@code 0}. To put a user in a timeout, specify the timeout period, in
+     * @param reason the reason the user is being banned or put in a timeout. The text is user defined and limited to a maximum of 500 characters.
+     * @param duration to ban a user indefinitely, specify this value as {@code 0}. To put a user in a timeout, specify the timeout period, in
      * seconds. The minimum timeout is 1 second and the maximum is 1,209,600 seconds (2 weeks).
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1438,7 +1438,7 @@ public class Helix {
      *
      * @param broadcaster_id The ID of the broadcaster whose chat room the user is banned from chatting in.
      * @param user_id The ID of the user to remove the ban or timeout from.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1452,7 +1452,7 @@ public class Helix {
      *
      * @param broadcaster_id The ID of the broadcaster whose chat room the user is banned from chatting in.
      * @param user_id The ID of the user to remove the ban or timeout from.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1482,7 +1482,7 @@ public class Helix {
      * @param broadcaster_id The ID of the broadcaster that owns the chat room to remove messages from.
      * @param message_id The ID of the message to remove. The id tag in the PRIVMSG contains the message's ID. If {@code null}, the request removes
      * all messages in the broadcaster's chat room.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1500,7 +1500,7 @@ public class Helix {
      * @param broadcaster_id The ID of the broadcaster that owns the chat room to remove messages from.
      * @param message_id The ID of the message to remove. The id tag in the PRIVMSG contains the message's ID. If {@code null}, the request removes
      * all messages in the broadcaster's chat room.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1526,7 +1526,7 @@ public class Helix {
      *
      * @param from_broadcaster_id The ID of the broadcaster that's sending the raiding party.
      * @param to_broadcaster_id The ID of the broadcaster to raid.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1544,7 +1544,7 @@ public class Helix {
      *
      * @param from_broadcaster_id The ID of the broadcaster that's sending the raiding party.
      * @param to_broadcaster_id The ID of the broadcaster to raid.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1573,7 +1573,7 @@ public class Helix {
      * Rate Limit: The limit is 10 requests within a 10-minute window.
      *
      * @param broadcaster_id The ID of the broadcaster that sent the raiding party.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1590,7 +1590,7 @@ public class Helix {
      * Rate Limit: The limit is 10 requests within a 10-minute window.
      *
      * @param broadcaster_id The ID of the broadcaster that sent the raiding party.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1631,7 +1631,7 @@ public class Helix {
      * room.
      * @param unique_chat_mode A Boolean value that determines whether the broadcaster requires users to post only unique messages in the chat room.
      * Formerly known as r9k beta.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1667,7 +1667,7 @@ public class Helix {
      * room.
      * @param unique_chat_mode A Boolean value that determines whether the broadcaster requires users to post only unique messages in the chat room.
      * Formerly known as r9k beta.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1766,8 +1766,8 @@ public class Helix {
      * user you're sending the message to has whispered you before. Messages that exceed the maximum length are truncated.
      *
      * @param to_user_id The ID of the user to receive the whisper.
-     * @param message The whisper message to send. The message must not be empty.
-     * @return A JSONObject with the response
+     * @param message the whisper message to send. The message must not be empty.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1793,8 +1793,8 @@ public class Helix {
      * user you're sending the message to has whispered you before. Messages that exceed the maximum length are truncated.
      *
      * @param to_user_id The ID of the user to receive the whisper.
-     * @param message The whisper message to send. The message must not be empty.
-     * @return A JSONObject with the response
+     * @param message the whisper message to send. The message must not be empty.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1822,10 +1822,10 @@ public class Helix {
     /**
      * Returns a list of Custom Reward objects for the Custom Rewards on a channel.
      *
-     * @param id When used, this parameter filters the results and only returns reward objects for the Custom Rewards with matching ID. Maximum: 50
+     * @param id when used, this parameter filters the results and only returns reward objects for the Custom Rewards with matching ID. Maximum: 50
      * @param only_manageable_rewards When set to {@code true}, only returns custom rewards that the calling Client ID can manage. Default:
      * {@code false}.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1837,10 +1837,10 @@ public class Helix {
     /**
      * Returns a list of Custom Reward objects for the Custom Rewards on a channel.
      *
-     * @param id When used, this parameter filters the results and only returns reward objects for the Custom Rewards with matching ID. Maximum: 50
+     * @param id when used, this parameter filters the results and only returns reward objects for the Custom Rewards with matching ID. Maximum: 50
      * @param only_manageable_rewards When set to {@code true}, only returns custom rewards that the calling Client ID can manage. Default:
      * {@code false}.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1879,14 +1879,14 @@ public class Helix {
      * Creates a Custom Reward in the broadcaster\'s channel. The maximum number of custom rewards per channel is 50, which includes both enabled and
      * disabled rewards.
      *
-     * @param title The custom reward\'s title. The title may contain a maximum of 45 characters and it must be unique amongst all of the
+     * @param title the custom reward\'s title. The title may contain a maximum of 45 characters and it must be unique amongst all of the
      * broadcaster\'s custom rewards.
-     * @param cost The cost of the reward, in Channel Points. The minimum is 1 point.
+     * @param cost the cost of the reward, in Channel Points. The minimum is 1 point.
      * @param is_enabled A Boolean value that determines whether the reward is enabled. Viewers see only enabled rewards. The default is {@code true}.
      * @param background_color The background color to use for the reward. Specify the color using Hex format (for example, {@code #9147FF}).
      * @param is_user_input_required A Boolean value that determines whether the user needs to enter information when redeeming the reward. See the
      * {@code prompt} field. The default is {@code false}.
-     * @param prompt The prompt shown to the viewer when they redeem the reward. Specify a prompt if {@code is_user_input_required} is {@code true}.
+     * @param prompt the prompt shown to the viewer when they redeem the reward. Specify a prompt if {@code is_user_input_required} is {@code true}.
      * The prompt is limited to a maximum of 200 characters.
      * @param is_max_per_stream_enabled A Boolean value that determines whether to limit the maximum number of redemptions allowed per live stream
      * (see the {@code max_per_stream} field). The default is {@code false}.
@@ -1903,7 +1903,7 @@ public class Helix {
      * @param should_redemptions_skip_request_queue A Boolean value that determines whether redemptions should be set to {@code FULFILLED} status
      * immediately when a reward is redeemed. If {@code false}, status is set to {@code UNFULFILLED} and follows the normal request queue process. The
      * default is {@code false}.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -1922,14 +1922,14 @@ public class Helix {
      * Creates a Custom Reward in the broadcaster\'s channel. The maximum number of custom rewards per channel is 50, which includes both enabled and
      * disabled rewards.
      *
-     * @param title The custom reward\'s title. The title may contain a maximum of 45 characters and it must be unique amongst all of the
+     * @param title the custom reward\'s title. The title may contain a maximum of 45 characters and it must be unique amongst all of the
      * broadcaster\'s custom rewards.
-     * @param cost The cost of the reward, in Channel Points. The minimum is 1 point.
+     * @param cost the cost of the reward, in Channel Points. The minimum is 1 point.
      * @param is_enabled A Boolean value that determines whether the reward is enabled. Viewers see only enabled rewards. The default is {@code true}.
      * @param background_color The background color to use for the reward. Specify the color using Hex format (for example, {@code #9147FF}).
      * @param is_user_input_required A Boolean value that determines whether the user needs to enter information when redeeming the reward. See the
      * {@code prompt} field. The default is {@code false}.
-     * @param prompt The prompt shown to the viewer when they redeem the reward. Specify a prompt if {@code is_user_input_required} is {@code true}.
+     * @param prompt the prompt shown to the viewer when they redeem the reward. Specify a prompt if {@code is_user_input_required} is {@code true}.
      * The prompt is limited to a maximum of 200 characters.
      * @param is_max_per_stream_enabled A Boolean value that determines whether to limit the maximum number of redemptions allowed per live stream
      * (see the {@code max_per_stream} field). The default is {@code false}.
@@ -1946,7 +1946,7 @@ public class Helix {
      * @param should_redemptions_skip_request_queue A Boolean value that determines whether redemptions should be set to {@code FULFILLED} status
      * immediately when a reward is redeemed. If {@code false}, status is set to {@code UNFULFILLED} and follows the normal request queue process. The
      * default is {@code false}.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2051,17 +2051,17 @@ public class Helix {
     /**
      * Updates a custom reward. The app used to create the reward is the only app that may update the reward.
      *
-     * @param id The ID of the reward to update.
-     * @param title The custom reward\'s title. The title may contain a maximum of 45 characters and it must be unique amongst all of the
+     * @param id the ID of the reward to update.
+     * @param title the custom reward\'s title. The title may contain a maximum of 45 characters and it must be unique amongst all of the
      * broadcaster\'s custom rewards.
-     * @param cost The cost of the reward, in Channel Points. The minimum is 1 point.
+     * @param cost the cost of the reward, in Channel Points. The minimum is 1 point.
      * @param is_enabled A Boolean value that determines whether the reward is enabled. Viewers see only enabled rewards. The default is {@code true}.
      * @param is_paused A Boolean value that determines whether the reward is currently paused. Is {@code true} if the reward is paused. Viewers
      * can\'t redeem paused rewards.
      * @param background_color The background color to use for the reward. Specify the color using Hex format (for example, {@code #9147FF}).
      * @param is_user_input_required A Boolean value that determines whether the user needs to enter information when redeeming the reward. See the
      * {@code prompt} field. The default is {@code false}.
-     * @param prompt The prompt shown to the viewer when they redeem the reward. Specify a prompt if {@code is_user_input_required} is {@code true}.
+     * @param prompt the prompt shown to the viewer when they redeem the reward. Specify a prompt if {@code is_user_input_required} is {@code true}.
      * The prompt is limited to a maximum of 200 characters.
      * @param is_max_per_stream_enabled A Boolean value that determines whether to limit the maximum number of redemptions allowed per live stream
      * (see the {@code max_per_stream} field). The default is {@code false}.
@@ -2078,7 +2078,7 @@ public class Helix {
      * @param should_redemptions_skip_request_queue A Boolean value that determines whether redemptions should be set to {@code FULFILLED} status
      * immediately when a reward is redeemed. If {@code false}, status is set to {@code UNFULFILLED} and follows the normal request queue process. The
      * default is {@code false}.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2096,17 +2096,17 @@ public class Helix {
     /**
      * Updates a custom reward. The app used to create the reward is the only app that may update the reward.
      *
-     * @param id The ID of the reward to update.
-     * @param title The custom reward\'s title. The title may contain a maximum of 45 characters and it must be unique amongst all of the
+     * @param id the ID of the reward to update.
+     * @param title the custom reward\'s title. The title may contain a maximum of 45 characters and it must be unique amongst all of the
      * broadcaster\'s custom rewards.
-     * @param cost The cost of the reward, in Channel Points. The minimum is 1 point.
+     * @param cost the cost of the reward, in Channel Points. The minimum is 1 point.
      * @param is_enabled A Boolean value that determines whether the reward is enabled. Viewers see only enabled rewards. The default is {@code true}.
      * @param is_paused A Boolean value that determines whether the reward is currently paused. Is {@code true} if the reward is paused. Viewers
      * can\'t redeem paused rewards.
      * @param background_color The background color to use for the reward. Specify the color using Hex format (for example, {@code #9147FF}).
      * @param is_user_input_required A Boolean value that determines whether the user needs to enter information when redeeming the reward. See the
      * {@code prompt} field. The default is {@code false}.
-     * @param prompt The prompt shown to the viewer when they redeem the reward. Specify a prompt if {@code is_user_input_required} is {@code true}.
+     * @param prompt the prompt shown to the viewer when they redeem the reward. Specify a prompt if {@code is_user_input_required} is {@code true}.
      * The prompt is limited to a maximum of 200 characters.
      * @param is_max_per_stream_enabled A Boolean value that determines whether to limit the maximum number of redemptions allowed per live stream
      * (see the {@code max_per_stream} field). The default is {@code false}.
@@ -2123,7 +2123,7 @@ public class Helix {
      * @param should_redemptions_skip_request_queue A Boolean value that determines whether redemptions should be set to {@code FULFILLED} status
      * immediately when a reward is redeemed. If {@code false}, status is set to {@code UNFULFILLED} and follows the normal request queue process. The
      * default is {@code false}.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2261,8 +2261,8 @@ public class Helix {
      * Deletes a custom reward that the broadcaster created. The app used to create the reward is the only app that may delete it. If the reward\'s
      * redemption status is {@code UNFULFILLED} at the time the reward is deleted, its redemption status is marked as {@code FULFILLED}.
      *
-     * @param id The ID of the custom reward to delete.
-     * @return A JSONObject with the response
+     * @param id the ID of the custom reward to delete.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2275,8 +2275,8 @@ public class Helix {
      * Deletes a custom reward that the broadcaster created. The app used to create the reward is the only app that may delete it. If the reward\'s
      * redemption status is {@code UNFULFILLED} at the time the reward is deleted, its redemption status is marked as {@code FULFILLED}.
      *
-     * @param id The ID of the custom reward to delete.
-     * @return A JSONObject with the response
+     * @param id the ID of the custom reward to delete.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2317,11 +2317,11 @@ public class Helix {
      * You may update a redemption only if its status is UNFULFILLED. The app used to create the reward is the only app that may update the
      * redemption.
      *
-     * @param id A list of IDs that identify the redemptions to update. You may specify a maximum of 50 IDs.
+     * @param id a list of IDs that identify the redemptions to update. You may specify a maximum of 50 IDs.
      * @param reward_id The ID that identifies the reward that\'s been redeemed.
-     * @param newStatus The status to set the redemption to. Setting the status to {@link CustomRewardRedemptionStatus.CANCELLED} refunds the user\'s
+     * @param newStatus the status to set the redemption to. Setting the status to {@link CustomRewardRedemptionStatus.CANCELLED} refunds the user\'s
      * channel points.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2336,11 +2336,11 @@ public class Helix {
      * You may update a redemption only if its status is UNFULFILLED. The app used to create the reward is the only app that may update the
      * redemption.
      *
-     * @param id A list of IDs that identify the redemptions to update. You may specify a maximum of 50 IDs.
+     * @param id a list of IDs that identify the redemptions to update. You may specify a maximum of 50 IDs.
      * @param reward_id The ID that identifies the reward that\'s been redeemed.
-     * @param newStatus The status to set the redemption to. Setting the status to {@link CustomRewardRedemptionStatus.CANCELLED} refunds the user\'s
+     * @param newStatus the status to set the redemption to. Setting the status to {@link CustomRewardRedemptionStatus.CANCELLED} refunds the user\'s
      * channel points.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2386,9 +2386,9 @@ public class Helix {
      * configured Shield Mode, it applies default overrides.
      *
      * @param broadcaster_id The ID of the broadcaster whose Shield Mode you want to activate or deactivate.
-     * @param isActive A Boolean value that determines whether to activate Shield Mode. Set to {@code true} to activate Shield Mode; otherwise,
+     * @param isActive a Boolean value that determines whether to activate Shield Mode. Set to {@code true} to activate Shield Mode; otherwise,
      * {@code false} to deactivate Shield Mode.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2405,9 +2405,9 @@ public class Helix {
      * configured Shield Mode, it applies default overrides.
      *
      * @param broadcaster_id The ID of the broadcaster whose Shield Mode you want to activate or deactivate.
-     * @param isActive A Boolean value that determines whether to activate Shield Mode. Set to {@code true} to activate Shield Mode; otherwise,
+     * @param isActive a Boolean value that determines whether to activate Shield Mode. Set to {@code true} to activate Shield Mode; otherwise,
      * {@code false} to deactivate Shield Mode.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2434,7 +2434,7 @@ public class Helix {
      *
      * @param from_broadcaster_id The ID of the broadcaster that's sending the Shoutout.
      * @param to_broadcaster_id The ID of the broadcaster that's receiving the Shoutout.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2450,7 +2450,7 @@ public class Helix {
      *
      * @param from_broadcaster_id The ID of the broadcaster that's sending the Shoutout.
      * @param to_broadcaster_id The ID of the broadcaster that's receiving the Shoutout.
-     * @return A JSONObject with the response
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2477,11 +2477,11 @@ public class Helix {
      * Use the status, type, and user_id query parameters to filter the list of subscriptions that are returned.
      * The filters are mutually exclusive; the request fails if you specify more than one filter.
      *
-     * @param status Filter subscriptions by its status.
-     * @param type Filter subscriptions by subscription type.
+     * @param status filter subscriptions by its status.
+     * @param type filter subscriptions by subscription type.
      * @param user_id Filter subscriptions by user ID. The response contains subscriptions where this ID matches a user ID that you specified in the Condition when you created the subscription.
-     * @param after The cursor used to get the next page of results.
-     * @return A JSONObject with the response
+     * @param after the cursor used to get the next page of results.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2522,8 +2522,8 @@ public class Helix {
     /**
      * Creates an EventSub subscription.
      *
-     * @param jsonString A JSON string describing the parameters of the new subscription
-     * @return A JSONObject with the response
+     * @param jsonString a JSON string describing the parameters of the new subscription
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2543,8 +2543,8 @@ public class Helix {
     /**
      * Deletes an EventSub subscription.
      *
-     * @param id The ID of the subscription to delete.
-     * @return A JSONObject with the response
+     * @param id the ID of the subscription to delete.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2747,10 +2747,10 @@ public class Helix {
     /**
      * Gets a list of Channel Points Predictions that the broadcaster created.
      *
-     * @param id The ID of the prediction to get; {@code null} to get the most recent predictions. You may specify a maximum of 25 IDs.
-     * @param first The maximum number of items to return per page in the response. Minimum: 1. Maximum: 25.
-     * @param after The cursor used to get the next page of results.
-     * @return A JSONObject with the response
+     * @param id the ID of the prediction to get; {@code null} to get the most recent predictions. You may specify a maximum of 25 IDs.
+     * @param first the maximum number of items to return per page in the response. Minimum: 1. Maximum: 25.
+     * @param after the cursor used to get the next page of results.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2762,10 +2762,10 @@ public class Helix {
     /**
      * Gets a list of Channel Points Predictions that the broadcaster created.
      *
-     * @param id The ID of the prediction to get; {@code null} to get the most recent predictions. You may specify a maximum of 25 IDs.
-     * @param first The maximum number of items to return per page in the response. Minimum: 1. Maximum: 25.
-     * @param after The cursor used to get the next page of results.
-     * @return A JSONObject with the response
+     * @param id the ID of the prediction to get; {@code null} to get the most recent predictions. You may specify a maximum of 25 IDs.
+     * @param first the maximum number of items to return per page in the response. Minimum: 1. Maximum: 25.
+     * @param after the cursor used to get the next page of results.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2795,10 +2795,10 @@ public class Helix {
     /**
      * Creates a Channel Points Prediction.
      *
-     * @param title The question that the broadcaster is asking. The title is limited to a maximum of 45 characters.
-     * @param seconds The length of time (in seconds) that the prediction will run for. The minimum is 30 seconds and the maximum is 1800 seconds (30 minutes).
-     * @param choices The list of possible outcomes that the viewers may choose from. The list must contain a minimum of 2 choices and up to a maximum of 10 choices. Echo choice is limited to a maximum of 25 characters.
-     * @return A JSONObject with the response
+     * @param title the question that the broadcaster is asking. The title is limited to a maximum of 45 characters.
+     * @param seconds the length of time (in seconds) that the prediction will run for. The minimum is 30 seconds and the maximum is 1800 seconds (30 minutes).
+     * @param choices the list of possible outcomes that the viewers may choose from. The list must contain a minimum of 2 choices and up to a maximum of 10 choices. Echo choice is limited to a maximum of 25 characters.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2810,10 +2810,10 @@ public class Helix {
     /**
      * Creates a Channel Points Prediction.
      *
-     * @param title The question that the broadcaster is asking. The title is limited to a maximum of 45 characters.
-     * @param duration The length of time that the prediction will run for. The minimum is 30 seconds and the maximum is 30 minutes.
-     * @param choices The list of possible outcomes that the viewers may choose from. The list must contain a minimum of 2 choices and up to a maximum of 10 choices. Echo choice is limited to a maximum of 25 characters.
-     * @return A JSONObject with the response
+     * @param title the question that the broadcaster is asking. The title is limited to a maximum of 45 characters.
+     * @param duration the length of time that the prediction will run for. The minimum is 30 seconds and the maximum is 30 minutes.
+     * @param choices the list of possible outcomes that the viewers may choose from. The list must contain a minimum of 2 choices and up to a maximum of 10 choices. Echo choice is limited to a maximum of 25 characters.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2825,10 +2825,10 @@ public class Helix {
     /**
      * Creates a Channel Points Prediction.
      *
-     * @param title The question that the broadcaster is asking. The title is limited to a maximum of 45 characters.
-     * @param duration The length of time that the prediction will run for. The minimum is 30 seconds and the maximum is 30 minutes.
-     * @param choices The list of possible outcomes that the viewers may choose from. The list must contain a minimum of 2 choices and up to a maximum of 10 choices. Each choice is limited to a maximum of 25 characters.
-     * @return A JSONObject with the response
+     * @param title the question that the broadcaster is asking. The title is limited to a maximum of 45 characters.
+     * @param duration the length of time that the prediction will run for. The minimum is 30 seconds and the maximum is 30 minutes.
+     * @param choices the list of possible outcomes that the viewers may choose from. The list must contain a minimum of 2 choices and up to a maximum of 10 choices. Each choice is limited to a maximum of 25 characters.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2915,10 +2915,10 @@ public class Helix {
      * The broadcaster has up to 24 hours after the prediction window closes to resolve the prediction.
      * If not, Twitch sets the status to {@link PredictionStatus.CANCELED} and returns the points.
      *
-     * @param id The ID of the prediction to update.
-     * @param status The status to set the prediction to.
-     * @param winningOutcomeId The ID of the winning outcome. You must set this parameter if you set status to {@link PredictionStatus.RESOLVED}.
-     * @return A JSONObject with the response
+     * @param id the ID of the prediction to update.
+     * @param status the status to set the prediction to.
+     * @param winningOutcomeId the ID of the winning outcome. You must set this parameter if you set status to {@link PredictionStatus.RESOLVED}.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2936,10 +2936,10 @@ public class Helix {
      * The broadcaster has up to 24 hours after the prediction window closes to resolve the prediction.
      * If not, Twitch sets the status to {@link PredictionStatus.CANCELED} and returns the points.
      *
-     * @param id The ID of the prediction to update.
-     * @param status The status to set the prediction to.
-     * @param winningOutcomeId The ID of the winning outcome. You must set this parameter if you set status to {@link PredictionStatus.RESOLVED}.
-     * @return A JSONObject with the response
+     * @param id the ID of the prediction to update.
+     * @param status the status to set the prediction to.
+     * @param winningOutcomeId the ID of the winning outcome. You must set this parameter if you set status to {@link PredictionStatus.RESOLVED}.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2979,9 +2979,9 @@ public class Helix {
      * You can also use this endpoint to see whether a specific user follows the broadcaster.
      *
      * @param user_id A user's ID. Use this parameter to see whether the user follows this broadcaster. If specified, the response contains this user if they follow the broadcaster. If not specified, the response contains all users that follow the broadcaster.
-     * @param first The maximum number of items to return per page in the response. Minimum: 1. Maximum: 100.
-     * @param after The cursor used to get the next page of results.
-     * @return A JSONObject with the response
+     * @param first the maximum number of items to return per page in the response. Minimum: 1. Maximum: 100.
+     * @param after the cursor used to get the next page of results.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -2996,9 +2996,9 @@ public class Helix {
      * You can also use this endpoint to see whether a specific user follows the broadcaster.
      *
      * @param user_id A user's ID. Use this parameter to see whether the user follows this broadcaster. If specified, the response contains this user if they follow the broadcaster. If not specified, the response contains all users that follow the broadcaster.
-     * @param first The maximum number of items to return per page in the response. Minimum: 1. Maximum: 100.
-     * @param after The cursor used to get the next page of results.
-     * @return A JSONObject with the response
+     * @param first the maximum number of items to return per page in the response. Minimum: 1. Maximum: 100.
+     * @param after the cursor used to get the next page of results.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -3018,9 +3018,9 @@ public class Helix {
      *
      * @param broadcaster_id The broadcaster's ID
      * @param user_id A user's ID. Use this parameter to see whether the user follows this broadcaster. If specified, the response contains this user if they follow the broadcaster. If not specified, the response contains all users that follow the broadcaster.
-     * @param first The maximum number of items to return per page in the response. Minimum: 1. Maximum: 100.
-     * @param after The cursor used to get the next page of results.
-     * @return A JSONObject with the response
+     * @param first the maximum number of items to return per page in the response. Minimum: 1. Maximum: 100.
+     * @param after the cursor used to get the next page of results.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -3036,9 +3036,9 @@ public class Helix {
      *
      * @param broadcaster_id The broadcaster's ID
      * @param user_id A user's ID. Use this parameter to see whether the user follows this broadcaster. If specified, the response contains this user if they follow the broadcaster. If not specified, the response contains all users that follow the broadcaster.
-     * @param first The maximum number of items to return per page in the response. Minimum: 1. Maximum: 100.
-     * @param after The cursor used to get the next page of results.
-     * @return A JSONObject with the response
+     * @param first the maximum number of items to return per page in the response. Minimum: 1. Maximum: 100.
+     * @param after the cursor used to get the next page of results.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */
@@ -3059,9 +3059,9 @@ public class Helix {
      * <p>
      * NOTE: There is a delay between when users join and leave a chat and when the list is updated accordingly.
      *
-     * @param first The maximum number of items to return per page in the response. Minimum: 1. Maximum: 1,000
-     * @param after The cursor used to get the next page of results.
-     * @return A JSONObject with the response
+     * @param first the maximum number of items to return per page in the response. Minimum: 1. Maximum: 1,000
+     * @param after the cursor used to get the next page of results.
+     * @return a JSONObject with the response
      * @throws JSONException
      * @throws IllegalArgumentException
      */

@@ -90,9 +90,9 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     /**
      * Handles incoming WebSocket frames and passes them to the appropriate {@link WsFrameHandler}
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param frame The {@link WebSocketFrame} containing the request frame
-     * @throws Exception Passes any thrown exceptions up the stack
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param frame the {@link WebSocketFrame} containing the request frame
+     * @throws Exception passes any thrown exceptions up the stack
      */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
@@ -113,9 +113,9 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
      *
      * If a handler is not available for the requested path, then {@code 404 NOT FOUND} is sent back to the client using JSON:API format
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param evt The event object
-     * @throws Exception Passes any thrown exceptions up the stack
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param evt the event object
+     * @throws Exception passes any thrown exceptions up the stack
      */
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
@@ -179,8 +179,8 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     /**
      * Handles exceptions that are thrown up the stack
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param cause The exception
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param cause the exception
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -192,8 +192,8 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     /**
      * Determines the best {@link WsFrameHandler} to use for a given URI
      *
-     * @param uri The URI to check
-     * @return The key of the {@link WsFrameHandler} to use, or {@code ""} if none were found
+     * @param uri the URI to check
+     * @return the key of the {@link WsFrameHandler} to use, or {@code ""} if none were found
      */
     static String determineWsFrameHandler(String uri) {
         String bestMatch = "";
@@ -214,8 +214,8 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     /**
      * Creates and prepares a text-type {@link WebSocketFrame} for transmission
      *
-     * @param content The content to send
-     * @return A {@link WebSocketFrame} that is ready to transmit
+     * @param content the content to send
+     * @return a {@link WebSocketFrame} that is ready to transmit
      */
     public static WebSocketFrame prepareTextWebSocketResponse(String content) {
         return new TextWebSocketFrame(content);
@@ -224,8 +224,8 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     /**
      * Creates and prepares a text-type {@link WebSocketFrame} for transmission from a {@link JSONObject}
      *
-     * @param json The {@link JSONObject} to send
-     * @return A {@link WebSocketFrame} that is ready to transmit
+     * @param json the {@link JSONObject} to send
+     * @return a {@link WebSocketFrame} that is ready to transmit
      */
     public static WebSocketFrame prepareTextWebSocketResponse(JSONObject json) {
         return new TextWebSocketFrame(json.toString());
@@ -234,8 +234,8 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     /**
      * Creates and prepares a text-type {@link WebSocketFrame} for transmission from a {@link JSONStringer}
      *
-     * @param json The {@link JSONStringer} to send
-     * @return A {@link WebSocketFrame} that is ready to transmit
+     * @param json the {@link JSONStringer} to send
+     * @return a {@link WebSocketFrame} that is ready to transmit
      */
     public static WebSocketFrame prepareTextWebSocketResponse(JSONStringer json) {
         return new TextWebSocketFrame(json.toString());
@@ -244,8 +244,8 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     /**
      * Creates and prepares a binary-type {@link WebSocketFrame} for transmission
      *
-     * @param content The binary content to send
-     * @return A {@link WebSocketFrame} that is ready to transmit
+     * @param content the binary content to send
+     * @return a {@link WebSocketFrame} that is ready to transmit
      */
     public static WebSocketFrame prepareBinaryWebSocketResponse(byte[] content) {
         return new BinaryWebSocketFrame(Unpooled.copiedBuffer(content));
@@ -254,8 +254,8 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     /**
      * Creates and prepares a Close {@link WebSocketFrame} for transmission
      *
-     * @param status The {@link WebSocketCloseStatus} to send
-     * @return A {@link WebSocketFrame} that is ready to transmit
+     * @param status the {@link WebSocketCloseStatus} to send
+     * @return a {@link WebSocketFrame} that is ready to transmit
      */
     public static WebSocketFrame prepareCloseWebSocketFrame(WebSocketCloseStatus status) {
         return new CloseWebSocketFrame(status);
@@ -264,9 +264,9 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     /**
      * Creates and prepares a Close {@link WebSocketFrame} for transmission
      *
-     * @param status The close status code to send
-     * @param reason The reason string to send
-     * @return A {@link WebSocketFrame} that is ready to transmit
+     * @param status the close status code to send
+     * @param reason the reason string to send
+     * @return a {@link WebSocketFrame} that is ready to transmit
      */
     public static WebSocketFrame prepareCloseWebSocketFrame(int status, String reason) {
         return new CloseWebSocketFrame(status, reason);
@@ -275,9 +275,9 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     /**
      * Transmits a {@link WebSocketFrame} back to the client
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param reqframe The {@link WebSocketFrame} containing the request
-     * @param resframe The {@link WebSocketFrame} to transmit
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param reqframe the {@link WebSocketFrame} containing the request
+     * @param resframe the {@link WebSocketFrame} to transmit
      */
     public static void sendWsFrame(ChannelHandlerContext ctx, WebSocketFrame reqframe, WebSocketFrame resframe) {
         sendWsFrame(ctx.channel(), reqframe, resframe);
@@ -286,9 +286,9 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     /**
      * Transmits a {@link WebSocketFrame} back to the client
      *
-     * @param ch The {@link Channel} of the connection
-     * @param reqframe The {@link WebSocketFrame} containing the request
-     * @param resframe The {@link WebSocketFrame} to transmit
+     * @param ch the {@link Channel} of the connection
+     * @param reqframe the {@link WebSocketFrame} containing the request
+     * @param resframe the {@link WebSocketFrame} to transmit
      */
     public static void sendWsFrame(Channel ch, WebSocketFrame reqframe, WebSocketFrame resframe) {
         try {
@@ -305,7 +305,7 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     /**
      * Transmits a {@link WebSocketFrame} to all authenticated clients
      *
-     * @param resframe The {@link WebSocketFrame} to transmit
+     * @param resframe the {@link WebSocketFrame} to transmit
      */
     public static void broadcastWsFrame(WebSocketFrame resframe) {
         WS_SESSIONS.forEach((c) -> {
@@ -320,8 +320,8 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     /**
      * Transmits a {@link WebSocketFrame} to all authenticated clients that are connected to a specific URI
      *
-     * @param uri The URI to filter clients by for the broadcast
-     * @param resframe The {@link WebSocketFrame} to transmit
+     * @param uri the URI to filter clients by for the broadcast
+     * @param resframe the {@link WebSocketFrame} to transmit
      */
     public static void broadcastWsFrame(String uri, WebSocketFrame resframe) {
         com.gmt2001.Console.debug.println("Broadcasting frame to Uri [" + uri + "]");
@@ -371,9 +371,9 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     /**
      * Registers a WS URI path to a {@link WsFrameHandler}
      *
-     * @param path The URI path to bind the handler to
-     * @param handler The {@link WsFrameHandler} that will handle the requests
-     * @throws IllegalArgumentException If {@code path} is either already registered, or illegal
+     * @param path the URI path to bind the handler to
+     * @param handler the {@link WsFrameHandler} that will handle the requests
+     * @throws IllegalArgumentException if {@code path} is either already registered, or illegal
      * @see validateUriPath
      */
     public static void registerWsHandler(String path, WsFrameHandler handler) {
@@ -391,7 +391,7 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     /**
      * Deregisters a WS URI path
      *
-     * @param path The path to deregister
+     * @param path the path to deregister
      */
     public static void deregisterWsHandler(String path) {
         wsFrameHandlers.remove(path);

@@ -155,9 +155,9 @@ public abstract class EventSubSubscriptionType implements Flow.Subscriber<EventS
     /**
      * Actually creates the proposed {@link EventSubSubscription}
      *
-     * @param type The subscription type to create
-     * @param version The subscription type version
-     * @param condition The conditions which will trigger notifications for this subscription
+     * @param type the subscription type to create
+     * @param version the subscription type version
+     * @param condition the conditions which will trigger notifications for this subscription
      * @return
      */
     protected EventSubSubscription proposeSubscriptionInternal(String type, String version, Map<String, String> condition) {
@@ -183,7 +183,7 @@ public abstract class EventSubSubscriptionType implements Flow.Subscriber<EventS
     /**
      * Validates that the provided parameters are acceptable for use in {@link proposeSubscription}
      *
-     * @throws IllegalArgumentException One of the parameters is not acceptable
+     * @throws IllegalArgumentException one of the parameters is not acceptable
      */
     protected abstract void validateParameters() throws IllegalArgumentException;
 

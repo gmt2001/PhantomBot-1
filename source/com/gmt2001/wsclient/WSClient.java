@@ -82,9 +82,9 @@ public class WSClient {
     /**
      * Constructor that does not initialize a {@link WSPinger}
      *
-     * @param uri The URI to connect to
-     * @param handler An object implementing {@link WsClientFrameHandler} which will receive frames
-     * @throws SSLException Failed to create the {@link SslContext}
+     * @param uri the URI to connect to
+     * @param handler an object implementing {@link WsClientFrameHandler} which will receive frames
+     * @throws SSLException failed to create the {@link SslContext}
      * @throws IllegalArgumentException URI scheme is not ws or wss
      */
     public WSClient(URI uri, WsClientFrameHandler handler) throws SSLException, IllegalArgumentException {
@@ -141,8 +141,8 @@ public class WSClient {
      * Connects to the server
      *
      * @return true if the socket has connected and is starting the handshake; false otherwise
-     * @throws InterruptedException The connection process was interrupted
-     * @throws IllegalStateException Attempting to use a closed client
+     * @throws InterruptedException the connection process was interrupted
+     * @throws IllegalStateException attempting to use a closed client
      */
     public boolean connect() throws InterruptedException, IllegalStateException {
         try {
@@ -185,7 +185,7 @@ public class WSClient {
     /**
      * Retrieves the socket channel
      *
-     * @return The socket channel if connected; null otherwise
+     * @return the socket channel if connected; null otherwise
      */
     public Channel channel() {
         return this.channel;
@@ -194,7 +194,7 @@ public class WSClient {
     /**
      * Sends a WebSocket frame
      *
-     * @param frame The frame to send
+     * @param frame the frame to send
      */
     public void send(WebSocketFrame frame) {
         WebSocketFrameHandler.sendWsFrame(this.channel(), null, frame);
@@ -203,7 +203,7 @@ public class WSClient {
     /**
      * Sends a WebSocket frame of type Text
      *
-     * @param text The body content of the frame
+     * @param text the body content of the frame
      */
     public void send(String text) {
         WebSocketFrameHandler.sendWsFrame(this.channel(), null, WebSocketFrameHandler.prepareTextWebSocketResponse(text));
@@ -212,7 +212,7 @@ public class WSClient {
     /**
      * Stringifys a {@link JSONObject}, then sends it as a WebSocket frame of type Text
      *
-     * @param jso The {@link JSONObject} to send
+     * @param jso the {@link JSONObject} to send
      */
     public void send(JSONObject jso) {
         WebSocketFrameHandler.sendWsFrame(this.channel(), null, WebSocketFrameHandler.prepareTextWebSocketResponse(jso));
@@ -221,7 +221,7 @@ public class WSClient {
     /**
      * Sends a WebSocket frame of type Binary
      *
-     * @param binarydata The binary bytes to send
+     * @param binarydata the binary bytes to send
      */
     public void send(byte[] binarydata) {
         WebSocketFrameHandler.sendWsFrame(this.channel(), null, WebSocketFrameHandler.prepareBinaryWebSocketResponse(binarydata));
@@ -238,7 +238,7 @@ public class WSClient {
     /**
      * Sends a WebSocket frame of type Close, then closes the socket, with a grace period for ongoing requests to finish
      *
-     * @param status The close status code to send
+     * @param status the close status code to send
      */
     public void close(WebSocketCloseStatus status) {
         this.close(WebSocketFrameHandler.prepareCloseWebSocketFrame(status));
@@ -247,8 +247,8 @@ public class WSClient {
     /**
      * Sends a WebSocket frame of type Close, then closes the socket, with a grace period for ongoing requests to finish
      *
-     * @param status The close status code to send
-     * @param reason The reason string to send
+     * @param status the close status code to send
+     * @param reason the reason string to send
      */
     public void close(WebSocketCloseStatus status, String reason) {
         this.close(status.code(), reason);
@@ -257,8 +257,8 @@ public class WSClient {
     /**
      * Sends a WebSocket frame of type Close, then closes the socket, with a grace period for ongoing requests to finish
      *
-     * @param status The close status code to send
-     * @param reason The reason string to send
+     * @param status the close status code to send
+     * @param reason the reason string to send
      */
     public void close(int status, String reason) {
         this.close(WebSocketFrameHandler.prepareCloseWebSocketFrame(status, reason));
@@ -267,7 +267,7 @@ public class WSClient {
     /**
      * Sends a WebSocket frame of type Close, then closes the socket, with a grace period for ongoing requests to finish
      *
-     * @param closeFrame The close frame to send
+     * @param closeFrame the close frame to send
      */
     public void close(WebSocketFrame closeFrame) {
         com.gmt2001.Console.debug.println("caller " + com.gmt2001.Console.debug.findCallerInfo("com.gmt2001.wsclient.WSClient"));

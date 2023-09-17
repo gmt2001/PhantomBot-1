@@ -57,9 +57,9 @@ public class HttpSslRedirectHandler extends SimpleChannelInboundHandler<FullHttp
     /**
      * Redirects non-SSL requests to SSL
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param req The {@link FullHttpRequest} containing the request
-     * @throws Exception Passes any thrown exceptions up the stack
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param req the {@link FullHttpRequest} containing the request
+     * @throws Exception passes any thrown exceptions up the stack
      */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest req) throws Exception {
@@ -115,8 +115,8 @@ public class HttpSslRedirectHandler extends SimpleChannelInboundHandler<FullHttp
     /**
      * Handles exceptions that are thrown up the stack
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param cause The exception
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param cause the exception
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {

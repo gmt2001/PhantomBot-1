@@ -29,8 +29,8 @@ public class CatchSslExceptionHandler extends ChannelInboundHandlerAdapter {
     /**
      * Handles exceptions that are thrown up the stack
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param cause The exception
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param cause the exception
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {

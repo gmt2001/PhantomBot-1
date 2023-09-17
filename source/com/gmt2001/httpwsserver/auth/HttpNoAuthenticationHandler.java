@@ -35,7 +35,7 @@ public final class HttpNoAuthenticationHandler implements HttpAuthenticationHand
     /**
      * Gets a handler instance
      *
-     * @return An instance of {@link HttpNoAuthenticationHandler}
+     * @return an instance of {@link HttpNoAuthenticationHandler}
      */
     public static synchronized HttpNoAuthenticationHandler instance() {
         if (INSTANCE == null) {
@@ -48,8 +48,8 @@ public final class HttpNoAuthenticationHandler implements HttpAuthenticationHand
     /**
      * Always returns {@code true}, since this handler is for No Authentication
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param req The {@link FullHttpRequest} of the request
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param req the {@link FullHttpRequest} of the request
      * @return
      */
     @Override

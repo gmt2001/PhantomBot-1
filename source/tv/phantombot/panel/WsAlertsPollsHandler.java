@@ -260,7 +260,7 @@ public class WsAlertsPollsHandler implements WsFrameHandler {
     /**
      * Sends a macro to be played by the alerts overlay
      *
-     * @param macroJson A json string with commands
+     * @param macroJson a json string with commands
      */
     public void sendMacro(String macroJson) {
         sendJSONToAll(macroJson);

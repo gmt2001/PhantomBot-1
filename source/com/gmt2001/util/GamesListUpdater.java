@@ -55,7 +55,7 @@ public final class GamesListUpdater {
     /**
      * Handles debug messages based on the class-specific debug flag
      *
-     * @param message The message to print
+     * @param message the message to print
      */
     private static void debug(String message) {
         /**
@@ -229,9 +229,9 @@ public final class GamesListUpdater {
     /**
      * Performs an update from the specified remote index, adding or renaming games
      *
-     * @param data The local index to be updated
-     * @param index The index id to update from
-     * @param force Indicates if force mode was used for this update, enabling additional output
+     * @param data the local index to be updated
+     * @param index the index id to update from
+     * @param force indicates if force mode was used for this update, enabling additional output
      */
     private static void UpdateFromIndex(List<String> data, int index, boolean force) {
         HttpClientResponse response;
@@ -270,8 +270,8 @@ public final class GamesListUpdater {
     /**
      * Performs an update from the remote delete list
      *
-     * @param data The local index to be updated
-     * @param deletes An array of game titles that have been deleted
+     * @param data the local index to be updated
+     * @param deletes an array of game titles that have been deleted
      */
     private static void DoDeletes(List<String> data, JSONArray deletes) {
         for (int i = 0; i < deletes.length(); i++) {

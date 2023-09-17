@@ -161,7 +161,7 @@ public final class debug {
      *
      * Always logs the stack trace, even with debug off
      *
-     * @param e A {@link Throwable} to print/log
+     * @param e a {@link Throwable} to print/log
      */
     public static void printOrLogStackTrace(Throwable e) {
         if (PhantomBot.getEnableDebugging()) {

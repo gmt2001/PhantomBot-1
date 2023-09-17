@@ -39,8 +39,8 @@ public class WindowedRateLimiter {
     /**
      * Constructor
      *
-     * @param windowMS The length of the window
-     * @param limit The maximum number of tokens available during the window
+     * @param windowMS the length of the window
+     * @param limit the maximum number of tokens available during the window
      */
     public WindowedRateLimiter(Duration window, int limit) {
         this(window.toMillis(), limit);
@@ -49,8 +49,8 @@ public class WindowedRateLimiter {
     /**
      * Constructor
      *
-     * @param windowMS The length of the window, in milliseconds
-     * @param limit The maximum number of tokens available during the window
+     * @param windowMS the length of the window, in milliseconds
+     * @param limit the maximum number of tokens available during the window
      */
     public WindowedRateLimiter(long windowMS, int limit) {
         this.windowMS = windowMS;
@@ -60,14 +60,14 @@ public class WindowedRateLimiter {
     }
 
     /**
-     * @return The maximum number of tokens available during the window
+     * @return the maximum number of tokens available during the window
      */
     public int limit() {
         return this.limit;
     }
 
     /**
-     * @return The length of the window, in milliseconds
+     * @return the length of the window, in milliseconds
      */
     public long windowMS() {
         return this.windowMS;
@@ -82,7 +82,7 @@ public class WindowedRateLimiter {
     }
 
     /**
-     * @return The current number of tokens available
+     * @return the current number of tokens available
      */
     public int currentTokens() {
         this.reset();
@@ -90,7 +90,7 @@ public class WindowedRateLimiter {
     }
 
     /**
-     * @return An {@link Instant} indicating when the window will next reset
+     * @return an {@link Instant} indicating when the window will next reset
      */
     public Instant nextReset() {
         return this.nextReset;
@@ -135,7 +135,7 @@ public class WindowedRateLimiter {
     /**
      * Takes a token and then runs the specified command. If a token is not available, waits until the next reset, then tries again
      *
-     * @param command The command to run on success
+     * @param command the command to run on success
      */
     public void waitAndTakeToken(Runnable command) {
         if (this.takeToken()) {
@@ -151,7 +151,7 @@ public class WindowedRateLimiter {
      * Runs the specified command when a token is available, but does not take the token. If a token is not available, waits until the next reset,
      * then tries again
      *
-     * @param command The command to run on success
+     * @param command the command to run on success
      */
     public void waitAndRun(Runnable command) {
         if (this.isTokenAvailable()) {

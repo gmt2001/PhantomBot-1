@@ -35,7 +35,7 @@ public final class RepoVersion {
     /**
      * The release version
      *
-     * @return The release version; {@code custom} for a manual build
+     * @return the release version; {@code custom} for a manual build
      */
     public static String getPhantomBotVersion() {
         return phantomBotVersion;
@@ -44,7 +44,7 @@ public final class RepoVersion {
     /**
      * The git SHA the build was made from
      *
-     * @return The git SHA; {@code unknown} if ant is unable to determine this
+     * @return the git SHA; {@code unknown} if ant is unable to determine this
      */
     public static String getRepoVersion() {
         return repoVersion;
@@ -53,7 +53,7 @@ public final class RepoVersion {
     /**
      * The build type, such as {@code stable}, {@code nightly}, or {@code edge}
      *
-     * @return The build type
+     * @return the build type
      */
     public static String getBuildType() {
         return buildType;
@@ -62,7 +62,7 @@ public final class RepoVersion {
     /**
      * The build type, with {@code _docker} appended if this is a Docker build
      *
-     * @return The build type
+     * @return the build type
      */
     public static String getBuildTypeWithDocker() {
         return buildType + (isDocker ? "_docker" : "");

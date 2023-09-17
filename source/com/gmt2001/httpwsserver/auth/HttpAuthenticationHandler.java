@@ -34,9 +34,15 @@ public interface HttpAuthenticationHandler {
      * When returning {@code false}, this method MUST also send either an {@code 401 Unauthorized}, a {@code Header Location}, or an error page back
      * to the client
      *
+<<<<<<< HEAD
      * @param ctx The {@link ChannelHandlerContext} of the session
      * @param req The {@link FullHttpRequest} to check
      * @return {@code true} if authorized
+=======
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param req the {@link FullHttpRequest} to check
+     * @return otherwise
+>>>>>>> bcb562333 (Normalize JavaDoc case)
      */
     boolean checkAuthorization(ChannelHandlerContext ctx, FullHttpRequest req);
 
@@ -46,9 +52,9 @@ public interface HttpAuthenticationHandler {
      * <p>
      * When returning {@code false}, this method MUST NOT send a response to the client
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param req The {@link FullHttpRequest} to check
-     * @return {@code true} if authorized
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param req the {@link FullHttpRequest} to check
+     * @return otherwise
      */
     boolean isAuthorized(ChannelHandlerContext ctx, FullHttpRequest req);
 
@@ -58,10 +64,9 @@ public interface HttpAuthenticationHandler {
      * <p>
      * When returning {@code false}, this method MUST NOT send a response to the client
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param headers The {@link HttpHeaders} to check
-     * @param requestUri The request URI
-     * @return {@code true} if authorized
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param headers the {@link HttpHeaders} to check
+     * @return otherwise
      */
     boolean isAuthorized(ChannelHandlerContext ctx, HttpHeaders headers, String requestUri);
 

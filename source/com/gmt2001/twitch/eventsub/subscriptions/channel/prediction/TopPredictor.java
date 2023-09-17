@@ -33,7 +33,7 @@ public final class TopPredictor {
     /**
      * Constructor
      *
-     * @param data Input data from the event
+     * @param data input data from the event
      */
     public TopPredictor(JSONObject data) {
         this.user_id = data.getString("user_id");

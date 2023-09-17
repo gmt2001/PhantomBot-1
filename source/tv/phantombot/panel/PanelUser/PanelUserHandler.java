@@ -225,7 +225,7 @@ public final class PanelUserHandler {
 
         /**
          * Gets the message intended for the web panel to be shown or handled there
-         * @return The message for the panel
+         * @return the message for the panel
          */
         public String getMessage() {
             return this.message;
@@ -251,7 +251,7 @@ public final class PanelUserHandler {
 
         /**
          * Get the JSON key under which the message should be send to the web panel
-         * @return The JSON key under which the message should be send to the web panel
+         * @return the JSON key under which the message should be send to the web panel
          */
         public String getJSONkey() {
             return this.JSONkey;
@@ -281,7 +281,7 @@ public final class PanelUserHandler {
 
         /**
          * The permissions value
-         * @return The permissions value
+         * @return the permissions value
          */
         public int getValue() {
             return this.value;
@@ -289,7 +289,7 @@ public final class PanelUserHandler {
 
         /**
          * The permissions display name
-         * @return The permissions display name
+         * @return the permissions display name
          */
         public String getDisplayName(){
             return this.displayName;
@@ -297,8 +297,8 @@ public final class PanelUserHandler {
 
         /**
          * Get a permission enum by it's {@link Permission#value value}
-         * @param value The permission's value to search for
-         * @return The permission if it has been found; The {@link Permission#READ_ONLY default permission} otherwise
+         * @param value the permission's value to search for
+         * @return the permission if it has been found; The {@link Permission#READ_ONLY default permission} otherwise
          */
         public static Permission getByValue(int value) {
             for (Permission permission : Permission.values()) {
@@ -311,8 +311,8 @@ public final class PanelUserHandler {
 
         /**
          * Get a permission enum by it's {@link Permission#displayName display name}
-         * @param name The permission's name to search for
-         * @return The permission if it has been found; The {@link Permission#READ_ONLY default permission} otherwise
+         * @param name the permission's name to search for
+         * @return the permission if it has been found; The {@link Permission#READ_ONLY default permission} otherwise
          */
         public static Permission getByName(String name) {
             for (Permission permission : Permission.values()) {
@@ -326,8 +326,8 @@ public final class PanelUserHandler {
 
     /**
      * Checks if the {@link PanelUser panel user} is allowed to logon to the web panel and/or use the websocket
-     * @param base64Token The user's login token in base64 from the HTTP-Headers
-     * @param requestUri The requested uri
+     * @param base64Token the user's login token in base64 from the HTTP-Headers
+     * @param requestUri the requested uri
      * @return {@code true} if the token is valid, the user is enabled and the user is allowed to access the uri; {@code false} otherwise
      * @see PanelUserHandler#checkLogin(String username, String password, String requestUri)
      */
@@ -337,9 +337,9 @@ public final class PanelUserHandler {
 
     /**
      * Checks if the {@link PanelUser panel user} is allowed to logon to the web panel and/or use the websocket
-     * @param base64Token The user's login token in base64 from the HTTP-Headers
-     * @param requestUri The requested uri
-     * @return A {@link PanelUser} if the user exists, is enabled and is allowed to access the uri; {@code null} otherwise
+     * @param base64Token the user's login token in base64 from the HTTP-Headers
+     * @param requestUri the requested uri
+     * @return a {@link PanelUser} if the user exists, is enabled and is allowed to access the uri; {@code null} otherwise
      * @see PanelUserHandler#checkLoginAndGetUser(String username, String password, String requestUri)
      */
     public static PanelUser checkLoginAndGetUserB64(String base64Token, String requestUri) {
@@ -360,8 +360,8 @@ public final class PanelUserHandler {
 
     /**
      * Checks if the {@link PanelUser panel user} is allowed to logon to the web panel and/or use the websocket
-     * @param username The user's username
-     * @param password The user's password
+     * @param username the user's username
+     * @param password the user's password
      * @return {@code true} if the exists and is enabled; {@code false} otherwise
      * @see PanelUserHandler#checkLogin(String username, String password, String requestUri)
      */
@@ -371,9 +371,9 @@ public final class PanelUserHandler {
 
     /**
      * Checks if the {@link PanelUser panel user} is allowed to logon to the web panel and/or use the websocket
-     * @param username The user's username
-     * @param password The user's password
-     * @return A {@link PanelUser} if the user exists, is enabled and is allowed to access the uri; {@code null} otherwise
+     * @param username the user's username
+     * @param password the user's password
+     * @return a {@link PanelUser} if the user exists, is enabled and is allowed to access the uri; {@code null} otherwise
      * @see PanelUserHandler#checkLoginAndGetUser(String username, String password, String requestUri)
      */
     public static PanelUser checkLoginAndGetUser(String username, String password) {
@@ -382,9 +382,9 @@ public final class PanelUserHandler {
 
     /**
      * Checks if the {@link PanelUser panel user} is allowed to logon to the web panel and/or use the websocket
-     * @param username The user's username
-     * @param password The user's password
-     * @param requestUri The requested uri
+     * @param username the user's username
+     * @param password the user's password
+     * @param requestUri the requested uri
      * @return {@code true} if the user exists, is enabled and is allowed to access the uri; {@code false} otherwise
      * @see PanelUserHandler#checkLoginAndGetUser(String username, String password, String requestUri)
      */
@@ -394,10 +394,10 @@ public final class PanelUserHandler {
 
     /**
      * Checks if the {@link PanelUser panel user} is allowed to logon to the web panel and/or use the websocket
-     * @param username The user's username
-     * @param password The user's password
-     * @param requestUri The requested uri
-     * @return A {@link PanelUser} if the user exists, is enabled and is allowed to access the uri; {@code null} otherwise
+     * @param username the user's username
+     * @param password the user's password
+     * @param requestUri the requested uri
+     * @return a {@link PanelUser} if the user exists, is enabled and is allowed to access the uri; {@code null} otherwise
      * @see PanelUser#LookupByUsername(String) exists
      * @see PanelUser#isEnabled()
      */
@@ -433,8 +433,8 @@ public final class PanelUserHandler {
 
     /**
      * Checks if the {@link PanelUser panel user} is allowed to logon to the web panel and/or use the websocket by his authentication token
-     * @param authToken The user's authentication token
-     * @return A {@link PanelUser} if a user with that authentication token exists and is enabled; {@code null} otherwise
+     * @param authToken the user's authentication token
+     * @return a {@link PanelUser} if a user with that authentication token exists and is enabled; {@code null} otherwise
      * @see PanelUser#LookupByAuthToken(String)
      * @see PanelUser#isEnabled()
      */
@@ -449,8 +449,8 @@ public final class PanelUserHandler {
 
     /**
      * Get the authentication token for a {@link PanelUser panel user}
-     * @param username The user's username
-     * @return The user's websocket authentication token if the user exists and is enabled; {@code null} otherwise
+     * @param username the user's username
+     * @return the user's websocket authentication token if the user exists and is enabled; {@code null} otherwise
      * @see PanelUser#getAuthToken() token generation
      * @see WsPanelHandler#handleFrame() token usage
      * @see PanelUser#LookupByUsername(String) exists
@@ -476,7 +476,7 @@ public final class PanelUserHandler {
      * @param username
      * @param currentPassword
      * @param newPassword
-     * @return The fitting {@link PanelMessage panel message}
+     * @return the fitting {@link PanelMessage panel message}
      * @see PanelUser#LookupByUsername(String) exists
      */
     public static PanelMessage changePassword(String username, String currentPassword, String newPassword) {
@@ -507,9 +507,9 @@ public final class PanelUserHandler {
 
     /**
      * Creates a new {@link PanelUser panel user} with full access {@link Permission permissions} to all panel sections if the user does not exist
-     * @param username The user's name
+     * @param username the user's name
      * @param enabled {@code true} if the user should be enabled; {@code false} otherwise
-     * @return The fitting {@link PanelMessage panel message}
+     * @return the fitting {@link PanelMessage panel message}
      * @see PanelUser#create(String, Permission, boolean) User Creation
      * @see PanelUser#LookupByUsername(String) exists
      */
@@ -519,12 +519,12 @@ public final class PanelUserHandler {
 
     /**
      * Creates a new {@link PanelUser panel user} if the user does not exist
-     * @param username The user's name
-     * @param permission The user's {@link Permission#getDisplayName() permissions display name}
+     * @param username the user's name
+     * @param permission the user's {@link Permission#getDisplayName() permissions display name}
      * @param enabled {@code true} if the user should be enabled; {@code false} otherwise
      * @param canManageUsers {@code true} to allow the user to manage other users; {@code false} to prohibit this
      * @param canRestartBot {@code true} to allow the user to restart the bot via the panel; {@code false} to prohibit this
-     * @return The fitting {@link PanelMessage panel message}
+     * @return the fitting {@link PanelMessage panel message}
      * @see PanelUser#create(String, Permission, boolean) User Creation
      * @see PanelUser#LookupByUsername(String) exists
      */
@@ -534,12 +534,12 @@ public final class PanelUserHandler {
 
     /**
      * Creates a new {@link PanelUser panel user} if the user does not exist
-     * @param username The user's name
-     * @param permission The user's {@link Permission permissions}
+     * @param username the user's name
+     * @param permission the user's {@link Permission permissions}
      * @param enabled {@code true} if the user should be enabled; {@code false} otherwise
      * @param canManageUsers {@code true} to allow the user to manage other users; {@code false} to prohibit this
      * @param canRestartBot {@code true} to allow the user to restart the bot via the panel; {@code false} to prohibit this
-     * @return The fitting {@link PanelMessage panel message}
+     * @return the fitting {@link PanelMessage panel message}
      * @see PanelUser#create(String, Permission, boolean) User Creation
      * @see PanelUser#LookupByUsername(String) exists
      */
@@ -563,8 +563,8 @@ public final class PanelUserHandler {
      * Deletes a {@link PanelUser panel user}
      * <br /><br />
      * Only existing and {@link PanelUser#canBeEdited() editable} {@link PanelUser panel users} can be deleted
-     * @param username The user's name which should be deleted
-     * @return The fitting {@link PanelMessage panel message}
+     * @param username the user's name which should be deleted
+     * @return the fitting {@link PanelMessage panel message}
      * @see PanelUser#dodelete() User deletion
      * @see PanelUser#LookupByUsername(String) exists
      */
@@ -608,13 +608,13 @@ public final class PanelUserHandler {
      * Changes a {@link PanelUser panel user's} properties
      * <br /><br />
      * Only existing and {@link PanelUser#canBeEdited() editable} {@link PanelUser panel users} can be deleted
-     * @param currentUsername The user's name which should be edited
-     * @param newUsername The user's new name; {@code null} to not change the username
-     * @param permission The user's new {@link Permission permissions}; {@code null} to not change the {@link Permission permission}
+     * @param currentUsername the user's name which should be edited
+     * @param newUsername the user's new name; {@code null} to not change the username
+     * @param permission the user's new {@link Permission permissions}; {@code null} to not change the {@link Permission permission}
      * @param enabled {@code true} to enable the user; {@code false} to disable the user
      * @param canManageUsers {@code true} to allow the user to manage other users; {@code false} to prohibit this
      * @param canRestartBot {@code true} to allow the user to restart the bot via the panel; {@code false} to prohibit this
-     * @return The fitting {@link PanelMessage panel message}
+     * @return the fitting {@link PanelMessage panel message}
      * @see PanelUser#LookupByUsername(String) exists
      */
     public static PanelMessage editUser(String currentUsername, String newUsername, JSONArray jsoPermissions, boolean enabled, boolean canManageUsers, boolean canRestartBot) {
@@ -625,13 +625,13 @@ public final class PanelUserHandler {
      * Changes a {@link PanelUser panel user's} properties
      * <br /><br />
      * Only existing and {@link PanelUser#canBeEdited() editable} {@link PanelUser panel users} can be deleted
-     * @param currentUsername The user's name which should be edited
-     * @param newUsername The user's new name; {@code null} to not change the username
-     * @param permission The user's new {@link Permission permission}; {@code null} to not change the {@link Permission permissions}
+     * @param currentUsername the user's name which should be edited
+     * @param newUsername the user's new name; {@code null} to not change the username
+     * @param permission the user's new {@link Permission permission}; {@code null} to not change the {@link Permission permissions}
      * @param enabled {@code true} to enable the user; {@code false} to disable the user
      * @param canManageUsers {@code true} to allow the user to manage other users; {@code false} to prohibit this
      * @param canRestartBot {@code true} to allow the user to restart the bot via the panel; {@code false} to prohibit this
-     * @return The fitting {@link PanelMessage panel message}
+     * @return the fitting {@link PanelMessage panel message}
      * @see PanelUser#LookupByUsername(String) exists
      */
     public static PanelMessage editUser(String currentUsername, String newUsername, Map<String, Permission> permissions, boolean enabled, Boolean canManageUsers, Boolean canRestartBot) {
@@ -679,11 +679,11 @@ public final class PanelUserHandler {
      * Changes a {@link PanelUser panel user's} properties
      * <br /><br />
      * Only existing and {@link PanelUser#canBeEdited() editable} {@link PanelUser panel users} can be deleted
-     * @param currentUsername The user's name which should be edited
-     * @param newUsername The user's new name; {@code null} to not change the username
-     * @param permission The user's new {@link Permission permission}; {@code null} to not change the {@link Permission permissions}
+     * @param currentUsername the user's name which should be edited
+     * @param newUsername the user's new name; {@code null} to not change the username
+     * @param permission the user's new {@link Permission permission}; {@code null} to not change the {@link Permission permissions}
      * @param enabled {@code true} to enable the user; {@code false} to disable the user
-     * @return The fitting {@link PanelMessage panel message}
+     * @return the fitting {@link PanelMessage panel message}
      * @see PanelUser#LookupByUsername(String) exists
      */
     public static PanelMessage editUser(String currentUsername, String newUsername, Map<String, Permission> permissions, boolean enabled) {
@@ -694,8 +694,8 @@ public final class PanelUserHandler {
      * Resets a {@link PanelUser panel user's} password
      * <br /><br />
      * Only existing and {@link PanelUser#canBeEdited() editable} {@link PanelUser panel users} can have their passwords reset
-     * @param username The user's name who's password should be reset
-     * @return The new random password
+     * @param username the user's name who's password should be reset
+     * @return the new random password
      * @see PanelUser#LookupByUsername(String) exists
      * @see PanelUser#generateNewPassword() password generation
      */
@@ -727,7 +727,7 @@ public final class PanelUserHandler {
 
     /**
      * Adds the {@link PanelUser panel users} safe properties (username, isEnabled, {@link Permission permissions}, creationDate, lastLogin) as an array to an {@link JSONStringer JSONStringer} instance
-     * @param jsonObject The {@link JSONStringer JSONStringer} instance to which the array should be added to
+     * @param jsonObject the {@link JSONStringer JSONStringer} instance to which the array should be added to
      * @see PanelUser#getUsername() username
      * @see PanelUser#isEnabled() isEnabled
      * @see PanelUser#getPermission() permissions
@@ -752,7 +752,7 @@ public final class PanelUserHandler {
 
     /**
      * Adds the {@link Permission permissions} as an array to an {@link JSONStringer JSONStringer} instance
-     * @param jsonObject The {@link JSONStringer JSONStringer} instance to which the {@link Permission permissions} array should be added to
+     * @param jsonObject the {@link JSONStringer JSONStringer} instance to which the {@link Permission permissions} array should be added to
      */
     public static void getPermissionsJSONObject(JSONStringer jsonObject) {
         jsonObject.array();
@@ -767,8 +767,8 @@ public final class PanelUserHandler {
 
     /**
      * Adds the {@link PanelUser panel user's} safe properties (username, isEnabled, {@link Permission permissions}, hasSetPassword, {@link PanelUser.Type userType) as an array to an {@link JSONStringer JSONStringer} instance
-     * @param username The user's name which properties should be returned
-     * @param jsonObject The {@link JSONStringer JSONStringer} instance to which the user's properties should be added to
+     * @param username the user's name which properties should be returned
+     * @param jsonObject the {@link JSONStringer JSONStringer} instance to which the user's properties should be added to
      * @see PanelUser#getUsername() username
      * @see PanelUser#isEnabled() isEnabled
      * @see PanelUser#getPermission() permissions
@@ -793,7 +793,7 @@ public final class PanelUserHandler {
 
     /**
      * Adds the available {@link PANEL_SECTIONS panel sections} as an array to an {@link JSONStringer JSONStringer} instance
-     * @param jsonObject The {@link JSONStringer JSONStringer} instance to which the {@link PANEL_SECTIONS panel sections} should be added to
+     * @param jsonObject the {@link JSONStringer JSONStringer} instance to which the {@link PANEL_SECTIONS panel sections} should be added to
      */
     public static void getAllPanelSectionsJSONObject(JSONStringer jsonObject) {
         jsonObject.array();
@@ -831,10 +831,10 @@ public final class PanelUserHandler {
 
      /**
      * Checks if a user is allowed to access a database table
-     * @param user The {@link Paneluser user}
-     * @param tablename The tableName to be checked
-     * @param section The {@link PANEL_SECTIONS panel section} on which this request was created
-     * @param isWriteAction Indicates if the action is an action requiring {@link Permission.READ_WRITE write permissions}
+     * @param user the {@link Paneluser user}
+     * @param tablename the tableName to be checked
+     * @param section the {@link PANEL_SECTIONS panel section} on which this request was created
+     * @param isWriteAction indicates if the action is an action requiring {@link Permission.READ_WRITE write permissions}
      * @return {@code true} if the user is allowed to access the table under the conditions; {@code false} otherwise
      */
     public static boolean checkPanelUserDatabaseAccess(PanelUser user, String tableName, String section, boolean isWriteAction) {
@@ -851,9 +851,9 @@ public final class PanelUserHandler {
 
     /**
      * Checks if a user is allowed send websocket events to a specific script
-     * @param user The {@link Paneluser user}
-     * @param script The script path being accessed
-     * @param section The {@link PANEL_SECTIONS panel section} on which this request was created
+     * @param user the {@link Paneluser user}
+     * @param script the script path being accessed
+     * @param section the {@link PANEL_SECTIONS panel section} on which this request was created
      * @return {@code true} if the user is allowed to access the table under the conditions; {@code false} otherwise
      */
     public static boolean checkPanelUserScriptAccess(PanelUser user, String script, String[] args, String section) {
@@ -891,9 +891,9 @@ public final class PanelUserHandler {
 
     /**
      * Checks if a user has to access a {@link PANEL_SECTIONS panel section}
-     * @param user The {@link Paneluser user}
-     * @param section The {@link PANEL_SECTIONS panel section} on which this request was created
-     * @param isWriteAction Indicates if the action is an action requiring {@link Permission.READ_WRITE write permissions}
+     * @param user the {@link Paneluser user}
+     * @param section the {@link PANEL_SECTIONS panel section} on which this request was created
+     * @param isWriteAction indicates if the action is an action requiring {@link Permission.READ_WRITE write permissions}
      * @return {@code true} if the user is allowed to access the table under the conditions; {@code false} otherwise
      */
     public static boolean checkPanelUserSectionAccess(PanelUser user, String section, boolean isWriteAction) {
@@ -927,9 +927,9 @@ public final class PanelUserHandler {
 
     /**
      * Checks if a user is allowed to send a command to the bots modules
-     * @param user The {@link Paneluser user}
-     * @param command The command which has been sent by the user through the panel
-     * @param section The {@link PANEL_SECTIONS panel section} on which this request was created
+     * @param user the {@link Paneluser user}
+     * @param command the command which has been sent by the user through the panel
+     * @param section the {@link PANEL_SECTIONS panel section} on which this request was created
      * @return {@code true} if the user is allowed to access the table under the conditions; {@code false} otherwise
      */
     public static boolean checkPanelUserCommandAccess(PanelUser user, String command, String section) {

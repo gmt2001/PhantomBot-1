@@ -36,7 +36,7 @@ public final class NotJSONException extends JSONException {
     /**
      * Constructor with message override
      *
-     * @param message The error message
+     * @param message the error message
      */
     public NotJSONException(String message) {
         super(message);

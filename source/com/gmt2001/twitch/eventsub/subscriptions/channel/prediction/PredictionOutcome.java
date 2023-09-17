@@ -54,7 +54,7 @@ public final class PredictionOutcome {
     /**
      * Constructor
      *
-     * @param data Input data from the event
+     * @param data input data from the event
      */
     public PredictionOutcome(JSONObject data) {
         this.id = data.getString("id");

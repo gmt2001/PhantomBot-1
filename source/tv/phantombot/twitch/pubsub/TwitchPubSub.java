@@ -65,9 +65,9 @@ public class TwitchPubSub extends SubmissionPublisher<PubSubMessage> {
     /**
      * Constructor for the PubSub class.
      *
-     * @param channelId The channel user id.
-     * @param botId The bot user id.
-     * @param oAuth The APIOAuth token
+     * @param channelId the channel user id.
+     * @param botId the bot user id.
+     * @param oAuth the APIOAuth token
      */
     public TwitchPubSub(int channelId, int botId, String oAuth) {
         this.channelId = channelId;
@@ -202,9 +202,9 @@ public class TwitchPubSub extends SubmissionPublisher<PubSubMessage> {
         /**
          * Constructor for the PubSubWS class.
          *
-         * @param uri The URI to connect to
-         * @param twitchPubSub The {@link TwitchPubSub} instance that owns this connection
-         * @param oAuth The APIOAuth
+         * @param uri the URI to connect to
+         * @param twitchPubSub the {@link TwitchPubSub} instance that owns this connection
+         * @param oAuth the APIOAuth
          */
         private TwitchPubSubWS(URI uri, TwitchPubSub twitchPubSub, String oAuth) {
             this.uri = uri;
@@ -267,7 +267,7 @@ public class TwitchPubSub extends SubmissionPublisher<PubSubMessage> {
         /**
          * Changes the OAuth token for the next, and future, connect attempts
          *
-         * @param oAuth The new OAuth token
+         * @param oAuth the new OAuth token
          */
         public void setOAuth(String oAuth) {
             this.oAuth = oAuth;
@@ -292,7 +292,7 @@ public class TwitchPubSub extends SubmissionPublisher<PubSubMessage> {
         /**
          * Sends the message
          *
-         * @param message The message to send
+         * @param message the message to send
          */
         @SuppressWarnings({"unused"})
         public void send(String message) {
@@ -302,7 +302,7 @@ public class TwitchPubSub extends SubmissionPublisher<PubSubMessage> {
         /**
          * Sends the message
          *
-         * @param message The message to send
+         * @param message the message to send
          */
         public void send(JSONObject message) {
             this.client.send(message);
@@ -311,7 +311,7 @@ public class TwitchPubSub extends SubmissionPublisher<PubSubMessage> {
         /**
          * This function parses the message we get from PubSub. Since everything is sent in a jsonObject there is a bit of checks to do.
          *
-         * @param message Message we get from PubSub.
+         * @param message message we get from PubSub.
          */
         private void parse(JSONObject message) throws JSONException {
             JSONObject dataObj;
@@ -329,8 +329,8 @@ public class TwitchPubSub extends SubmissionPublisher<PubSubMessage> {
         /**
          * Sends the topic subscription requests
          *
-         * @param type The topics to subscribe to
-         * @param nonce The nonce for the request
+         * @param type the topics to subscribe to
+         * @param nonce the nonce for the request
          */
         public void subscribeToTopics(String[] type, String nonce) {
             JSONObject jsonObject = new JSONObject();
@@ -348,8 +348,8 @@ public class TwitchPubSub extends SubmissionPublisher<PubSubMessage> {
         /**
          * Sends the topic subscription cancellation requests
          *
-         * @param type The topics to unsubscribe from
-         * @param nonce The nonce for the request
+         * @param type the topics to unsubscribe from
+         * @param nonce the nonce for the request
          */
         public void unsubscribeFromTopics(String[] type, String nonce) {
             JSONObject jsonObject = new JSONObject();
@@ -376,8 +376,8 @@ public class TwitchPubSub extends SubmissionPublisher<PubSubMessage> {
         /**
          * Handles the event of when the socket closes, this will also attempt to reconnect to PubSub when it happens.
          *
-         * @param code The code of why the socket closed.
-         * @param reason The reasons as why the socket closed.
+         * @param code the code of why the socket closed.
+         * @param reason the reasons as why the socket closed.
          */
         private void onClose(int code, String reason) {
             com.gmt2001.Console.warn.println("Code [" + code + "] Reason [" + reason + "]");
@@ -399,7 +399,7 @@ public class TwitchPubSub extends SubmissionPublisher<PubSubMessage> {
         /**
          * Handles the event of when we get messages from the socket.
          *
-         * @param message Message the socket sent.
+         * @param message message the socket sent.
          */
         private void onMessage(String message) {
             try {
@@ -442,8 +442,8 @@ public class TwitchPubSub extends SubmissionPublisher<PubSubMessage> {
         /**
          * Closes the socket
          *
-         * @param status The close status code to send
-         * @param reason The close reason to send
+         * @param status the close status code to send
+         * @param reason the close reason to send
          */
         public void close(int status, String reason) {
             this.client.close(status, reason);

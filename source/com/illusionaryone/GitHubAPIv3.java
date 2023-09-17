@@ -83,8 +83,8 @@ public final class GitHubAPIv3 {
     /**
      * Compares version strings on the dot-notation integers only
      *
-     * @param left Original/running version
-     * @param right Remote/latest version
+     * @param left original/running version
+     * @param right remote/latest version
      * @return {@code false} if right and left are valid version strings, and right is newer than left; else {@code true}
      */
     public static boolean CompareVersions(String left, String right) {

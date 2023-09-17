@@ -53,6 +53,8 @@ import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
+import io.netty.util.IllegalReferenceCountException;
+import io.netty.util.ReferenceCounted;
 import tv.phantombot.CaselessProperties;
 import tv.phantombot.PhantomBot;
 
@@ -77,6 +79,20 @@ public final class HTTPWSServer {
      */
     public static final String HEADER_CF_RAY = "CF-Ray";
 
+    /**
+     * Releases a {@link ReferenceCounted} object
+     *
+     * @param obj the object to release
+     */
+    public static void releaseObj(ReferenceCounted obj) {
+        try {
+            if (obj != null && obj.refCnt() > 0) {
+                obj.release();
+            }
+        } catch (IllegalReferenceCountException ex) {
+            com.gmt2001.Console.err.printStackTrace(ex);
+        }
+    }
     /**
      * The server's {@link EventLoopGroup}
      */
@@ -104,7 +120,7 @@ public final class HTTPWSServer {
     /**
      * Gets the server instance
      *
-     * @return An initialized {@link HTTPWSServer}
+     * @return an initialized {@link HTTPWSServer}
      */
     public static HTTPWSServer instance() {
         return INSTANCE;
@@ -300,8 +316,8 @@ public final class HTTPWSServer {
     /**
      * Manages generation of the AutoSsl certificate
      *
-     * @param botName The bot name to use in the certificates DN
-     * @param forceNew If true, forces a brand new key pair to be generated
+     * @param botName the bot name to use in the certificates DN
+     * @param forceNew if true, forces a brand new key pair to be generated
      */
     void generateAutoSsl(String botName, boolean forceNew) {
         if (!this.autoSSL) {
@@ -518,8 +534,8 @@ public final class HTTPWSServer {
      * starts with {@code /ws} - The path contains a {@code ..} - The path attempts to access the {@code /config} directory, unless it is
      * {@code /config/audio-hooks} or {@code /config/gif-alerts}
      *
-     * @param path The path to check
-     * @param isWs Whether this check is for a WebSocket or not
+     * @param path the path to check
+     * @param isWs whether this check is for a WebSocket or not
      * @return true otherwise
      */
     static boolean validateUriPath(String path, boolean isWs) {

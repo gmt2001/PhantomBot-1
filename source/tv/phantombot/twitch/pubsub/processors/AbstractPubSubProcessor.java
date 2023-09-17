@@ -47,7 +47,7 @@ public abstract class AbstractPubSubProcessor implements Flow.Subscriber<PubSubM
     /**
      * Constructor. Subscribes to the Flow.Publisher and generates a nonce
      *
-     * @param topic The topic to subscribe to
+     * @param topic the topic to subscribe to
      */
     protected AbstractPubSubProcessor(String topic) {
         this(new String[]{topic});
@@ -56,7 +56,7 @@ public abstract class AbstractPubSubProcessor implements Flow.Subscriber<PubSubM
     /**
      * Constructor. Subscribes to the Flow.Publisher and generates a nonce
      *
-     * @param topics The topics to subscribe to
+     * @param topics the topics to subscribe to
      */
     protected AbstractPubSubProcessor(String[] topics) {
         this(Arrays.asList(topics));
@@ -65,7 +65,7 @@ public abstract class AbstractPubSubProcessor implements Flow.Subscriber<PubSubM
     /**
      * Constructor. Subscribes to the Flow.Publisher and generates a nonce
      *
-     * @param topics The topics to subscribe to
+     * @param topics the topics to subscribe to
      */
     protected AbstractPubSubProcessor(List<String> topics) {
         this.subscribe();
@@ -161,7 +161,7 @@ public abstract class AbstractPubSubProcessor implements Flow.Subscriber<PubSubM
     /**
      * Default handler for PubSubMessageType.SUBSCRIBERESULT, calls onSubscribeFailure or onSubscribeSuccess
      *
-     * @param body The full body of the message
+     * @param body the full body of the message
      */
     protected void onSubscribeResult(JSONObject body) {
         if (body.has("error") && body.getString("error").length() > 0) {
@@ -174,7 +174,7 @@ public abstract class AbstractPubSubProcessor implements Flow.Subscriber<PubSubM
     /**
      * Default handler for PubSubMessageType.MESSAGE, calls onEvent
      *
-     * @param body The full body of the message
+     * @param body the full body of the message
      */
     protected void onMessage(JSONObject body) {
         this.onEvent(body);
@@ -203,7 +203,7 @@ public abstract class AbstractPubSubProcessor implements Flow.Subscriber<PubSubM
     /**
      * Override this method to handle Flow.Subscriber.OnNext, called after the default handlers for PubSubMessageType
      *
-     * @param item The PubSubMessage that was submitted
+     * @param item the PubSubMessage that was submitted
      */
     protected void onFlowNext(PubSubMessage item) {
     }
@@ -217,7 +217,7 @@ public abstract class AbstractPubSubProcessor implements Flow.Subscriber<PubSubM
     /**
      * Override this method to handle Flow.Subscriber.OnError, called after the stack trace is sent to the logger
      *
-     * @param throwable The throwable that is causing the subscription to be canceled
+     * @param throwable the throwable that is causing the subscription to be canceled
      */
     protected void onFlowError(Throwable throwable) {
     }
@@ -236,14 +236,14 @@ public abstract class AbstractPubSubProcessor implements Flow.Subscriber<PubSubM
     /**
      * Called if the subscription request sent by this.subscribeToTopics or this.unsubscribeFromTopics failed
      *
-     * @param error The error message from Twitch describing why the subscription failed
+     * @param error the error message from Twitch describing why the subscription failed
      */
     protected abstract void onSubscribeFailure(String error);
 
     /**
      * Called when a new event for this subscription has been received
      *
-     * @param body The body of the event
+     * @param body the body of the event
      */
     protected abstract void onEvent(JSONObject body);
 }

@@ -50,7 +50,7 @@ public final class StreamOffline extends EventSubSubscriptionType {
     /**
      * Used by {@link onEventSubInternalNotificationEvent} to construct an object from an incoming notification
      *
-     * @param e The event
+     * @param e the event
      */
     public StreamOffline(EventSubInternalNotificationEvent e) {
         super(e.subscription(), e.messageId(), e.messageTimestamp());

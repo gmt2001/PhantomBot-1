@@ -33,8 +33,8 @@ public final class Digest {
     /**
      * Calculates a SHA-256 digest
      *
-     * @param message The message to calculate the digest on
-     * @return The calculated digest
+     * @param message the message to calculate the digest on
+     * @return the calculated digest
      */
     public static byte[] sha256(byte[] message) {
         try {
@@ -48,8 +48,8 @@ public final class Digest {
     /**
      * Calculates a SHA-256 digest and returns the result as a hex-encoded string
      *
-     * @param message The message to calculate the digest on
-     * @return The calculated digest as a hex-encoded string
+     * @param message the message to calculate the digest on
+     * @return the calculated digest as a hex-encoded string
      */
     public static String sha256(String message) {
         return String.format("%064x", new BigInteger(1, sha256(message.getBytes())));
@@ -58,8 +58,8 @@ public final class Digest {
     /**
      * Calculates a SHA-256 digest and compares it to an existing digest
      *
-     * @param message The message to calculate the digest on
-     * @param digest The existing digest to compare to
+     * @param message the message to calculate the digest on
+     * @param digest the existing digest to compare to
      * @return {@code true} if the calculated digest of {@code message} is equal to {@code digest}
      */
     public static boolean compareSha256(byte[] message, byte[] digest) {
@@ -69,8 +69,8 @@ public final class Digest {
     /**
      * Calculates a SHA-256 digest and compares it to an existing hex-encoded digest
      *
-     * @param message The message to calculate the digest on
-     * @param digest The existing hex-encoded digest to compare to
+     * @param message the message to calculate the digest on
+     * @param digest the existing hex-encoded digest to compare to
      * @return {@code true} if the calculated digest of {@code message} is equal to {@code digest}
      */
     public static boolean compareSha256(String message, String digest) {

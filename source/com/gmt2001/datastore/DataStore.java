@@ -1587,9 +1587,9 @@ public sealed class DataStore permits H2Store, MySQLStore, MariaDBStore, SqliteS
      * <p>
      * Exceptions from failed SQL queries are NOT returned or thrown, but are logged in the core-error log
      *
-     * @param sql The query to execute
-     * @param replacements Replacements for {@link PreparedStatement#setString(int, String)}
-     * @return An List of data as strings representing the result set, if the query was a DQL statement; an empty list otherwise. The outer list represents rows; the inner array represents columns; the values of the inner list represent the value of the row-column pair at that index as a string
+     * @param sql the query to execute
+     * @param replacements replacements for {@link PreparedStatement#setString(int, String)}
+     * @return an List of data as strings representing the result set, if the query was a DQL statement; an empty list otherwise. The outer list represents rows; the inner array represents columns; the values of the inner list represent the value of the row-column pair at that index as a string
      */
     public List<List<String>> query(String sql, String[] replacements) {
         List<List<String>> results = new ArrayList<>();
@@ -1643,9 +1643,9 @@ public sealed class DataStore permits H2Store, MySQLStore, MariaDBStore, SqliteS
      * <p>
      * Exceptions from failed SQL queries are NOT returned or thrown, but are logged in the core-error log
      *
-     * @param sql The query to execute
-     * @param replacements Replacements for {@link PreparedStatement#setString(int, String)}
-     * @return An array of data as strings representing the result set, if the query was a DQL statement; empty arrays otherwise. The outer array represents rows; the inner array represents columns; the values of the inner array represent the value of the row-column pair at that index as a string
+     * @param sql the query to execute
+     * @param replacements replacements for {@link PreparedStatement#setString(int, String)}
+     * @return an array of data as strings representing the result set, if the query was a DQL statement; empty arrays otherwise. The outer array represents rows; the inner array represents columns; the values of the inner array represent the value of the row-column pair at that index as a string
      */
     public String[][] executeSql(String sql, String[] replacements) {
         return this.query(sql, replacements).stream().map(al -> al.stream().toArray(String[]::new)).toArray(String[][]::new);
@@ -1724,7 +1724,7 @@ public sealed class DataStore permits H2Store, MySQLStore, MariaDBStore, SqliteS
     /**
      * Backs up the database to the specified filename in the {@code dbbackup} folder
      *
-     * @param filename The filename for the backup, without extension
+     * @param filename the filename for the backup, without extension
      */
     public void backupDB(String filename) {
         Datastore2.instance().backup(filename);

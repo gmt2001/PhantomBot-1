@@ -104,7 +104,7 @@ public final class TwitchCache implements Listener {
     /**
      * Constructor for TwitchCache object.
      *
-     * @param channel Name of the Twitch Channel for which this object is created.
+     * @param channel name of the Twitch Channel for which this object is created.
      */
     @SuppressWarnings("CallToThreadStartDuringObjectConstruction")
     private TwitchCache() {
@@ -459,7 +459,7 @@ public final class TwitchCache implements Listener {
     /**
      * Sets the game title
      *
-     * @param gameTitle The new game name
+     * @param gameTitle the new game name
      */
     public void setGameTitle(String gameTitle) {
         this.setGameTitle(gameTitle, true);
@@ -468,7 +468,7 @@ public final class TwitchCache implements Listener {
     /**
      * Sets the game title
      *
-     * @param gameTitle The new game name
+     * @param gameTitle the new game name
      * @param sendEvent {@code true} to send a {@link TwitchGameChangeEvent}
      */
     public void setGameTitle(String gameTitle, boolean sendEvent) {
@@ -492,7 +492,7 @@ public final class TwitchCache implements Listener {
     /**
      * Sets the title (status) of the stream
      *
-     * @param streamTitle The new title
+     * @param streamTitle the new title
      */
     public void setStreamStatus(String streamTitle) {
         this.setStreamStatus(streamTitle, true);
@@ -501,7 +501,7 @@ public final class TwitchCache implements Listener {
     /**
      * Sets the title (status) of the stream
      *
-     * @param streamTitle The new title
+     * @param streamTitle the new title
      * @param sendEvent {@code true} to send a {@link TwitchTitleChangeEvent}
      */
     public void setStreamStatus(String streamTitle, boolean sendEvent) {
@@ -560,7 +560,7 @@ public final class TwitchCache implements Listener {
      * <br/><br/>
      * This number may be slightly off from the actual live numbers due to the nature of Twitch API caching
      *
-     * @return The number of followers of the broadcaster
+     * @return the number of followers of the broadcaster
      */
     public int followers() {
         return FollowersCache.instance().total();
@@ -571,7 +571,7 @@ public final class TwitchCache implements Listener {
      * <br/><br/>
      * This number may be slightly off from the actual live numbers due to the nature of Twitch API caching
      *
-     * @return The number of subscribers of the broadcaster
+     * @return the number of subscribers of the broadcaster
      */
     public int subscribers() {
         return this.subscriberCount;
@@ -582,7 +582,7 @@ public final class TwitchCache implements Listener {
      * <br/><br/>
      * This number may be slightly off from the actual live numbers due to the nature of Twitch API caching
      *
-     * @return The number of subscriber points of the broadcaster
+     * @return the number of subscriber points of the broadcaster
      */
     public int subscriberPoints() {
         return this.subscriberPoints;
@@ -593,7 +593,7 @@ public final class TwitchCache implements Listener {
      * <br/><br/>
      * This number may be slightly off from the actual live numbers due to the nature of Twitch API caching
      *
-     * @return The number of viewers in the stream; {@code 0} if not live
+     * @return the number of viewers in the stream; {@code 0} if not live
      */
     public int viewers() {
         return this.viewerCount;
@@ -631,8 +631,8 @@ public final class TwitchCache implements Listener {
     /**
      * Gets a string from the database. Simply a wrapper around the PhantomBot instance.
      *
-     * @param String The database key to search for in the streamInfo table.
-     * @return String Returns the found value or null.
+     * @param String the database key to search for in the streamInfo table.
+     * @return string Returns the found value or null.
      */
     private String getDBString(String dbKey) {
         return PhantomBot.instance().getDataStore().GetString("streamInfo", "", dbKey);
@@ -641,9 +641,9 @@ public final class TwitchCache implements Listener {
     /**
      * Sets a string into the database. Simply a wrapper around the PhantomBot instance.
      *
-     * @param String The database key to use for inserting the value into the streamInfo table.
-     * @param String The value to insert.
-     * @return String Returns the found value or null.
+     * @param String the database key to use for inserting the value into the streamInfo table.
+     * @param String the value to insert.
+     * @return string Returns the found value or null.
      */
     private void setDBString(String dbKey, String dbValue) {
         PhantomBot.instance().getDataStore().SetString("streamInfo", "", dbKey, dbValue);
@@ -730,7 +730,7 @@ public final class TwitchCache implements Listener {
      * Updates the stream title/game/online status from the Get Streams endpoint
      *
      * @param shouldSendEvent {@code true} to send events, if appropriate
-     * @param callback A callback to execute on success. The parameter is {@code true} if the stream information was successfully retrieved
+     * @param callback a callback to execute on success. The parameter is {@code true} if the stream information was successfully retrieved
      */
     public void syncStreamStatus(boolean shouldSendEvent, Consumer<Boolean> callback) {
         Helix.instance().getStreamsAsync(1, null, null, List.of(ViewerCache.instance().broadcaster().id()), null, null, null).doOnSuccess(streams -> {
@@ -777,7 +777,7 @@ public final class TwitchCache implements Listener {
      * Syncs teh current stream title/game via the Get Channel Information endpoint
      *
      * @param shouldSendEvent {@code true} to send {@link TwitchTitleChangeEvent} and/or {@link TwitchGameChangeEvent}, if appropriate
-     * @param callback A callback to execute on success. The parameter is {@code true} if the channel information was successfully retrieved
+     * @param callback a callback to execute on success. The parameter is {@code true} if the channel information was successfully retrieved
      */
     public void syncStreamInfoFromChannel(boolean shouldSendEvent, Consumer<Boolean> callback) {
         Helix.instance().getChannelInformationAsync(ViewerCache.instance().broadcaster().id()).doOnSuccess(channels -> {
@@ -801,7 +801,7 @@ public final class TwitchCache implements Listener {
     /**
      * Updates the viewer count
      *
-     * @param viewers The new viewer count
+     * @param viewers the new viewer count
      */
     public void updateViewerCount(int viewers) {
         this.viewerCount = viewers;

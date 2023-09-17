@@ -183,7 +183,7 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
     /**
      * The panel user's name
      *
-     * @return The panel user's current name
+     * @return the panel user's current name
      */
     public String getUsername() {
         return this.value1();
@@ -201,7 +201,7 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
     /**
      * The panel user's password
      *
-     * @return The panel user's current password
+     * @return the panel user's current password
      */
     public String getPassword() {
         return this.value2();
@@ -281,7 +281,7 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
 
     /**
      * The time at which this user was created
-     * @return The time at which this user was created as Unix-Time
+     * @return the time at which this user was created as Unix-Time
      */
     public long getCreationDate() {
         return this.value6();
@@ -298,7 +298,7 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
 
     /**
      * The last time this user logged in to the panel
-     * @return The last time this user logged in to the panel as Unix-Time; {@code -1} if the user has never logged in
+     * @return the last time this user logged in to the panel as Unix-Time; {@code -1} if the user has never logged in
      */
     public long getLastLogin() {
         return this.value7();
@@ -334,7 +334,7 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
      * The user's current websocket authentication token
      * <p>
      * A new token will automatically be generated and the user saved if there is no current token
-     * @return The user's current websocket authentication token
+     * @return the user's current websocket authentication token
      * @see WsPanelHandler#handleFrame() token usage
      */
     String getAuthToken() {
@@ -349,7 +349,7 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
 
     /**
      * The user's {@link PanelUserHandler.Permission permissions}
-     * @return The user's {@link PanelUserHandler.Permission permissions}
+     * @return the user's {@link PanelUserHandler.Permission permissions}
      */
     public Map<String, Permission> getPermission() {
         return Collections.unmodifiableMap(this.getPermissions());
@@ -359,7 +359,7 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
      * The {@link Type user's type}
      * <p>
      * Used for user management
-     * @return The {@link Type user type}
+     * @return the {@link Type user type}
      */
     public Type getUserType() {
         return this.userType;
@@ -441,7 +441,7 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
 
     /**
      * Changes the user's password and marks that the password has been manually set by the user
-     * @param password The new password
+     * @param password the new password
      */
     void changePassword(String password) {
         this.setPassword(password);
@@ -450,7 +450,7 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
 
     /**
      * Changes the user's {@link PanelUserHandler.Permission permissions}
-     * @param permission The new {@link PanelUserHandler.Permission permissions}
+     * @param permission the new {@link PanelUserHandler.Permission permissions}
      */
     void setPermission(Map<String, Permission> permissions) {
         this.setPermission(PermissionMap.fromMap(permissions));
@@ -458,7 +458,7 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
 
     /**
      * Changes the user's {@link PanelUserHandler.Permission permissions}
-     * @param permission The new {@link PanelUserHandler.Permission permissions}
+     * @param permission the new {@link PanelUserHandler.Permission permissions}
      */
     void setPermission(PermissionMap permissions) {
         if (!permissions.containsKey("dashboard")) {
@@ -492,7 +492,7 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
 
     /**
      * Generates a new random 10 character long user password
-     * @return The new password assigned to the user in plaintext
+     * @return the new password assigned to the user in plaintext
      * @see PhantomBot#generateRandomString(int) random string generation
      */
     String generateNewPassword() {
@@ -516,8 +516,8 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
 
     /**
      * Gets the users {@link PanelUserHandler.Permission permissions} as a {@link JSONArray}
-     * @param asDisplayName Indicates if the {@link PanelUserHandler.Permission permissions} should be included with their display name
-     * @return A {@link JSONArray} with the users permissions
+     * @param asDisplayName indicates if the {@link PanelUserHandler.Permission permissions} should be included with their display name
+     * @return a {@link JSONArray} with the users permissions
      */
     JSONArray getPermissionsToJSON(boolean asDisplayName) {
         return this.getPermissions().toJSON(asDisplayName, false);
@@ -569,10 +569,10 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
 
     /**
      * Creates a new panel user and saves the user in the database
-     * @param username The username of the new panel user
-     * @param permission The user's {@link PanelUserHandler.Permission permissions}; {@code null} to assign no permissions}
+     * @param username the username of the new panel user
+     * @param permission the user's {@link PanelUserHandler.Permission permissions}; {@code null} to assign no permissions}
      * @param enabled {@code true} to enable the user; {@code false} to disable the user
-     * @return The password generated for the new user
+     * @return the password generated for the new user
      */
     public static String create(String username, Map<String, Permission> permissions, boolean enabled) {
         return create(username, permissions, enabled, false, false);
@@ -580,10 +580,10 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
 
     /**
      * Creates a new panel user and saves the user in the database
-     * @param username The username of the new panel user
-     * @param permission The user's {@link PanelUserHandler.Permission permissions}; {@code null} to assign no permissions}
+     * @param username the username of the new panel user
+     * @param permission the user's {@link PanelUserHandler.Permission permissions}; {@code null} to assign no permissions}
      * @param enabled {@code true} to enable the user; {@code false} to disable the user
-     * @return The password generated for the new user
+     * @return the password generated for the new user
      */
     public static String create(String username, Map<String, Permission> permissions, boolean enabled, boolean canManageUsers, boolean canRestartBot) {
         PanelUser user = new PanelUser(username, permissions, enabled, canManageUsers, canRestartBot);

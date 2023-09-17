@@ -123,9 +123,9 @@ public final class TwitchMessageInterface extends SubmissionPublisher<TMIMessage
     /**
      * Calculates the maximum length for the message content of a PRIVMSG to avoid dropping
      *
-     * @param channel The channel name
-     * @param isAction If this is for a ACTION (/me) message
-     * @param replyToId The {@code id} tag from the {@link TMIMessage#tags} of the message that is being replied to; {@code null} if not used
+     * @param channel the channel name
+     * @param isAction if this is for a ACTION (/me) message
+     * @param replyToId the {@code id} tag from the {@link TMIMessage#tags} of the message that is being replied to; {@code null} if not used
      * @return
      */
     public int privMsgMaxLength(String channel, boolean isAction, String replyToId) {
@@ -137,7 +137,7 @@ public final class TwitchMessageInterface extends SubmissionPublisher<TMIMessage
     /**
      * Returns the {@link WindowedSwitchingRateLimiter} used to prevent PRIVMSG spam
      *
-     * @return The rate limiter
+     * @return the rate limiter
      */
     public WindowedSwitchingRateLimiter rateLimiter() {
         return this.rateLimiter;
@@ -155,8 +155,8 @@ public final class TwitchMessageInterface extends SubmissionPublisher<TMIMessage
      *
      * If there are no tokens left on {@link #rateLimiter}, the message is silently dropped
      *
-     * @param channel The channel to send to
-     * @param message The chat message
+     * @param channel the channel to send to
+     * @param message the chat message
      */
     public void sendActionPrivMessage(String channel, String message) {
         this.sendActionPrivMessage(channel, message, null);
@@ -168,8 +168,8 @@ public final class TwitchMessageInterface extends SubmissionPublisher<TMIMessage
      *
      * If there are no tokens left on {@link #rateLimiter}, the message is silently dropped
      *
-     * @param channel The channel to send to
-     * @param message The chat message
+     * @param channel the channel to send to
+     * @param message the chat message
      */
     public void sendPrivMessage(String channel, String message) {
         this.sendPrivMessage(channel, message, null);
@@ -180,9 +180,9 @@ public final class TwitchMessageInterface extends SubmissionPublisher<TMIMessage
      *
      * If there are no tokens left on {@link #rateLimiter}, the message is silently dropped
      *
-     * @param channel The channel to send to
-     * @param message The chat message
-     * @param replyToId The {@code id} tag from the {@link TMIMessage#tags} of the message that is being replied to
+     * @param channel the channel to send to
+     * @param message the chat message
+     * @param replyToId the {@code id} tag from the {@link TMIMessage#tags} of the message that is being replied to
      */
     public void sendActionPrivMessage(String channel, String message, String replyToId) {
         this.sendPrivMessage(channel, (char) 1 + "ACTION " + message + (char) 1, replyToId);
@@ -194,9 +194,9 @@ public final class TwitchMessageInterface extends SubmissionPublisher<TMIMessage
      *
      * If there are no tokens left on {@link #rateLimiter}, the message is silently dropped
      *
-     * @param channel The channel to send to
-     * @param message The chat message
-     * @param replyToId The {@code id} tag from the {@link TMIMessage#tags} of the message that is being replied to
+     * @param channel the channel to send to
+     * @param message the chat message
+     * @param replyToId the {@code id} tag from the {@link TMIMessage#tags} of the message that is being replied to
      */
     public void sendPrivMessage(String channel, String message, String replyToId) {
         if (RepoVersion.isStressTest()) {
@@ -216,8 +216,8 @@ public final class TwitchMessageInterface extends SubmissionPublisher<TMIMessage
      * If there are no tokens left on {@link #rateLimiter}, the message is silently dropped
      *
      * @param channelThe channel to send to
-     * @param message The chat message to process
-     * @param replyToId The {@code id} tag from the {@link TMIMessage#tags} of the message that is being replied to, if sending a reply
+     * @param message the chat message to process
+     * @param replyToId the {@code id} tag from the {@link TMIMessage#tags} of the message that is being replied to, if sending a reply
      */
     private void redirectSlashCommandsAndSendPrivMessage(String channel, String message, String replyToId) {
         boolean res = false;
@@ -236,8 +236,8 @@ public final class TwitchMessageInterface extends SubmissionPublisher<TMIMessage
     /**
      * Sends an IRC command with parameter component
      *
-     * @param command The IRC command
-     * @param parameter The IRC parameter
+     * @param command the IRC command
+     * @param parameter the IRC parameter
      */
     public void sendCommand(String command, String parameter) {
         this.sendCommand(null, command, parameter);
@@ -246,9 +246,9 @@ public final class TwitchMessageInterface extends SubmissionPublisher<TMIMessage
     /**
      * Sends an IRC command with tags and parameter component
      *
-     * @param tags The IRCv3 tags
-     * @param command The IRC command
-     * @param parameter The IRC parameter
+     * @param tags the IRCv3 tags
+     * @param command the IRC command
+     * @param parameter the IRC parameter
      */
     public void sendCommand(Map<String, String> tags, String command, String parameter) {
         this.sendFullCommand(tags, command, null, parameter);
@@ -257,9 +257,9 @@ public final class TwitchMessageInterface extends SubmissionPublisher<TMIMessage
     /**
      * Sends an IRC command with channel and parameter components
      *
-     * @param command The IRC command
-     * @param channel The channel to send to
-     * @param parameter The IRC parameter
+     * @param command the IRC command
+     * @param channel the channel to send to
+     * @param parameter the IRC parameter
      */
     public void sendChannelCommand(String command, String channel, String parameter) {
         this.sendFullCommand(null, command, channel, parameter);
@@ -268,10 +268,10 @@ public final class TwitchMessageInterface extends SubmissionPublisher<TMIMessage
     /**
      * Sends an IRC command with tags, channel, and parameter components
      *
-     * @param tags The IRCv3 tags. If {@code null} or empty, the tags component is not included
-     * @param command The IRC command
-     * @param channel The channel to send to. If {@code null}, empty, or blank, the channel component of the command is not included
-     * @param parameter The IRC parameters. If {@code null}, the parameter component is not included
+     * @param tags the IRCv3 tags. If {@code null} or empty, the tags component is not included
+     * @param command the IRC command
+     * @param channel the channel to send to. If {@code null}, empty, or blank, the channel component of the command is not included
+     * @param parameter the IRC parameters. If {@code null}, the parameter component is not included
      */
     public void sendFullCommand(Map<String, String> tags, String command, String channel, String parameter) {
         if (command == null || command.isBlank()) {
@@ -316,7 +316,7 @@ public final class TwitchMessageInterface extends SubmissionPublisher<TMIMessage
     /**
      * Sends a raw IRC message
      *
-     * @param message The message to send
+     * @param message the message to send
      */
     public void sendRaw(String message) {
         /**
@@ -379,7 +379,7 @@ public final class TwitchMessageInterface extends SubmissionPublisher<TMIMessage
     /**
      * Splits a string containing one or more lines of RFC1459-formatted IRC messages and submits each one to subscribed processors
      *
-     * @param messages A string containing one or more RFC1459-formatted IRC messages
+     * @param messages a string containing one or more RFC1459-formatted IRC messages
      */
     public void onMessages(String messages) {
         messages.lines().forEachOrdered(message -> {
@@ -394,8 +394,8 @@ public final class TwitchMessageInterface extends SubmissionPublisher<TMIMessage
     /**
      * Notifies subscribed processors that the socket has closed and initiates reconnecting if there wasn't an outbound 1000 close code
      *
-     * @param code The close code
-     * @param reason The textual close reason
+     * @param code the close code
+     * @param reason the textual close reason
      */
     public void onClose(int code, String reason) {
         com.gmt2001.Console.warn.println("Connection to TMI closed [" + code + ", " + reason + "]");
@@ -429,8 +429,8 @@ public final class TwitchMessageInterface extends SubmissionPublisher<TMIMessage
     /**
      * Closes the socket
      *
-     * @param code The close code
-     * @param reason The textual close reason
+     * @param code the close code
+     * @param reason the textual close reason
      */
     public void close(int code, String reason) {
         if (code == 1000) {

@@ -50,7 +50,7 @@ public final class EventBus {
     /**
      * Singleton method
      *
-     * @return An instance of eventbus
+     * @return an instance of eventbus
      */
     public static EventBus instance() {
         return instance;
@@ -59,7 +59,7 @@ public final class EventBus {
     /**
      * Registers an instance of a class implementing {@link Listener} to receive events
      *
-     * @param listener An instance to register to receive events
+     * @param listener an instance to register to receive events
      */
     public void register(Listener listener) {
         bus.subscribe(listener);
@@ -68,7 +68,7 @@ public final class EventBus {
     /**
      * Deregisters an instance of a class implementing {@link Listener} to no longer receive events
      *
-     * @param listener An instance to deregister to no longer receive events
+     * @param listener an instance to deregister to no longer receive events
      */
     public void unregister(Listener listener) {
         bus.unsubscribe(listener);
@@ -79,7 +79,7 @@ public final class EventBus {
      * <p>
      * This method should only be used in extremely rare circumstances. Most publishes should be done using {@link #postAsync(Event)}
      *
-     * @param event An event to publish
+     * @param event an event to publish
      */
     public void post(Event event) {
         if (PhantomBot.isInExitState()) {
@@ -92,7 +92,7 @@ public final class EventBus {
     /**
      * Publishes an event to the relevant subscribers on a separate thread
      *
-     * @param event An event to publish
+     * @param event an event to publish
      */
     public void postAsync(Event event) {
         if (PhantomBot.isInExitState()) {

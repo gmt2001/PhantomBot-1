@@ -32,7 +32,7 @@ public class IrcChannelUsersUpdateEvent extends IrcChannelEvent {
     /**
      * Constructor
      *
-     * @param chatters A list of login names for users who are currently in chat
+     * @param chatters a list of login names for users who are currently in chat
      */
     public IrcChannelUsersUpdateEvent(List<Viewer> chatters) {
         super(null);
@@ -91,7 +91,7 @@ public class IrcChannelUsersUpdateEvent extends IrcChannelEvent {
     /**
      * A list of login names for users who are currently in chat
      *
-     * @return A list of login names for users who are currently in chat
+     * @return a list of login names for users who are currently in chat
      */
     public List<Viewer> chatters() {
         return this.chatters;

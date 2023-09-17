@@ -48,8 +48,8 @@ class HTTPWSServerInitializer extends ChannelInitializer<SocketChannel> {
     /**
      * Initializes the {@link SocketChannel}
      *
-     * @param ch The {@link SocketChannel} to initialize
-     * @throws Exception Passes any thrown exceptions up the stack
+     * @param ch the {@link SocketChannel} to initialize
+     * @throws Exception passes any thrown exceptions up the stack
      */
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {

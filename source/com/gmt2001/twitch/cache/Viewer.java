@@ -44,7 +44,7 @@ public final class Viewer {
     /**
      * Constructor
      *
-     * @param id The Twitch user id
+     * @param id the Twitch user id
      */
     Viewer(String id) {
         this.id = id;
@@ -53,7 +53,7 @@ public final class Viewer {
     /**
      * The Twitch user id
      *
-     * @return The Twitch user id
+     * @return the Twitch user id
      */
     public String id() {
         return this.id;
@@ -62,7 +62,7 @@ public final class Viewer {
     /**
      * Updates the Twitch user login name
      *
-     * @param login The Twitch user login name
+     * @param login the Twitch user login name
      * @return {@code this}
      */
     public synchronized Viewer login(String login) {
@@ -76,7 +76,7 @@ public final class Viewer {
     /**
      * The Twitch user login name
      *
-     * @return The Twitch user login name; Empty string {@code ""} if the login name has not been looked up yet
+     * @return the Twitch user login name; Empty string {@code ""} if the login name has not been looked up yet
      */
     public String login() {
         return this.login;
@@ -85,7 +85,7 @@ public final class Viewer {
     /**
      * Updates the Twitch user display name
      *
-     * @param name The Twitch user display name
+     * @param name the Twitch user display name
      * @return {@code this}
      */
     public synchronized Viewer name(String name) {
@@ -99,7 +99,7 @@ public final class Viewer {
     /**
      * The Twitch user display name
      *
-     * @return The Twitch user display name; Empty string {@code ""} if the display name has not been looked up yet
+     * @return the Twitch user display name; Empty string {@code ""} if the display name has not been looked up yet
      */
     public String name() {
         return this.name;
@@ -119,7 +119,7 @@ public final class Viewer {
     /**
      * The last time this user was active in chat
      *
-     * @return The last time this user was active in chat; {@link Instant#MIN} if the user was never active
+     * @return the last time this user was active in chat; {@link Instant#MIN} if the user was never active
      */
     public Instant lastActive() {
         return this.lastActive;
@@ -143,7 +143,7 @@ public final class Viewer {
      * <p>
      * This is used for garbage collection
      *
-     * @return The last time this user was seen
+     * @return the last time this user was seen
      */
     public Instant lastSeen() {
         return this.lastSeen;

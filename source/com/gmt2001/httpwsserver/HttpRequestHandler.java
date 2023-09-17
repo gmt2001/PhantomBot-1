@@ -37,7 +37,7 @@ public interface HttpRequestHandler {
     /**
      * Gets the {@link HttpAuthenticationHandler} assigned to this endpoint
      *
-     * @return An {@link HttpAuthenticationHandler}
+     * @return an {@link HttpAuthenticationHandler}
      */
     HttpAuthenticationHandler getHttpAuthHandler();
 
@@ -46,8 +46,8 @@ public interface HttpRequestHandler {
      *
      * Only gets called if the {@link HttpAuthenticationHandler} returned {@code true}
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param req The {@link FullHttpRequest} containing the request
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param req the {@link FullHttpRequest} containing the request
      */
     void handleRequest(ChannelHandlerContext ctx, FullHttpRequest req);
 }

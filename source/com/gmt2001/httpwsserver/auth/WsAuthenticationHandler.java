@@ -43,8 +43,8 @@ public interface WsAuthenticationHandler {
      * <p>
      * When returning {@code false}, this method MUST also send an {@code Authentication Required} frame back to the client
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param frame The {@link WebSocketFrame} to check
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param frame the {@link WebSocketFrame} to check
      * @return {@code true} if authorized
      */
     boolean checkAuthorization(ChannelHandlerContext ctx, WebSocketFrame frame);

@@ -51,7 +51,7 @@ public final class JSFileSystem {
     /**
      * Indicates if the file or directory exists
      *
-     * @param path The path to check, relative to PhantomBot.jar
+     * @param path the path to check, relative to PhantomBot.jar
      * @return {@code true} if the path exists and is in an allowed location
      */
     public static boolean FileExists(String path) {
@@ -65,9 +65,9 @@ public final class JSFileSystem {
     /**
      * Reads an entire file into a list of lines
      *
-     * @param path The path to the file to read
-     * @return A {@link List} of lines; empty list if not an allowed location
-     * @throws IOException If an I/O error occurs reading from the file or a malformed or unmappable byte sequence is read
+     * @param path the path to the file to read
+     * @return a {@link List} of lines; empty list if not an allowed location
+     * @throws IOException if an I/O error occurs reading from the file or a malformed or unmappable byte sequence is read
      */
     public static List<String> ReadFileAsLines(String path) throws IOException {
         if (!PathValidator.isValidPathScript(path)) {
@@ -95,7 +95,7 @@ public final class JSFileSystem {
     /**
      * Creates a new directory, if it doesn't already exist
      *
-     * @param path The path to the directory to create
+     * @param path the path to the directory to create
      * @return {@code true} if the directory was created or already exists and is in an allowed location
      */
     public static boolean MakeDir(String path) {
@@ -115,9 +115,9 @@ public final class JSFileSystem {
     /**
      * Moves the specified file to the specified directory. The original file name is kept
      *
-     * @param pathToFile The path to the file to move
-     * @param pathToTargetDirectory The directory to move the file into, not including the file name
-     * @throws IOException If an I/O error occurs
+     * @param pathToFile the path to the file to move
+     * @param pathToTargetDirectory the directory to move the file into, not including the file name
+     * @throws IOException if an I/O error occurs
      */
     public static void MoveFileToDirectory(String pathToFile, String pathToTargetDirectory) throws IOException {
         if (!PathValidator.isValidPathScript(pathToFile) || !PathValidator.isValidPathScript(pathToTargetDirectory)) {
@@ -132,9 +132,9 @@ public final class JSFileSystem {
     /**
      * Moves the specified file to the specified location and/or renames the file
      *
-     * @param pathToFile The path to the file to move
-     * @param newPathToFile The path to the new location of the file, including the new file name
-     * @throws IOException If an I/O error occurs
+     * @param pathToFile the path to the file to move
+     * @param newPathToFile the path to the new location of the file, including the new file name
+     * @throws IOException if an I/O error occurs
      */
     public static void MoveFile(String pathToFile, String newPathToFile) throws IOException {
         if (!PathValidator.isValidPathScript(pathToFile) || !PathValidator.isValidPathScript(newPathToFile)) {
@@ -149,10 +149,10 @@ public final class JSFileSystem {
     /**
      * Writes a sequence of lines to a file
      *
-     * @param path The path to the file to write to
-     * @param lines A {@link List} of lines to write to the file
+     * @param path the path to the file to write to
+     * @param lines a {@link List} of lines to write to the file
      * @param append {@code true} to add the lines to the end of the file if it already exists; {@code false} to truncate the file before writing
-     * @throws IOException If an I/O error occurs writing to or creating the file, or the text cannot be encoded as {@code UTF-8}
+     * @throws IOException if an I/O error occurs writing to or creating the file, or the text cannot be encoded as {@code UTF-8}
      */
     public static void WriteLinesToFile(String path, List<String> lines, boolean append) throws IOException {
         if (!PathValidator.isValidPathScript(path)) {
@@ -171,10 +171,10 @@ public final class JSFileSystem {
     /**
      * Writes a single line to a file
      *
-     * @param path The path to the file to write to
-     * @param line The line to write to the file
+     * @param path the path to the file to write to
+     * @param line the line to write to the file
      * @param append {@code true} to add the line to the end of the file if it already exists; {@code false} to truncate the file before writing
-     * @throws IOException If an I/O error occurs writing to or creating the file, or the text cannot be encoded as {@code UTF-8}
+     * @throws IOException if an I/O error occurs writing to or creating the file, or the text cannot be encoded as {@code UTF-8}
      */
     public static void WriteLineToFile(String path, String line, boolean append) throws IOException {
         List<String> lines = CreateStringList();
@@ -185,8 +185,8 @@ public final class JSFileSystem {
     /**
      * Creates an empty file if it doesn't exist; updates the last modified timestamp of the file if it already exists
      *
-     * @param path The path to the file to touch
-     * @throws IOException If an I/O error occurs
+     * @param path the path to the file to touch
+     * @throws IOException if an I/O error occurs
      */
     public static void TouchFile(String path) throws IOException {
         if (!PathValidator.isValidPathScript(path)) {
@@ -205,8 +205,8 @@ public final class JSFileSystem {
     /**
      * Deletes the specified file
      *
-     * @param path The path to the file to delete
-     * @throws IOException If an I/O error occurs
+     * @param path the path to the file to delete
+     * @throws IOException if an I/O error occurs
      */
     public static void DeleteFile(String path) throws IOException {
         if (!PathValidator.isValidPathScript(path)) {
@@ -219,7 +219,7 @@ public final class JSFileSystem {
     /**
      * Indicates if the specified path points to a directory
      *
-     * @param path The path to check
+     * @param path the path to check
      * @return {@code true} if the path is a directory in an allowed location; {@code false} if the path does not exist,
      * is not a directory, it cannot be determined if it is a directory or not, or is not in an allowed location
      */
@@ -234,8 +234,8 @@ public final class JSFileSystem {
     /**
      * Gets the size of a file
      *
-     * @param path The path to the file to check
-     * @return The size of the file, in bytes; {@code 0} if the file does not exist, an I/O error occurs, or the path
+     * @param path the path to the file to check
+     * @return the size of the file, in bytes; {@code 0} if the file does not exist, an I/O error occurs, or the path
      * is not in an allowed location
      */
     public static int GetFileSize(String path) {
@@ -253,9 +253,9 @@ public final class JSFileSystem {
     /**
      * Returns a list of files and sub-directories in the specified directory that contain the {@code needle}
      *
-     * @param path The path to the directory to search
-     * @param needle The substring to match against; {@code ""} (empty string) to return all files and sub-directories
-     * @return A {@link List} of files and sub-directories; empty list if {@code path} is not a directory or is not in an allowed location
+     * @param path the path to the directory to search
+     * @param needle the substring to match against; {@code ""} (empty string) to return all files and sub-directories
+     * @return a {@link List} of files and sub-directories; empty list if {@code path} is not a directory or is not in an allowed location
      * @throws IOException
      */
     public static List<String> FindFilesInDirectory(String path, String needle) throws IOException {
@@ -277,7 +277,7 @@ public final class JSFileSystem {
     /**
      * Helper method to create a {@link List} of {@link String}
      *
-     * @return A new {@link List}
+     * @return a new {@link List}
      */
     public static List<String> CreateStringList() {
         return new ArrayList<>();

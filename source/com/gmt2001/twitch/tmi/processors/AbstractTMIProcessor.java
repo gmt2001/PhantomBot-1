@@ -52,7 +52,7 @@ public abstract class AbstractTMIProcessor implements Flow.Subscriber<TMIMessage
     /**
      * Constructor. Subscribes to the Flow.Publisher and a specified IRC command
      *
-     * @param command The command to subscribe to
+     * @param command the command to subscribe to
      */
     protected AbstractTMIProcessor(String command) {
         this(new String[]{command});
@@ -61,7 +61,7 @@ public abstract class AbstractTMIProcessor implements Flow.Subscriber<TMIMessage
     /**
      * Constructor. Subscribes to the Flow.Publisher and the specified IRC commands
      *
-     * @param commands The commands to subscribe to
+     * @param commands the commands to subscribe to
      */
     protected AbstractTMIProcessor(String[] commands) {
         this(Arrays.asList(commands));
@@ -70,7 +70,7 @@ public abstract class AbstractTMIProcessor implements Flow.Subscriber<TMIMessage
     /**
      * Constructor. Subscribes to the Flow.Publisher and the specified IRC commands
      *
-     * @param commands The commands to subscribe to
+     * @param commands the commands to subscribe to
      */
     protected AbstractTMIProcessor(List<String> commands) {
         this.subscribe();
@@ -166,7 +166,7 @@ public abstract class AbstractTMIProcessor implements Flow.Subscriber<TMIMessage
     /**
      * Override this method to handle Flow.Subscriber.OnNext, called after the default handlers for TMIMessageType
      *
-     * @param item The TMIMessage that was submitted
+     * @param item the TMIMessage that was submitted
      */
     protected void onFlowNext(TMIMessage item) {
     }
@@ -180,7 +180,7 @@ public abstract class AbstractTMIProcessor implements Flow.Subscriber<TMIMessage
     /**
      * Override this method to handle Flow.Subscriber.OnError, called after the stack trace is sent to the logger
      *
-     * @param throwable The throwable that is causing the subscription to be canceled
+     * @param throwable the throwable that is causing the subscription to be canceled
      */
     protected void onFlowError(Throwable throwable) {
     }
@@ -194,7 +194,7 @@ public abstract class AbstractTMIProcessor implements Flow.Subscriber<TMIMessage
     /**
      * Called when a TMIMessage of type TMIMessageType.MESSAGE is received
      *
-     * @param item The {@link TMIMessage} that was received
+     * @param item the {@link TMIMessage} that was received
      */
     protected abstract void onMessage(TMIMessage item);
 

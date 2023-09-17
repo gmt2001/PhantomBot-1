@@ -613,7 +613,7 @@ public final class PhantomBot implements Listener {
     }
 
     /**
-     * @return The {@link TwitchMessageInterface} for the IRC connection
+     * @return the {@link TwitchMessageInterface} for the IRC connection
      */
     public TwitchMessageInterface getTMI() {
         return this.tmi;
@@ -622,7 +622,7 @@ public final class PhantomBot implements Listener {
     /**
      * Helper method to see if a module is enabled.
      *
-     * @param module Module name to check for
+     * @param module module name to check for
      * @return boolean If the module is enabled or not
      */
     public boolean checkModuleEnabled(String module) {
@@ -640,8 +640,8 @@ public final class PhantomBot implements Listener {
     /**
      * Checks if a value is true in the datastore.
      *
-     * @param table Db table to check.
-     * @param key Db key to check in that table.
+     * @param table db table to check.
+     * @param key db key to check in that table.
      * @return
      */
     public boolean checkDataStore(String table, String key) {

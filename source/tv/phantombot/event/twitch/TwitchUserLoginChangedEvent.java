@@ -29,9 +29,9 @@ public class TwitchUserLoginChangedEvent extends TwitchEvent {
     /**
      * Constructor
      *
-     * @param id The user id
-     * @param oldLogin The old user login
-     * @param newLogin The new user login
+     * @param id the user id
+     * @param oldLogin the old user login
+     * @param newLogin the new user login
      */
     public TwitchUserLoginChangedEvent(String id, String oldLogin, String newLogin) {
         super();
@@ -43,7 +43,7 @@ public class TwitchUserLoginChangedEvent extends TwitchEvent {
     /**
      * The user id
      *
-     * @return The user id
+     * @return the user id
      */
     public String id() {
         return this.id;
@@ -52,7 +52,7 @@ public class TwitchUserLoginChangedEvent extends TwitchEvent {
     /**
      * The old user login
      *
-     * @return The old user login
+     * @return the old user login
      */
     public String oldLogin() {
         return this.oldLogin;
@@ -61,7 +61,7 @@ public class TwitchUserLoginChangedEvent extends TwitchEvent {
     /**
      * The new user login
      *
-     * @return The new user login
+     * @return the new user login
      */
     public String newLogin() {
         return this.newLogin;

@@ -46,9 +46,9 @@ public class WsSslErrorHandler extends SimpleChannelInboundHandler<WebSocketFram
     /**
      * Handles incoming WebSocket frames and passes them to the appropriate {@link WsFrameHandler}
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param frame The {@link WebSocketFrame} containing the request frame
-     * @throws Exception Passes any thrown exceptions up the stack
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param frame the {@link WebSocketFrame} containing the request frame
+     * @throws Exception passes any thrown exceptions up the stack
      */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
@@ -64,9 +64,9 @@ public class WsSslErrorHandler extends SimpleChannelInboundHandler<WebSocketFram
      *
      * If a handler is not available for the requested path, then {@code 404 NOT FOUND} is sent back to the client using JSON:API format
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param evt The event object
-     * @throws Exception Passes any thrown exceptions up the stack
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param evt the event object
+     * @throws Exception passes any thrown exceptions up the stack
      */
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
@@ -104,8 +104,8 @@ public class WsSslErrorHandler extends SimpleChannelInboundHandler<WebSocketFram
     /**
      * Handles exceptions that are thrown up the stack
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param cause The exception
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param cause the exception
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {

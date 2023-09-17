@@ -515,8 +515,8 @@ public class DiscordUtil {
     /**
      * Method that adds a reaction to a message.
      *
-     * @param message The message object
-     * @param emoji The reaction object
+     * @param message the message object
+     * @param emoji the reaction object
      */
     public void addReaction(Message message, ReactionEmoji emoji) {
         if (message != null && emoji != null) {
@@ -531,8 +531,8 @@ public class DiscordUtil {
     /**
      * Method that adds multiple reactions to a message.
      *
-     * @param message The message object
-     * @param emojis The reaction objects
+     * @param message the message object
+     * @param emojis the reaction objects
      */
     public void addReactions(Message message, ReactionEmoji... emojis) {
         for (ReactionEmoji emoji : emojis) {
@@ -543,8 +543,8 @@ public class DiscordUtil {
     /**
      * Method that adds a reaction to a message.
      *
-     * @param message The message object
-     * @param emoji The emoji unicode
+     * @param message the message object
+     * @param emoji the emoji unicode
      */
     public void addReaction(Message message, String emoji) {
         DiscordAPI.getGuild().getEmojis().collectList().doOnSuccess(gel -> {
@@ -569,8 +569,8 @@ public class DiscordUtil {
     /**
      * Method that adds a reaction to a message.
      *
-     * @param message The message object
-     * @param emojis The emoji unicodes
+     * @param message the message object
+     * @param emojis the emoji unicodes
      */
     public void addReactions(Message message, String... emojis) {
         DiscordAPI.getGuild().getEmojis().collectList().doOnSuccess(gel -> {
@@ -599,7 +599,7 @@ public class DiscordUtil {
      * *
      * Indicates if the channel is a type that is allowed to publish crossposts
      *
-     * @param channelName The channel to check
+     * @param channelName the channel to check
      * @return
      */
     public boolean canChannelPublish(String channelName) {
@@ -610,7 +610,7 @@ public class DiscordUtil {
      * *
      * Indicates if the channel is a type that is allowed to publish crossposts
      *
-     * @param channel The channel to check
+     * @param channel the channel to check
      * @return
      */
     public boolean canChannelPublish(GuildMessageChannel channel) {

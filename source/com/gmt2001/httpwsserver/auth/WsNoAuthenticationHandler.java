@@ -37,7 +37,7 @@ public final class WsNoAuthenticationHandler implements WsAuthenticationHandler 
     /**
      * Gets a handler instance
      *
-     * @return An instance of {@link WsNoAuthenticationHandler}
+     * @return an instance of {@link WsNoAuthenticationHandler}
      */
     public static synchronized WsNoAuthenticationHandler instance() {
         if (INSTANCE == null) {
@@ -53,8 +53,8 @@ public final class WsNoAuthenticationHandler implements WsAuthenticationHandler 
      * Sends a read-only authentication successful frame on the first received frame from the client, defined as
      * {@code {"authresult": string:"true", "authtype": string:"read"}}
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param req The {@link WebSocketFrame} of the request
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param req the {@link WebSocketFrame} of the request
      * @return
      */
     @Override

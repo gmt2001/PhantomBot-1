@@ -120,7 +120,7 @@ public class IrcModerationEvent extends IrcMessageEvent {
     /**
      * Returns the raw {@link TMIMessage}
      *
-     * @return The {@link TMIMessage}
+     * @return the {@link TMIMessage}
      */
     public TMIMessage tmimsg() {
         return this.tmimsg;
@@ -172,7 +172,7 @@ public class IrcModerationEvent extends IrcMessageEvent {
             }
 
             /**
-             * @return A numeric value which sorts actions from least harsh (0) to most harsh
+             * @return a numeric value which sorts actions from least harsh (0) to most harsh
              */
             public int value() {
                 return this.value;
@@ -190,28 +190,28 @@ public class IrcModerationEvent extends IrcMessageEvent {
         private String warning = null;
 
         /**
-         * @return The current harshest action
+         * @return the current harshest action
          */
         public ModerationActions.Actions action() {
             return this.action;
         }
 
         /**
-         * @return If executing {@link Actions.Timeout}, the amount of time, in seconds
+         * @return if executing {@link Actions.Timeout}, the amount of time, in seconds
          */
         public int time() {
             return this.time;
         }
 
         /**
-         * @return The reason string for {@link Actions.Timeout} and {@link Actions.Ban}
+         * @return the reason string for {@link Actions.Timeout} and {@link Actions.Ban}
          */
         public String reason() {
             return this.reason;
         }
 
         /**
-         * @return The warning message to send to chat
+         * @return the warning message to send to chat
          */
         public String warning() {
             return this.warning;
@@ -242,7 +242,7 @@ public class IrcModerationEvent extends IrcMessageEvent {
 
         /**
          * Attempts to set the current action to {@link Actions.Delete}
-         * @param warning A warning message to send to chat; {@code null} for no message
+         * @param warning a warning message to send to chat; {@code null} for no message
          */
         public synchronized void Delete(String warning) {
             if (this.action.value() < ModerationActions.Actions.Delete.value()) {
@@ -269,8 +269,8 @@ public class IrcModerationEvent extends IrcMessageEvent {
 
         /**
          * Attempts to set the current action to {@link Actions.Timeout} with a time of 1
-         * @param reason A reason message to attach to the Twitch logs; {@code null} for no message
-         * @param warning A warning message to send to chat; {@code null} for no message
+         * @param reason a reason message to attach to the Twitch logs; {@code null} for no message
+         * @param warning a warning message to send to chat; {@code null} for no message
          */
         public void Purge(String reason, String warning) {
             this.Timeout(1, reason, warning);
@@ -285,7 +285,7 @@ public class IrcModerationEvent extends IrcMessageEvent {
 
         /**
          * Attempts to set the current action to {@link Actions.Timeout}
-         * @param seconds The number of seconds to timeout the user for
+         * @param seconds the number of seconds to timeout the user for
          */
         public void Timeout(int seconds) {
             this.Timeout(seconds, null, null);
@@ -293,9 +293,9 @@ public class IrcModerationEvent extends IrcMessageEvent {
 
         /**
          * Attempts to set the current action to {@link Actions.Timeout}
-         * @param seconds The number of seconds to timeout the user for
-         * @param reason A reason message to attach to the Twitch logs; {@code null} for no message
-         * @param warning A warning message to send to chat; {@code null} for no message
+         * @param seconds the number of seconds to timeout the user for
+         * @param reason a reason message to attach to the Twitch logs; {@code null} for no message
+         * @param warning a warning message to send to chat; {@code null} for no message
          */
         public synchronized void Timeout(int seconds, String reason, String warning) {
             if (this.action.value() < ModerationActions.Actions.Timeout.value()) {
@@ -318,8 +318,8 @@ public class IrcModerationEvent extends IrcMessageEvent {
 
         /**
          * Attempts to set the current action to {@link Actions.Ban}
-         * @param reason A reason message to attach to the Twitch logs; {@code null} for no message
-         * @param warning A warning message to send to chat; {@code null} for no message
+         * @param reason a reason message to attach to the Twitch logs; {@code null} for no message
+         * @param warning a warning message to send to chat; {@code null} for no message
          */
         public synchronized void Ban(String reason, String warning) {
             if (this.action.value() < ModerationActions.Actions.Ban.value()) {

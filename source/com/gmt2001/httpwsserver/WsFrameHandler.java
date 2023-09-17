@@ -41,7 +41,7 @@ public interface WsFrameHandler {
     /**
      * Gets the {@link WsAuthenticationHandler} assigned to this endpoint
      *
-     * @return An {@link WsAuthenticationHandler}
+     * @return an {@link WsAuthenticationHandler}
      */
     WsAuthenticationHandler getWsAuthHandler();
 
@@ -50,8 +50,8 @@ public interface WsFrameHandler {
      * <p>
      * Only gets called if the {@link WsAuthenticationHandler} returned {@code true}
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param frame The {@link WebSocketFrame} to process
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param frame the {@link WebSocketFrame} to process
      */
     void handleFrame(ChannelHandlerContext ctx, WebSocketFrame frame);
 

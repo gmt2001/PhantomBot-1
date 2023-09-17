@@ -120,10 +120,10 @@ public class StreamLabsAPI {
     /**
      * Attempts to authorize the user and obtain an access token
      *
-     * @param clientId The client ID
-     * @param clientSecret The client secret
-     * @param redirectUri The redirect URI that received the code
-     * @param code The code to exchange for an access token
+     * @param clientId the client ID
+     * @param clientSecret the client secret
+     * @param redirectUri the redirect URI that received the code
+     * @param code the code to exchange for an access token
      * @return {@code true} if an access token was obtained and saved
      * @throws JSONException
      * @throws URISyntaxException

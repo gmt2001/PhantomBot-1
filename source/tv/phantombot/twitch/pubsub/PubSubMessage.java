@@ -66,21 +66,21 @@ public final class PubSubMessage {
     }
 
     /**
-     * @return The message type
+     * @return the message type
      */
     public PubSubMessageType messageType() {
         return this.messageType;
     }
 
     /**
-     * @return The topic of this message, if it is a PubSubMessageType.MESSAGE
+     * @return the topic of this message, if it is a PubSubMessageType.MESSAGE
      */
     public String topic() {
         return this.topic;
     }
 
     /**
-     * @return The body of the message. For PubSubMessageType.MESSAGE this is the sub-object encoded in data.message of the primary message
+     * @return the body of the message. For PubSubMessageType.MESSAGE this is the sub-object encoded in data.message of the primary message
      */
     public JSONObject body() {
         return this.body;

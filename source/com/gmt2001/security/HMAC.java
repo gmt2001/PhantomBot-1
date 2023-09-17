@@ -39,8 +39,8 @@ public final class HMAC {
     /**
      * Calculates an HMAC-SHA256
      *
-     * @param secretKey The secret key
-     * @param message The message to calculate the MAC on
+     * @param secretKey the secret key
+     * @param message the message to calculate the MAC on
      * @return the MAC
      */
     public static byte[] calcHmacSha256(byte[] secretKey, byte[] message) {
@@ -61,8 +61,8 @@ public final class HMAC {
     /**
      * Calculates an HMAC-SHA256 and returns the MAC as a hex-encoded string
      *
-     * @param secretKey The secret key
-     * @param message The message to calculate the MAC on
+     * @param secretKey the secret key
+     * @param message the message to calculate the MAC on
      * @return the MAC as a hex-encoded string
      */
     public static String calcHmacSha256(String secretKey, String message) {
@@ -72,9 +72,9 @@ public final class HMAC {
     /**
      * Calculates an HMAC-SHA256 and compares it to an existing MAC
      *
-     * @param secretKey The secret key
-     * @param message The message to calculate the MAC on
-     * @param mac The MAC to compare to
+     * @param secretKey the secret key
+     * @param message the message to calculate the MAC on
+     * @param mac the MAC to compare to
      * @return {@code true} if the calculated MAC matches the provided MAC
      */
     public static boolean compareHmacSha256(byte[] secretKey, byte[] message, byte[] mac) {
@@ -84,9 +84,9 @@ public final class HMAC {
     /**
      * Calculates an HMAC-SHA256 and compares it to an existing MAC
      *
-     * @param secretKey The secret key
-     * @param message The message to calculate the MAC on
-     * @param mac The MAC to compare to
+     * @param secretKey the secret key
+     * @param message the message to calculate the MAC on
+     * @param mac the MAC to compare to
      * @return {@code true} if the calculated MAC matches the provided MAC
      */
     public static boolean compareHmacSha256(String secretKey, String message, String mac) {

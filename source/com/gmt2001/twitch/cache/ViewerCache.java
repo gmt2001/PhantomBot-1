@@ -63,7 +63,7 @@ public final class ViewerCache implements Listener {
     /**
      * Singleton method
      *
-     * @return The singleton instance of ViewerCache
+     * @return the singleton instance of ViewerCache
      */
     public static ViewerCache instance() {
         if (!INSTANCE.registered) {
@@ -105,7 +105,7 @@ public final class ViewerCache implements Listener {
     /**
      * Performs a lookup of the broadcaster and bot accounts
      *
-     * @return A {@link Mono} that can be subscribed to
+     * @return a {@link Mono} that can be subscribed to
      */
     private Mono<List<Viewer>> updateBroadcasterBot() {
         return this.lookupAsync(null, List.of(TwitchValidate.instance().getChatLogin().toLowerCase(),
@@ -132,8 +132,8 @@ public final class ViewerCache implements Listener {
      * The data is stored in two tables: {@code idToLogin} is keyed by user id and valued by user login.
      * {@code loginToId} is keyed by user login and valued by user id
      *
-     * @param id The user id
-     * @param login The user login
+     * @param id the user id
+     * @param login the user login
      */
     private void updateDatabase(String id, String login) {
         String existing = PhantomBot.instance().getDataStore().GetString("idToLogin", "", id);
@@ -252,7 +252,7 @@ public final class ViewerCache implements Listener {
     /**
      * Updates the broadcaster and bot in the cache if they have changed
      *
-     * @param event The event to process
+     * @param event the event to process
      */
     @Handler
     public void onPropertiesReloadedEvent(PropertiesReloadedEvent event) {
@@ -262,7 +262,7 @@ public final class ViewerCache implements Listener {
     /**
      * Updates the cache when a TMI message is received
      *
-     * @param event The event to process
+     * @param event the event to process
      */
     @Handler
     public void onIrcModerationEvent(IrcModerationEvent event) {
@@ -299,9 +299,9 @@ public final class ViewerCache implements Listener {
     /**
      * Performs a Twitch API lookup of the users
      *
-     * @param id Some user ids to lookup
-     * @param login Some user logins name to lookup
-     * @return A {@link Viewer} object; {@code null} if not found
+     * @param id some user ids to lookup
+     * @param login some user logins name to lookup
+     * @return a {@link Viewer} object; {@code null} if not found
      */
     private Mono<List<Viewer>> lookupAsync(List<String> id, List<String> login) {
         return Helix.instance().getUsersAsync(id, login)
@@ -336,9 +336,9 @@ public final class ViewerCache implements Listener {
      * <p>
      * Can only use one of id or login
      *
-     * @param id A user id to lookup
-     * @param login A user login name to lookup
-     * @return A {@link Viewer} object; {@code null} if not found
+     * @param id a user id to lookup
+     * @param login a user login name to lookup
+     * @return a {@link Viewer} object; {@code null} if not found
      */
     private Viewer lookup(String id, String login) {
         List<Viewer> viewers = this.lookupAsync(id == null ? null : List.of(id), login == null ? null : List.of(login)).block();
@@ -353,7 +353,7 @@ public final class ViewerCache implements Listener {
     /**
      * Performs an asynchronous operation to lookup the users on Twitch API and add them to the cache
      *
-     * @param id A list of user ids to lookup
+     * @param id a list of user ids to lookup
      */
     public void lookupAsync(List<String> id) {
         this.lookupAsync(id, null).doOnSuccess(viewers -> {
@@ -368,7 +368,7 @@ public final class ViewerCache implements Listener {
     /**
      * Performs an asynchronous operation to lookup the users on Twitch API and add them to the cache
      *
-     * @param login A list of user logins to lookup
+     * @param login a list of user logins to lookup
      */
     public void lookupLoginAsync(List<String> login) {
         this.lookupAsync(null, login).doOnSuccess(viewers -> {
@@ -385,7 +385,7 @@ public final class ViewerCache implements Listener {
      * <p>
      * If a viewer with the same user id exists, then the new object is discarded and the {@link Viewer#seen()} method is called instead
      *
-     * @param viewer The viewer object to add
+     * @param viewer the viewer object to add
      * @return {@code true} if the new object was added; {@code false} if the viewer already exists
      * @exception NullPointerException if the new object was {@code null}
      */
@@ -418,8 +418,8 @@ public final class ViewerCache implements Listener {
      * <p>
      * If the object does not yet exist, a lookup is performed on Twitch API
      *
-     * @param id The user id to lookup
-     * @return The {@link Viewer} object for the user; {@code null} if not found
+     * @param id the user id to lookup
+     * @return the {@link Viewer} object for the user; {@code null} if not found
      */
     public Viewer get(String id) {
         return this.viewers.computeIfAbsent(id, k -> {
@@ -430,8 +430,8 @@ public final class ViewerCache implements Listener {
     /**
      * Returns the {@link Viewer} object for the specified user login
      *
-     * @param login The user login to lookup
-     * @return An {@link Optional} containing the {@link Viewer} object for the user; an empty Optional if not in the cache
+     * @param login the user login to lookup
+     * @return an {@link Optional} containing the {@link Viewer} object for the user; an empty Optional if not in the cache
      */
     private Optional<Viewer> getByLoginInternal(String login) {
         return this.viewers.entrySet().stream().filter(kv -> kv.getValue().login().equals(login)).map(kv -> kv.getValue()).findFirst();
@@ -442,8 +442,8 @@ public final class ViewerCache implements Listener {
      * <p>
      * If the object does not yet exist, a lookup is performed on Twitch API
      *
-     * @param login The user login to lookup
-     * @return The {@link Viewer} object for the user; {@code null} if not found
+     * @param login the user login to lookup
+     * @return the {@link Viewer} object for the user; {@code null} if not found
      */
     public Viewer getByLogin(String login) {
         Optional<Viewer> viewer = this.getByLoginInternal(login);
@@ -462,7 +462,7 @@ public final class ViewerCache implements Listener {
     /**
      * Indicates if the specified user id is already in the cache
      *
-     * @param id The user id to lookup
+     * @param id the user id to lookup
      * @return {@code true} if this user id is already in the cache
      */
     public boolean exists(String id) {
@@ -472,7 +472,7 @@ public final class ViewerCache implements Listener {
     /**
      * Indicates if the specified user login is already in the cache
      *
-     * @param login The user login to lookup
+     * @param login the user login to lookup
      * @return {@code true} if this user login is already in the cache
      */
     public boolean loginExists(String login) {
@@ -482,7 +482,7 @@ public final class ViewerCache implements Listener {
     /**
      * Removes the specified user from the cache
      *
-     * @param id The user id to remove
+     * @param id the user id to remove
      */
     public void remove(String id) {
         this.viewers.remove(id);
@@ -491,7 +491,7 @@ public final class ViewerCache implements Listener {
     /**
      * Removes the specified user from the cache by login name
      *
-     * @param login The user login to remove
+     * @param login the user login to remove
      */
     public void removeByLogin(String login) {
         Optional<Viewer> viewer = this.getByLoginInternal(login);
@@ -504,7 +504,7 @@ public final class ViewerCache implements Listener {
     /**
      * Returns the {@link Viewer} object representing the bot account
      *
-     * @return The {@link Viewer} object representing the bot account
+     * @return the {@link Viewer} object representing the bot account
      */
     public Viewer bot() {
         if (this.bot == null) {
@@ -517,7 +517,7 @@ public final class ViewerCache implements Listener {
     /**
      * Returns the {@link Viewer} object representing the broadcaster account
      *
-     * @return The {@link Viewer} object representing the broadcaster account
+     * @return the {@link Viewer} object representing the broadcaster account
      */
     public Viewer broadcaster() {
         if (this.broadcaster == null) {
@@ -530,7 +530,7 @@ public final class ViewerCache implements Listener {
     /**
      * Returns a list of {@link Viewer} objects representing users recently seen in chat
      *
-     * @return A {@link List} of {@link Viewer} objects
+     * @return a {@link List} of {@link Viewer} objects
      */
     public List<Viewer> chatters() {
         return this.viewers.entrySet().stream().filter(kv -> kv.getValue().inChat()).map(kv -> kv.getValue()).collect(Collectors.toList());
@@ -539,7 +539,7 @@ public final class ViewerCache implements Listener {
     /**
      * Returns a list of {@link Viewer} objects representing users recently seen in chat, who have sent a message in the past 5 minutes
      *
-     * @return A {@link List} of {@link Viewer} objects
+     * @return a {@link List} of {@link Viewer} objects
      */
     public List<Viewer> activeChatters() {
         Instant after = Instant.now().minus(ACTIVE_TIMEOUT);
@@ -549,8 +549,8 @@ public final class ViewerCache implements Listener {
     /**
      * Looks up the specified user id in the mapping database and returns the associated user login
      *
-     * @param id The user id to lookup
-     * @return The associated user login; {@code null} if the specified user id is not in the database
+     * @param id the user id to lookup
+     * @return the associated user login; {@code null} if the specified user id is not in the database
      */
     public String lookupLoginById(String id) {
         if (PhantomBot.instance().getDataStore().HasKey("idToLogin", "", id)) {
@@ -563,8 +563,8 @@ public final class ViewerCache implements Listener {
     /**
      * Looks up the specified user login in the mapping database and returns the associated user id
      *
-     * @param login The user login to lookup
-     * @return The associated user id; {@code null} if the specified user login is not in the database
+     * @param login the user login to lookup
+     * @return the associated user id; {@code null} if the specified user login is not in the database
      */
     public String lookupIdByLogin(String login) {
         if (PhantomBot.instance().getDataStore().HasKey("loginToId", "", login)) {

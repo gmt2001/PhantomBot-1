@@ -83,9 +83,9 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
      * If a handler is not available for the requested path, then
      * {@code 404 NOT FOUND} is sent back to the client
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param req The {@link FullHttpRequest} containing the request
-     * @throws Exception Passes any thrown exceptions up the stack
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param req the {@link FullHttpRequest} containing the request
+     * @throws Exception passes any thrown exceptions up the stack
      */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest req) throws Exception {
@@ -208,8 +208,8 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
      * NOTE: This method ignores everything before the last {@code .} in the
      * filename
      *
-     * @param fileNameOrType The filename or type extension to check
-     * @return The valid MIME type, or {@code text/plain} if not recognized
+     * @param fileNameOrType the filename or type extension to check
+     * @return the valid MIME type, or {@code text/plain} if not recognized
      */
     public static String detectContentType(String fileNameOrType) {
         String ext = (fileNameOrType.lastIndexOf('.') == -1 ? fileNameOrType
@@ -444,9 +444,9 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
     /**
      * Transmits a {@link FullHttpResponse} back to the client
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param req The {@link FullHttpRequest} containing the request
-     * @param res The {@link FullHttpResponse} to transmit
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param req the {@link FullHttpRequest} containing the request
+     * @param res the {@link FullHttpResponse} to transmit
      */
     public static void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, FullHttpResponse res) {
         sendHttpResponse(ctx, req, res, false);
@@ -574,7 +574,7 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
     /**
      * Deregisters a HTTP URI path
      *
-     * @param path The path to deregister
+     * @param path the path to deregister
      */
     public static void deregisterHttpHandler(String path) {
         httpRequestHandlers.remove(path);
@@ -601,8 +601,8 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
     /**
      * Parses out post data and converts it to a Map
      *
-     * @param req The {@link FullHttpRequest} containing the request
-     * @return A Map of post data
+     * @param req the {@link FullHttpRequest} containing the request
+     * @return a Map of post data
      */
     public static Map<String, String> parsePost(FullHttpRequest req) {
         Map<String, String> post = new HashMap<>();

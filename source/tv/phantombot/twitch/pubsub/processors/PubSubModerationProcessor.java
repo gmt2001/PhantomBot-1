@@ -156,7 +156,7 @@ public class PubSubModerationProcessor extends AbstractPubSubProcessor {
     /**
      * Logs the messages we get from PubSub.
      *
-     * @param message Message that we will log.
+     * @param message message that we will log.
      */
     private void logModeration(String message) {
         if (PhantomBot.instance().getDataStore().GetString("chatModerator", "", "moderationLogs").equals("true")) {

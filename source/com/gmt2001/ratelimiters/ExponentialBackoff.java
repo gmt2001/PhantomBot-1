@@ -42,8 +42,8 @@ public class ExponentialBackoff {
     /**
      * Constructor
      *
-     * @param minInterval Minimum backoff interval
-     * @param maxInterval Maximum backoff interval
+     * @param minInterval minimum backoff interval
+     * @param maxInterval maximum backoff interval
      */
     public ExponentialBackoff(Duration minInterval, Duration maxInterval) {
         this(minInterval.toMillis(), maxInterval.toMillis());
@@ -52,9 +52,9 @@ public class ExponentialBackoff {
     /**
      * Constructor
      *
-     * @param minInterval Minimum backoff interval
-     * @param maxInterval Maximum backoff interval
-     * @param resetInterval Time since last backoff until an auto-reset occurs; {@code null} to disable
+     * @param minInterval minimum backoff interval
+     * @param maxInterval maximum backoff interval
+     * @param resetInterval time since last backoff until an auto-reset occurs; {@code null} to disable
      */
     public ExponentialBackoff(Duration minInterval, Duration maxInterval, Duration resetInterval) {
         this(minInterval.toMillis(), maxInterval.toMillis(), (resetInterval == null ? -1 : resetInterval.toMillis()));
@@ -63,8 +63,8 @@ public class ExponentialBackoff {
     /**
      * Constructor
      *
-     * @param minIntervalMS Minimum backoff interval, in MS
-     * @param maxIntervalMS Maximum backoff interval, in MS
+     * @param minIntervalMS minimum backoff interval, in MS
+     * @param maxIntervalMS maximum backoff interval, in MS
      */
     public ExponentialBackoff(long minIntervalMS, long maxIntervalMS) {
         this(minIntervalMS, maxIntervalMS, -1);
@@ -73,9 +73,9 @@ public class ExponentialBackoff {
     /**
      * Constructor
      *
-     * @param minIntervalMS Minimum backoff interval, in MS
-     * @param maxIntervalMS Maximum backoff interval, in MS
-     * @param resetIntervalMS Time since last backoff until an auto-reset occurs; {@code -1} to disable
+     * @param minIntervalMS minimum backoff interval, in MS
+     * @param maxIntervalMS maximum backoff interval, in MS
+     * @param resetIntervalMS time since last backoff until an auto-reset occurs; {@code -1} to disable
      */
     public ExponentialBackoff(long minIntervalMS, long maxIntervalMS, long resetIntervalMS) {
         this.minIntervalMS = minIntervalMS;
@@ -129,7 +129,7 @@ public class ExponentialBackoff {
     /**
      * Calls the specified Runnable once the next interval expires, if not already backing off
      *
-     * @param command The Runnable to callback
+     * @param command the Runnable to callback
      */
     public void BackoffOnceAsync(Runnable command) {
         synchronized (this) {
@@ -145,7 +145,7 @@ public class ExponentialBackoff {
     /**
      * Calls the specified Runnable once the next interval expires
      *
-     * @param command The Runnable to callback
+     * @param command the Runnable to callback
      */
     public void BackoffAsync(Runnable command) {
         com.gmt2001.Console.debug.println("BackoffAsync() called by: " + com.gmt2001.Console.debug.findCaller(ExponentialBackoff.class.getName()));
@@ -212,7 +212,7 @@ public class ExponentialBackoff {
     /**
      * Returns the last timestamp when a backoff was completed
      *
-     * @return The timestamp
+     * @return the timestamp
      */
     public Instant GetLastBackoff() {
         return this.lastBackoff;
@@ -221,7 +221,7 @@ public class ExponentialBackoff {
     /**
      * Determines and returns the next interval to backoff for
      *
-     * @return The next interval that will be used when Backoff() or BackoffAsync(command) is called, in milliseconds
+     * @return the next interval that will be used when Backoff() or BackoffAsync(command) is called, in milliseconds
      */
     public long GetNextInterval() {
         this.determineNextInterval();
@@ -231,7 +231,7 @@ public class ExponentialBackoff {
     /**
      * Returns the total number of times the backoff has been used since the last reset
      *
-     * @return The total
+     * @return the total
      */
     public int GetTotalIterations() {
         return this.totalIterations;
@@ -277,7 +277,7 @@ public class ExponentialBackoff {
     /**
      * Set this.isBackingOff
      *
-     * @param isBackingOff The new value
+     * @param isBackingOff the new value
      */
     private synchronized void setIsBackingOff(boolean isBackingOff) {
         this.isBackingOff = isBackingOff;

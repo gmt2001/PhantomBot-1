@@ -156,7 +156,7 @@ public final class EventSub extends SubmissionPublisher<EventSubInternalEvent> i
     /**
      * Logs a debug message for EventSub
      *
-     * @param message The message to log
+     * @param message the message to log
      */
     public static void debug(String message) {
         debug(message, null);
@@ -165,8 +165,8 @@ public final class EventSub extends SubmissionPublisher<EventSubInternalEvent> i
     /**
      * Logs a debug message for EventSub
      *
-     * @param message The message to log
-     * @param ex The exception to log
+     * @param message the message to log
+     * @param ex the exception to log
      */
     public static void debug(String message, Throwable ex) {
         if (debug()) {
@@ -204,7 +204,7 @@ public final class EventSub extends SubmissionPublisher<EventSubInternalEvent> i
     /**
      * Deletes a subscription
      *
-     * @param id The id of the subscription to delete
+     * @param id the id of the subscription to delete
      * @return
      */
     public Mono<Void> deleteSubscription(String id) {
@@ -248,7 +248,7 @@ public final class EventSub extends SubmissionPublisher<EventSubInternalEvent> i
     /**
      * Refreshes the internal list of existing subscriptions
      *
-     * @param after The pagination cursor
+     * @param after the pagination cursor
      */
     private void refreshSubscriptions(String after) {
         Helix.instance().getEventSubSubscriptionsAsync(null, null, null, after).doOnSuccess(response -> {
@@ -284,8 +284,8 @@ public final class EventSub extends SubmissionPublisher<EventSubInternalEvent> i
     /**
      * Performs the create action for an {@link EventSubSubscriptionType}
      *
-     * @param proposedSubscription The {@link EventSubSubscription} spec to create
-     * @return The new subscription
+     * @param proposedSubscription the {@link EventSubSubscription} spec to create
+     * @return the new subscription
      */
     Mono<EventSubSubscription> createSubscription(EventSubSubscription proposedSubscription) {
         return Mono.<EventSubSubscription>create(emitter -> {
@@ -343,7 +343,7 @@ public final class EventSub extends SubmissionPublisher<EventSubInternalEvent> i
     /**
      * Parses a date from an EventSub message into a {@link ZonedDateTime}
      *
-     * @param date A date string to parse in RFC3339 format
+     * @param date a date string to parse in RFC3339 format
      * @return
      */
     public static ZonedDateTime parseDate(String date) {
@@ -359,8 +359,8 @@ public final class EventSub extends SubmissionPublisher<EventSubInternalEvent> i
     /**
      * Checks if the specified message has already been handled
      *
-     * @param messageId The message id to check
-     * @param timestamp The timestamp of the message
+     * @param messageId the message id to check
+     * @param timestamp the timestamp of the message
      * @return
      */
     boolean isDuplicate(String messageId, ZonedDateTime timestamp) {
@@ -370,8 +370,8 @@ public final class EventSub extends SubmissionPublisher<EventSubInternalEvent> i
     /**
      * Updates the local {@link EventSubSubscription} object with a new status
      *
-     * @param subscription The subscription to update
-     * @param newStatus The new status
+     * @param subscription the subscription to update
+     * @param newStatus the new status
      */
     private void updateSubscription(EventSubSubscription subscription, EventSubSubscription.SubscriptionStatus newStatus) {
         this.updateSubscription(subscription.clone(newStatus));
@@ -380,7 +380,7 @@ public final class EventSub extends SubmissionPublisher<EventSubInternalEvent> i
     /**
      * Adds/updates an {@link EventSubSubscription} in the local cache and updates the subscription total
      *
-     * @param subscription The subscription to add/update
+     * @param subscription the subscription to add/update
      */
     private void updateSubscription(EventSubSubscription subscription) {
         this.subscriptions.put(subscription.id(), subscription);
@@ -430,7 +430,7 @@ public final class EventSub extends SubmissionPublisher<EventSubInternalEvent> i
     /**
      * Restarts EventSub when the API OAuth is re-authorized manually
      *
-     * @param event The event object
+     * @param event the event object
      */
     @Handler
     public void onTwitchOAuthReauthorizedEvent(TwitchOAuthReauthorizedEvent event) {
@@ -468,7 +468,7 @@ public final class EventSub extends SubmissionPublisher<EventSubInternalEvent> i
     /**
      * Connects to EventSub at the specified URI
      *
-     * @param uri The URI to connect to
+     * @param uri the URI to connect to
      */
     private synchronized void connect(String uri) {
         if (!this.reconnecting) {
@@ -511,7 +511,7 @@ public final class EventSub extends SubmissionPublisher<EventSubInternalEvent> i
     /**
      * Parses an EventSub websocket message
      *
-     * @param jso The JSON data to parse
+     * @param jso the JSON data to parse
      */
     private void handleMessage(JSONObject jso) {
         boolean handled = false;

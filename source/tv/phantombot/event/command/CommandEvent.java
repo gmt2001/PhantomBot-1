@@ -73,13 +73,13 @@ public class CommandEvent implements Event {
      * Method that parses the command arguments. Double quotes can be used to prevent an argument containing the delimiter from splitting. Double
      * quotes that are literals can be escaped with backslash. Backslash requires escaping with another backslash.
      *
-     * @param arguments The arguments as a single string
-     * @param delimiter The delimiter by which arguments are split. Can be any char except double-quote or backslash
-     * @param limit The maximum number of arguments to return. -1 indicates unlimited. Once limit is reached, the delimiter is automatically escaped
-     * @param limitNoEscape If set true and limit &gt; 0, the argument at position limit is treated as a literal string, as if all quotes,
+     * @param arguments the arguments as a single string
+     * @param delimiter the delimiter by which arguments are split. Can be any char except double-quote or backslash
+     * @param limit the maximum number of arguments to return. -1 indicates unlimited. Once limit is reached, the delimiter is automatically escaped
+     * @param limitNoEscape if set true and limit &gt; 0, the argument at position limit is treated as a literal string, as if all quotes,
      * backslashes, and delimiters are already escaped
      *
-     * @return A List&lt;String&gt; of arguments
+     * @return a List&lt;String&gt; of arguments
      */
     public static List<String> parseArgs(String arguments, char delimiter, int limit, boolean limitNoEscape) {
         if (delimiter == '"' || delimiter == '\\') {
@@ -120,7 +120,7 @@ public class CommandEvent implements Event {
     /**
      * Indicates if the given message appears to be a command, defined as exclamation point {@code !} followed by any character except for a space
      *
-     * @param message The message to check
+     * @param message the message to check
      * @return {@code true} if the message appears to be a command
      */
     public static boolean isCommand(String message) {
@@ -134,9 +134,9 @@ public class CommandEvent implements Event {
     /**
      * Converts the given message into a CommandEvent
      *
-     * @param sender The sender of the message
-     * @param message The message to convert
-     * @param tags Any IRCv3 tags attached to the message
+     * @param sender the sender of the message
+     * @param message the message to convert
+     * @param tags any IRCv3 tags attached to the message
      * @return {@code null} if {@link #isCommand(java.lang.String)} returns {@code false}; otherwise a {@link CommandEvent}
      */
     public static CommandEvent asCommand(String sender, String message, Map<String, String> tags) {

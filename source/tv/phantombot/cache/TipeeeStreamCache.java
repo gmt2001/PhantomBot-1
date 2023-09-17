@@ -141,7 +141,7 @@ public class TipeeeStreamCache implements Runnable {
     /**
      * Returns the current cache.
      *
-     * @return Current cache.
+     * @return current cache.
      */
     public Map<String, String> getCache() {
         return cache;
