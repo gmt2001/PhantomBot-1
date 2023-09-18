@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package tv.phantombot.event.websocket;
+package tv.phantombot.event.webserver;
 
 import java.lang.ref.WeakReference;
 import java.util.function.Consumer;
@@ -23,46 +23,47 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
 
-import com.gmt2001.httpwsserver.WebSocketFrameHandler;
 import com.gmt2001.httpwsserver.auth.WsSharedRWTokenAuthenticationHandler;
 
-import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.http.HttpResponseStatus;
 import tv.phantombot.event.Event;
 import tv.phantombot.panel.PanelUser.PanelUser;
 
 /**
- * A message received from a Web Socket on the bots web server
+ * A message received from the bots web server
  *
  * @author gmt2001
  */
-public final class WebSocketMessageEvent extends JSONObject implements Event {
+public abstract sealed class WebServerMessageEvent extends JSONObject implements Event
+    permits WebServerHTTPMessageEvent, WebServerWebSocketMessageEvent {
     /**
-     * Weak reference to the channel which sent the message
+     * Weak reference to the channel handler context which sent the message
      */
-    private final WeakReference<Channel> channel;
+    protected final WeakReference<ChannelHandlerContext> channelHandlerContext;
     /**
      * The request id
      */
-    private final String id;
+    protected final String id;
     /**
      * The request target
      */
-    private final String target;
+    protected final String target;
     /**
      * The message type
      */
-    private final String type;
+    protected final String type;
 
     /**
      * Construct a JSONObject from a source JSON text string
      *
-     * @param channel the channel to send replies to
+     * @param channelHandlerContext the channel handler context to send replies to
      * @param source a string beginning with {@code &#123;} (left brace) and ending with {@code &#125;} (right brace)
      * @throws JSONException if there is a syntax error in the source string, a duplicated key, there is no string value for any of the keys {@code id}, {@code target}, or {@code type}
      */
-    public WebSocketMessageEvent(Channel channel, String source) {
+    public WebServerMessageEvent(ChannelHandlerContext channelHandlerContext, String source) {
         super(source);
-        this.channel = new WeakReference<Channel>(channel);
+        this.channelHandlerContext = new WeakReference<ChannelHandlerContext>(channelHandlerContext);
         this.id = this.getString("id");
         this.target = this.getString("target");
         this.type = this.getString("type");
@@ -71,13 +72,13 @@ public final class WebSocketMessageEvent extends JSONObject implements Event {
     /**
      * Construct a JSONObject from another JSONObject
      *
-     * @param channel the channel to send replies to
+     * @param channelHandlerContext the channel handler context to send replies to
      * @param jo a JSONObject
      * @throws JSONException if there is no string value for any of the keys {@code id}, {@code target}, or {@code type}
      */
-    public WebSocketMessageEvent(Channel channel, JSONObject jo) {
+    public WebServerMessageEvent(ChannelHandlerContext channelHandlerContext, JSONObject jo) {
         super(jo, jo.keySet().toArray(new String[0]));
-        this.channel = new WeakReference<Channel>(channel);
+        this.channelHandlerContext = new WeakReference<ChannelHandlerContext>(channelHandlerContext);
         this.id = this.getString("id");
         this.target = this.getString("target");
         this.type = this.getString("type");
@@ -116,8 +117,8 @@ public final class WebSocketMessageEvent extends JSONObject implements Event {
      * @return the user; {@code null} if no user is authenticated or the connection has been closed
      */
     public PanelUser user() {
-        if (!this.channel.refersTo(null) && this.channel.get().isActive()) {
-            return this.channel.get().attr(WsSharedRWTokenAuthenticationHandler.ATTR_AUTH_USER).get();
+        if (!this.channelHandlerContext.refersTo(null) && this.channelHandlerContext.get().channel().isActive()) {
+            return this.channelHandlerContext.get().channel().attr(WsSharedRWTokenAuthenticationHandler.ATTR_AUTH_USER).get();
         }
 
         return null;
@@ -130,16 +131,27 @@ public final class WebSocketMessageEvent extends JSONObject implements Event {
      * therefore, the starting point for implementation should be to call {@link JSONStringer#key(String)} followed by a
      * method which attaches a value to the key
      * <p>
-     * Example: {@code msg.sendResponse("myResponseType", jsr -> jsr.key("success").value(true));}
+     * The following keys are reserved:
+     * <ul>
+     * <li>id - value of {@link #id()}</li>
+     * <li>target - value of {@link #target()}</li>
+     * <li>code - value of {@link HttpResponseStatus#code()}</li>
+     * <li>status - value of {@link HttpResponseStatus#reasonPhrase()}</li>
+     * <li>type - value of {@code type}</li>
+     * </ul>
+     * <p>
+     * Example: {@code msg.sendResponse("myResponseType" HttpResponseStatus.OK, jsr -> jsr.key("success").value(true));}
      *
      * @param type the message type
+     * @param status the response status
      * @param replyBuilder a lambda which will append response data to the response {@link JSONStringer}; {@code null} if not appending any data
      * @throws JSONException if any method in {@link JSONStringer} is called in an illegal order, or if the JSONStringer fails to construct the stringified JSON
      */
-    public void sendResponse(String type, Consumer<JSONStringer> replyBuilder) {
-        if (!this.channel.refersTo(null) && this.channel.get().isActive()) {
+    public void sendResponse(String type, HttpResponseStatus status, Consumer<JSONStringer> replyBuilder) {
+        if (!this.channelHandlerContext.refersTo(null) && this.channelHandlerContext.get().channel().isActive()) {
             JSONStringer jsr = new JSONStringer();
             jsr.key("id").value(this.id).key("target").value(this.target)
+            .key("code").value(status.code()).key("status").value(status.reasonPhrase())
             .key("type").value(type);
 
             if (replyBuilder != null) {
@@ -154,22 +166,33 @@ public final class WebSocketMessageEvent extends JSONObject implements Event {
                 throw new JSONException("Failed to construct JSON text (unbalanced append?)");
             }
 
-            WebSocketFrameHandler.sendWsFrame(this.channel.get(), null,
-            WebSocketFrameHandler.prepareTextWebSocketResponse(json));
+            this.doSendResponse(status, json);
         }
     }
 
     /**
+     * Actually constructs the netty response message object and transmits it
+     *
+     * @param status the response status
+     * @param json the stringified JSON text to transmit
+     */
+    protected abstract void doSendResponse(HttpResponseStatus status, String json);
+
+    /**
      * Sends an {@code ack} type response message with no additional response data
+     * <p>
+     * The response code is {@link HttpResponseStatus#ACCEPTED}
      */
     public void ack() {
-        this.sendResponse("ack", null);
+        this.sendResponse("ack", HttpResponseStatus.ACCEPTED, null);
     }
 
     /**
      * Sends a {@code nak} type response message with no additional response data
+     * <p>
+     * The response code is {@link HttpResponseStatus#CONFLICT}
      */
     public void nak() {
-        this.sendResponse("nak", null);
+        this.sendResponse("nak", HttpResponseStatus.CONFLICT, null);
     }
 }
