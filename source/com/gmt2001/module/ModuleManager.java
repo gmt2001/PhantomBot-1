@@ -43,6 +43,7 @@ import tv.phantombot.event.Listener;
 import tv.phantombot.event.command.CommandEvent;
 import tv.phantombot.event.discord.channel.DiscordChannelCommandEvent;
 import tv.phantombot.event.irc.message.IrcModerationEvent;
+import tv.phantombot.event.webserver.WebServerMessageEvent;
 
 /**
  * Loads and manages {@link Module}
@@ -235,7 +236,7 @@ public final class ModuleManager implements Listener {
     /**
      * Receives events from the event bus and dispatches them to modules
      * <p>
-     * {@link IrcModerationEvent}, {@link CommandEvent}, and {@link DiscordChannelCommandEvent} are instead sent to their handler methods
+     * {@link IrcModerationEvent}, {@link CommandEvent}, {@link DiscordChannelCommandEvent}, and {@link WebServerMessageEvent} are instead sent to their handler methods
      *
      * @param event the event data
      */
@@ -247,6 +248,8 @@ public final class ModuleManager implements Listener {
             this.onCommandEvent(ce);
         } else if (event instanceof DiscordChannelCommandEvent dce) {
             this.onDiscordChannelCommandEvent(dce);
+        } else if (event instanceof WebServerMessageEvent wse) {
+            this.onWebServerMessageEvent(wse);
         } else {
             this.modules.entrySet().stream().forEachOrdered(m -> {
                 try {
@@ -308,6 +311,22 @@ public final class ModuleManager implements Listener {
                 if (m.getValue().onDiscordChannelCommandEvent(event)) {
                     handled.set(true);
                 }
+            } catch (Throwable e) {
+                com.gmt2001.Console.err.println("Failed to dispatch " + event.getClass().getSimpleName() + " to Java module " + m.getKey().getName());
+                com.gmt2001.Console.err.printStackTrace(e, failMap(m.getKey(), "onEvent#" + event.getClass().getSimpleName()));
+            }
+        });
+    }
+
+    /**
+     * Handles processing and dispatching specific to {@link WebServerMessageEvent}
+     *
+     * @param event the event data
+     */
+    public void onWebServerMessageEvent(WebServerMessageEvent event) {
+        this.modules.entrySet().stream().forEachOrdered(m -> {
+            try {
+                m.getValue().onWebServerMesageEvent(event);
             } catch (Throwable e) {
                 com.gmt2001.Console.err.println("Failed to dispatch " + event.getClass().getSimpleName() + " to Java module " + m.getKey().getName());
                 com.gmt2001.Console.err.printStackTrace(e, failMap(m.getKey(), "onEvent#" + event.getClass().getSimpleName()));

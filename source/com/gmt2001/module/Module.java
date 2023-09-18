@@ -20,6 +20,7 @@ import tv.phantombot.event.Event;
 import tv.phantombot.event.command.CommandEvent;
 import tv.phantombot.event.discord.channel.DiscordChannelCommandEvent;
 import tv.phantombot.event.irc.message.IrcModerationEvent;
+import tv.phantombot.event.webserver.WebServerMessageEvent;
 
 /**
  * A bot module written in Java
@@ -79,7 +80,7 @@ public abstract class Module {
     }
 
     /**
-     * Receives all events except for {@link IrcModerationEvent}, {@link CommandEvent}, and {@link DiscordChannelCommandEvent}
+     * Receives all events except for {@link IrcModerationEvent}, {@link CommandEvent}, {@link DiscordChannelCommandEvent}, and {@link WebServerMessageEvent}
      *
      * @param event the event data
      */
@@ -115,4 +116,11 @@ public abstract class Module {
     public boolean onDiscordChannelCommandEvent(DiscordChannelCommandEvent event) {
         return false;
     }
+
+    /**
+     * Receives {@link WebServerMessageEvent}
+     *
+     * @param event the event data
+     */
+    public void onWebServerMesageEvent(WebServerMessageEvent event) {}
 }
