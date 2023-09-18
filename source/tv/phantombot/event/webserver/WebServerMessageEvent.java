@@ -195,4 +195,13 @@ public abstract sealed class WebServerMessageEvent extends JSONObject implements
     public void nak() {
         this.sendResponse("nak", HttpResponseStatus.CONFLICT, null);
     }
+
+    /**
+     * Sends a {@code forbidden} type response message with no additional response data
+     * <p>
+     * The response code is {@link HttpResponseStatus#FORBIDDEN}
+     */
+    public void forbidden() {
+        this.sendResponse("forbidden", HttpResponseStatus.FORBIDDEN, null);
+    }
 }
