@@ -31,6 +31,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.gmt2001.twitch.tmi.TMIMessage;
 import com.gmt2001.util.concurrent.ExecutorService;
 
 import net.engio.mbassy.listener.Handler;
@@ -40,7 +41,6 @@ import tv.phantombot.PhantomBot;
 import tv.phantombot.event.EventBus;
 import tv.phantombot.event.Listener;
 import tv.phantombot.event.irc.channel.IrcChannelUsersUpdateEvent;
-import tv.phantombot.event.irc.message.IrcModerationEvent;
 import tv.phantombot.event.jvm.PropertiesReloadedEvent;
 import tv.phantombot.event.twitch.TwitchUserLoginChangedEvent;
 import tv.phantombot.twitch.api.Helix;
@@ -262,11 +262,10 @@ public final class ViewerCache implements Listener {
     /**
      * Updates the cache when a TMI message is received
      *
-     * @param event the event to process
+     * @param message the message to process
      */
-    @Handler
-    public void onIrcModerationEvent(IrcModerationEvent event) {
-        String id = event.getTags().getOrDefault("user-id", null);
+    public void processViewerFromMessage(TMIMessage message) {
+        String id = message.tags().getOrDefault("user-id", null);
 
         if (id != null && !id.isBlank()) {
             Viewer viewer;
@@ -279,19 +278,19 @@ public final class ViewerCache implements Listener {
                     this.chattersUpdated(true);
                 }
             } else {
-                viewer = new Viewer(id).login(event.getSender())
-                    .name(event.getTags().getOrDefault("display-name", "").replaceAll("\\\\s", " "))
+                viewer = new Viewer(id).login(message.nick())
+                    .name(message.tags().getOrDefault("display-name", "").replaceAll("\\\\s", " "))
                     .inChat(true).active();
                 this.add(viewer);
                 this.chattersUpdated(true);
             }
 
-            viewer.admin(event.getTags().getOrDefault("user-type", "").equals("admin"))
-                .staff(event.getTags().getOrDefault("user-type", "").equals("staff"))
-                .vip(!event.getTags().containsKey("vip"))
-                .turbo(!event.getTags().getOrDefault("turbo", "0").equals("0"))
-                .moderator(!event.getTags().getOrDefault("mod", "0").equals("0"))
-                .subscriber(!event.getTags().getOrDefault("subscriber", "0").equals("0"))
+            viewer.admin(message.tags().getOrDefault("user-type", "").equals("admin"))
+                .staff(message.tags().getOrDefault("user-type", "").equals("staff"))
+                .vip(!message.tags().containsKey("vip"))
+                .turbo(!message.tags().getOrDefault("turbo", "0").equals("0"))
+                .moderator(!message.tags().getOrDefault("mod", "0").equals("0"))
+                .subscriber(!message.tags().getOrDefault("subscriber", "0").equals("0"))
                 .attributes();
         }
     }

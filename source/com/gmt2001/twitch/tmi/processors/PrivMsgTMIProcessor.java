@@ -20,6 +20,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.gmt2001.twitch.cache.ViewerCache;
 import com.gmt2001.twitch.tmi.TMIMessage;
 import com.gmt2001.twitch.tmi.TMISlashCommands;
 
@@ -57,6 +58,8 @@ public final class PrivMsgTMIProcessor extends AbstractTMIProcessor {
         com.gmt2001.Console.out.println(item.nick() + ": " + message);
 
         com.gmt2001.Console.debug.println("IRCv3 Tags: " + item.tags());
+
+        ViewerCache.instance().processViewerFromMessage(item);
 
         if (!item.nick().equalsIgnoreCase(this.user())) {
             if (item.tags().get("mod").equals("1") || !item.tags().get("user-type").isEmpty()) {
