@@ -140,7 +140,7 @@ public abstract sealed class WebServerMessageEvent extends JSONObject implements
      * <li>type - value of {@code type}</li>
      * </ul>
      * <p>
-     * Example: {@code msg.sendResponse("myResponseType" HttpResponseStatus.OK, jsr -> jsr.key("success").value(true));}
+     * Example: {@code msg.sendResponse("myResponseType", HttpResponseStatus.OK, jsr -> jsr.key("success").value(true));}
      *
      * @param type the message type
      * @param status the response status
