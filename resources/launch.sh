@@ -31,7 +31,7 @@ unset DISPLAY
 ##### Script Settings #######
 
 # Required Java major version
-javarequired=17
+javarequired=21
 
 # Minimum Ubuntu version to support the required Java version
 ubuntumin=18.04

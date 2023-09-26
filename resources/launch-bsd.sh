@@ -24,11 +24,11 @@
 # % ./launch-bsd.sh
 #
 # You can also specify a custom path to the Java executable as the first parameter, using java=PATH
-# ex: ./launch-bsd.sh java=/usr/local/jdk-17/bin/java
+# ex: ./launch-bsd.sh java=/usr/local/jdk-21/bin/java
 #
 
 # Required Java major version
-javarequired=17
+javarequired=21
 
 unset DISPLAY
 

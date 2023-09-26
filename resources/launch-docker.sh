@@ -21,7 +21,7 @@
 #
 
 # Required Java major version
-javarequired=17
+javarequired=21
 
 # https://unix.stackexchange.com/questions/146756/forward-sigterm-to-child-in-bash/444676#444676
 prep_term()

@@ -10,41 +10,41 @@ jobs:
       matrix:
         include:
           - osname: Linux (GCC, x86_64)
-            java-version: 17
+            java-version: 21
             java-distribution: 'temurin'
             folder: java-runtime-linux
             qemu: false
             os: ubuntu-latest
             script: jlink-jdk-linux.sh
           - osname: Linux (GCC, arm64)
-            java-version: 17
+            java-version: 21
             java-distribution: 'temurin'
             folder: java-runtime-arm64
             qemu: true
             platform: linux/arm64
-            image: eclipse-temurin:17-jdk
+            image: eclipse-temurin:21-jdk
             os: ubuntu-latest
             script: jlink-jdk-docker.sh
             jdk: /opt/java/openjdk
           - osname: Linux (GCC, arm32)
-            java-version: 17
+            java-version: 21
             java-distribution: 'temurin'
             folder: java-runtime-arm32
             qemu: true
             platform: linux/arm/v7
-            image: eclipse-temurin:17-jdk
+            image: eclipse-temurin:21-jdk
             os: ubuntu-latest
             script: jlink-jdk-docker.sh
             jdk: /opt/java/openjdk
           - osname: Windows
-            java-version: 17
+            java-version: 21
             os: windows-latest
             java-distribution: 'temurin'
             folder: java-runtime
             qemu: false
             script: jlink-jdk.bat
           - osname: macOS
-            java-version: 17
+            java-version: 21
             java-distribution: 'temurin'
             folder: java-runtime-macos
             qemu: false
