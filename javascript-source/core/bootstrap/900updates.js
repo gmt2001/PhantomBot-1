@@ -89,7 +89,8 @@
     addUpdate('3.3.0', 'installedv3.3.0', function () {
         $.consoleLn('Updating keywords...');
         let keys = $.inidb.GetKeyList('keywords', ''),
-            newKeywords = [],
+            newKeywordKeys = [],
+            newKeywordJson = [],
             key,
             json,
             strippedKeys = {};
@@ -110,17 +111,13 @@
                 "Please resolve the conflict and restart phantombot.";
             }
             strippedKeys[key] = true;
-            newKeywords.push({
-                key: key,
-                json: json
-            });
+            newKeywordKeys.push(key);
+            newKeywordJson.push(JSON.stringify(json));
         }
 
         $.inidb.RemoveFile('keywords');
 
-        for (let i = 0; i < newKeywords.length; i++) {
-            $.inidb.set('keywords', newKeywords[i].key, JSON.stringify(newKeywords[i].json));
-        }
+        $.inidb.SetBatchString('keywords', '', newKeywordKeys, newKeywordJson);
     });
 
     addUpdate('3.3.6', 'installedv3.3.6', function () {
@@ -203,18 +200,27 @@
     addUpdate('3.5.0', 'installedv3.5.0', function () {
         // Remove org.mozilla.javascript entries in phantombot_time
         let keys = $.inidb.GetKeyList('time', '');
+        let toRemove = [];
 
         $.consoleLn('Checking ' + keys.length + ' time entries for bad keys...');
 
         for (let i = 0; i < keys.length; i++) {
-            let key = $.javaString(keys[i]);
-            if (key === null || key === undefined || key.startsWith('org.mozilla.javascript')) {
-                $.inidb.RemoveKey('time', '', key);
+            let key = keys[i];
+            try {
+                if (key === null || key.startsWith('org.mozilla.javascript')) {
+                    toRemove.push(key);
+                }
+            } catch (e) {
+                if (key !== undefined) {
+                    toRemove.push(key);
+                }
             }
             if (i % 100 === 0) {
                 $.consoleLn('Still checking time entries ' + i + '/' + keys.length + '...');
             }
         }
+
+        $.inidb.RemoveKeys('time', '', toRemove);
     });
 
     addUpdate('3.6.0', 'installedv3.6.0', function () {
@@ -285,14 +291,27 @@
 
     addUpdate('3.6.2.5', 'installedv3.6.2.5', function () {
         let keys = $.inidb.GetKeyList('greeting', '');
+        let toRemove = [];
+
+        $.consoleLn('Checking ' + keys.length + ' greeting entries for bad keys...');
 
         for (let i = 0; i < keys.length; i++) {
-            let key = $.javaString(keys[i]);
-
-            if (key === null || key === undefined || key.startsWith('function(n)')) {
-                $.inidb.RemoveKey('greeting', '', key);
+            let key = keys[i];
+            try {
+                if (key === null || key.startsWith('function(n)')) {
+                    toRemove.push(key);
+                }
+            } catch (e) {
+                if (key !== undefined) {
+                    toRemove.push(key);
+                }
+            }
+            if (i % 100 === 0) {
+                $.consoleLn('Still checking greeting entries ' + i + '/' + keys.length + '...');
             }
         }
+
+        $.inidb.RemoveKeys('greeting', '', toRemove);
     });
 
     addUpdate('3.6.3', 'installedv3.6.3', function () {
@@ -742,12 +761,15 @@
         for (let x in tables) {
             $.consoleLn('> Table ' + tables[x]);
             let keys = $.inidb.GetKeyList(tables[x], '');
+            let toUpdateKeys = [];
+            let toUpdateValues = [];
 
             for (let i = 0; i < keys.length; i++) {
                 val = toint($.getIniDbString(tables[x], keys[i]));
                 if (!isNaN(val)) {
                     try {
-                        $.inidb.SetLong(tables[x], '', keys[i], val);
+                        toUpdateKeys.push(keys[i]);
+                        toUpdateValues.push(val);
                     } catch (e) {
                         $.consoleLn('An exception occurred converting ' + val + ' to an integer. The entry has been skipped');
                         $.handleException('900updates#3.10.0.3', e);
@@ -758,6 +780,8 @@
                     $.consoleLn('Still fixing table ' + tables[x] + ' ' + i + '/' + keys.length + '...');
                 }
             }
+
+            $.inidb.SetBatchString(tables[x], '', toUpdateKeys, toUpdateValues);
         }
 
         val = toint($.getIniDbString('panelstats', 'gameCount'));
