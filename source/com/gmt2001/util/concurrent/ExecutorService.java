@@ -41,10 +41,8 @@ public final class ExecutorService {
     private static final ScheduledExecutorService SCHEDULEDEXECUTOR = Executors.newScheduledThreadPool(4);
     /**
      * Shared {@link java.util.concurrent.ExecutorService} implementing virtual threads
-     * <p>
-     * **IMPL** currently points to {@link #SCHEDULEDEXECUTOR} until Java 21 is implemented
      */
-    private static final java.util.concurrent.ExecutorService VIRTUALEXECUTOR = SCHEDULEDEXECUTOR;
+    private static final java.util.concurrent.ExecutorService VIRTUALEXECUTOR = Executors.newVirtualThreadPerTaskExecutor();
     /**
      * Indicates if the executors are shutdown
      */
