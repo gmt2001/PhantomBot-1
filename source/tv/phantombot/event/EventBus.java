@@ -16,6 +16,10 @@
  */
 package tv.phantombot.event;
 
+import java.util.concurrent.ThreadFactory;
+
+import com.gmt2001.UncaughtExceptionHandler;
+
 import net.engio.mbassy.bus.MBassador;
 import net.engio.mbassy.bus.config.BusConfiguration;
 import net.engio.mbassy.bus.config.Feature;
@@ -35,9 +39,21 @@ import tv.phantombot.event.jvm.JVMEvent;
  * events in the {@code tv.phantombot.event.jvm} package, as it is the base event for the package
  */
 public final class EventBus {
+    private static final ThreadFactory virtualThreadFactory = Thread.ofVirtual().name("VirtualDispatcher-", 0).uncaughtExceptionHandler(UncaughtExceptionHandler.instance()).factory();
     private static final EventBus instance = new EventBus();
     private static final MBassador<Event> bus = new MBassador<>(new BusConfiguration().addFeature(Feature.SyncPubSub.Default())
             .addFeature(Feature.AsynchronousHandlerInvocation.Default()).addFeature(Feature.AsynchronousMessageDispatch.Default()
+            .setNumberOfMessageDispatchers(10)).addPublicationErrorHandler(new ExceptionHandler()));
+    private static final MBassador<Event> virtualBus = new MBassador<>(new BusConfiguration().addFeature(Feature.SyncPubSub.Default())
+            .addFeature(Feature.AsynchronousHandlerInvocation.Default()).addFeature(Feature.AsynchronousMessageDispatch.Default()
+            .setDispatcherThreadFactory(new ThreadFactory() {
+                @Override
+                public Thread newThread(Runnable r) {
+                    Thread thread = virtualThreadFactory.newThread(r);
+                    thread.setDaemon(true);
+                    return thread;
+                }
+            })
             .setNumberOfMessageDispatchers(10)).addPublicationErrorHandler(new ExceptionHandler()));
 
     /**
@@ -63,6 +79,7 @@ public final class EventBus {
      */
     public void register(Listener listener) {
         bus.subscribe(listener);
+        virtualBus.subscribe(listener);
     }
 
     /**
@@ -72,6 +89,7 @@ public final class EventBus {
      */
     public void unregister(Listener listener) {
         bus.unsubscribe(listener);
+        virtualBus.unsubscribe(listener);
     }
 
     /**
@@ -100,5 +118,18 @@ public final class EventBus {
         }
 
         bus.publishAsync(event);
+    }
+
+    /**
+     * Publishes an event to the relevant subscribers on a virtual thread
+     *
+     * @param event an event to publish
+     */
+    public void postVirtual(Event event) {
+        if (PhantomBot.isInExitState()) {
+            return;
+        }
+
+        virtualBus.publishAsync(event);
     }
 }
