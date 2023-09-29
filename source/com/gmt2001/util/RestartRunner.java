@@ -123,7 +123,7 @@ public final class RestartRunner implements Listener {
 
             ExecutorService.execute(() -> {
                 try {
-                    Process p = Runtime.getRuntime().exec(String.format(cmd, CaselessProperties.instance().getProperty("restartcmd")));
+                    Process p = Runtime.getRuntime().exec(new String[] {String.format(cmd, CaselessProperties.instance().getProperty("restartcmd"))});
                     int exitCode = p.waitFor();
                     if (exitCode == 0 || exitCode == 143) {
                         JSONStringer jsonObject = new JSONStringer();
