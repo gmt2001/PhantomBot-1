@@ -1201,6 +1201,31 @@ public sealed class DataStore permits H2Store, MySQLStore, MariaDBStore, SqliteS
     }
 
     /**
+     * Deletes the rows that match the given table, section, and list of keys
+     * <p>
+     * If {@code section} is null, deletes all rows with a matching table and key, regardless of section
+     *
+     * @param fName a table name, without the {@code phantombot_} prefix
+     * @param section a section name. {@code ""} (empty string) for the default section; {@code null} for all sections
+     * @param keys the list of values of the {@code variable} column
+     */
+    public void RemoveKeys(String fName, String section, String[] keys) {
+        Optional<Table<?>> otbl = findTable(fName);
+
+        if (otbl.isPresent()) {
+            Table<?> tbl = otbl.get();
+            if (section == null) {
+                dsl().deleteFrom(tbl)
+                .where(field("variable", tbl).in(keys)).execute();
+            } else {
+                dsl().deleteFrom(tbl)
+                .where(field("section", tbl).eq(section),
+                field("variable", tbl).in(keys)).execute();
+            }
+        }
+    }
+
+    /**
      * Deletes all rows that match the given table and section
      *
      * @param fName a table name, without the {@code phantombot_} prefix
