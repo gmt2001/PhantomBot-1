@@ -13,7 +13,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
-        java-version: 21
+        java-version: 21-ea
     - name: Set up Ant
       run: sudo apt-get install ant
     - name: Build with Ant
@@ -249,7 +249,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
-        java-version: 21
+        java-version: 21-ea
     - name: Set up Ant
       run: sudo apt-get install ant
     - name: Notify Rollbar of Deploy Start
