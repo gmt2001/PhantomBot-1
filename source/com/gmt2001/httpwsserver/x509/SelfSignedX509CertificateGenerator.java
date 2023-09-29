@@ -16,14 +16,13 @@
  */
 package com.gmt2001.httpwsserver.x509;
 
-import java.io.IOException;
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
-import java.security.PrivateKey;
+import java.security.Provider;
 import java.security.SecureRandom;
 import java.security.SignatureException;
 import java.security.cert.CertificateException;
@@ -32,20 +31,38 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
+import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.cert.X509CertificateHolder;
+import org.bouncycastle.cert.X509v3CertificateBuilder;
+import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
+import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.operator.ContentSigner;
+import org.bouncycastle.operator.OperatorCreationException;
+import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
+
 /**
  * Generates a SelfSigned X.509 Certificate
  *
- * Taken from https://stackoverflow.com/questions/1615871/creating-an-x509-certificate-in-java-without-bouncycastle Original code and modifications
- * by: Mike B, vbence, and Clark Hobbie
- *
  * @author gmt2001
  */
-@SuppressWarnings("sunapi")
 public final class SelfSignedX509CertificateGenerator {
-
+    private static final Provider PROVIDER = new BouncyCastleProvider();
+    /**
+     * Recommended private key size
+     */
     public static final int RECOMMENDED_KEY_SIZE = 2048;
+    /**
+     * Recommended signature algorithm
+     */
     public static final String RECOMMENDED_SIG_ALGO = "SHA512withRSA";
+    /**
+     * Recommended certificate validity time, in days
+     */
     public static final int RECOMMENDED_VALIDITY_DAYS = 60;
+    /**
+     * Recommended certificate renewal interval, in days
+     */
     public static final int RECOMMENDED_RENEWAL_DAYS = 45;
 
     private SelfSignedX509CertificateGenerator() {
@@ -59,39 +76,28 @@ public final class SelfSignedX509CertificateGenerator {
      * @param days how many days from now the Certificate is valid for
      * @param algorithm the signing algorithm, eg "SHA256withRSA"
      * @return the certificate
-     * @throws IOException
-     * @throws CertificateException
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeyException
-     * @throws NoSuchProviderException
-     * @throws SignatureException
+     * @throws OperatorCreationException if the BC provider is unable to create a certificate signer
+     * @throws SignatureException if there is a signature verification error
+     * @throws NoSuchProviderException if the BC provider can not be found
+     * @throws NoSuchAlgorithmException if the signature algorithm is not supported
+     * @throws CertificateException if a certificate is unable to be made or an encoding error is encountered
+     * @throws InvalidKeyException if the keypair does not match
      */
     public static X509Certificate generateCertificate(String dn, KeyPair pair, int days, String algorithm)
-            throws IOException, CertificateException, NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException, SignatureException {
-        PrivateKey privkey = pair.getPrivate();
-        sun.security.x509.X509CertInfo info = new sun.security.x509.X509CertInfo();
-        Instant from = Instant.now();
-        Instant to = Instant.now().plus(days, ChronoUnit.DAYS);
-        sun.security.x509.CertificateValidity interval = new sun.security.x509.CertificateValidity(Date.from(from), Date.from(to));
-        BigInteger sn = new BigInteger(64, new SecureRandom());
-        sun.security.x509.X500Name owner = new sun.security.x509.X500Name(dn);
+        throws OperatorCreationException, InvalidKeyException, CertificateException, NoSuchAlgorithmException,
+        NoSuchProviderException, SignatureException {
+        X500Name name = new X500Name(dn);
 
-        info.set(sun.security.x509.X509CertInfo.VALIDITY, interval);
-        info.set(sun.security.x509.X509CertInfo.SERIAL_NUMBER, new sun.security.x509.CertificateSerialNumber(sn));
-        info.set(sun.security.x509.X509CertInfo.SUBJECT, owner);
-        info.set(sun.security.x509.X509CertInfo.ISSUER, owner);
-        info.set(sun.security.x509.X509CertInfo.KEY, new sun.security.x509.CertificateX509Key(pair.getPublic()));
-        info.set(sun.security.x509.X509CertInfo.VERSION, new sun.security.x509.CertificateVersion(sun.security.x509.CertificateVersion.V3));
-        info.set(sun.security.x509.X509CertInfo.ALGORITHM_ID, new sun.security.x509.CertificateAlgorithmId(sun.security.x509.AlgorithmId.get(algorithm)));
+        X509v3CertificateBuilder builder = new JcaX509v3CertificateBuilder(name,
+            new BigInteger(64, new SecureRandom()), Date.from(Instant.now()),
+            Date.from(Instant.now().plus(days, ChronoUnit.DAYS)), name,
+            pair.getPublic());
 
-        // Sign the cert to identify the algorithm that's used.
-        sun.security.x509.X509CertImpl cert = new sun.security.x509.X509CertImpl(info);
-        cert.sign(privkey, algorithm);
+        ContentSigner signer = new JcaContentSignerBuilder(algorithm).build(pair.getPrivate());
 
-        // Update the algorith, and resign.
-        info.set(sun.security.x509.CertificateAlgorithmId.NAME + "." + sun.security.x509.CertificateAlgorithmId.ALGORITHM, (sun.security.x509.AlgorithmId) cert.get(sun.security.x509.X509CertImpl.SIG_ALG));
-        cert = new sun.security.x509.X509CertImpl(info);
-        cert.sign(privkey, algorithm);
+        X509CertificateHolder holder = builder.build(signer);
+        X509Certificate cert = new JcaX509CertificateConverter().setProvider(PROVIDER).getCertificate(holder);
+        cert.verify(pair.getPublic());
         return cert;
     }
 
@@ -110,10 +116,10 @@ public final class SelfSignedX509CertificateGenerator {
      *
      * @param keySize the key size, in bits
      * @return the generated key pair
-     * @throws NoSuchAlgorithmException
+     * @throws NoSuchAlgorithmException if no provider can be found which supports the requested algorithm
      */
     public static KeyPair generateKeyPair(int keySize) throws NoSuchAlgorithmException {
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA", PROVIDER);
         keyPairGenerator.initialize(keySize);
         return keyPairGenerator.generateKeyPair();
     }

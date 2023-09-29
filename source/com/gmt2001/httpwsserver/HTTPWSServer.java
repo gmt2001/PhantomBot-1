@@ -43,6 +43,8 @@ import java.util.concurrent.TimeUnit;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.TrustManagerFactory;
 
+import org.bouncycastle.operator.OperatorCreationException;
+
 import com.gmt2001.PathValidator;
 import com.gmt2001.dns.EventLoopDetector;
 import com.gmt2001.httpwsserver.x509.SelfSignedX509CertificateGenerator;
@@ -380,8 +382,8 @@ public final class HTTPWSServer {
                 this.reloadSslContext();
 
                 this.nextAutoSslCheck = Instant.now().plus(1, ChronoUnit.DAYS);
-            } catch (IOException | InvalidKeyException | NoSuchProviderException | SignatureException | CertificateException | UnrecoverableKeyException
-                    | KeyStoreException | NoSuchAlgorithmException ex) {
+            } catch (IOException | UnrecoverableKeyException | InvalidKeyException | OperatorCreationException
+                | NoSuchProviderException | SignatureException ex) {
                 com.gmt2001.Console.err.printStackTrace(ex);
             }
         } catch (IOException | KeyStoreException | NoSuchAlgorithmException | CertificateException ex) {

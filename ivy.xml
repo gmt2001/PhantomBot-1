@@ -49,6 +49,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <dependency org="io.netty" name="netty-transport-native-epoll" rev="4.1.93.Final" />
         <dependency org="io.netty" name="netty-transport-native-kqueue" rev="4.1.93.Final" />
         <dependency org="io.projectreactor.netty" name="reactor-netty" rev="1.1.7"/>
+        <!-- Crypto -->
+        <dependency org="org.bouncycastle" name="bcpkix-jdk18on" rev="1.76"/>
         <!-- Database -->
         <dependency org="com.h2database" name="h2" rev="2.2.220"/>
         <dependency org="com.h2database" name="h2" rev="2.1.214" conf="lib.extra->default"/>
