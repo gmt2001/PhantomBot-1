@@ -18,6 +18,7 @@ package tv.phantombot.twitch.pubsub.processors;
 
 import java.time.ZonedDateTime;
 import org.json.JSONObject;
+
 import tv.phantombot.PhantomBot;
 import tv.phantombot.cache.FollowersCache;
 import tv.phantombot.event.EventBus;

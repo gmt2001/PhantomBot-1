@@ -795,8 +795,7 @@ public class DiscordUtil {
     @Deprecated(since = "3.10.0.0", forRemoval = true)
     public Mono<User> getUserWithDiscriminatorAsync(String userName, String discriminator) {
         try {
-            return DiscordAPI.getGuild().getMembers().filter(user -> user.getDisplayName().equalsIgnoreCase(userName)
-                    && user.getDiscriminator().equalsIgnoreCase(discriminator)).take(1).single().map(m -> (User) m);
+            return DiscordAPI.getGuild().getMembers().filter(user -> user.getDisplayName().equalsIgnoreCase(userName)).take(1).single().map(m -> (User) m);
         } catch (NoSuchElementException ex) {
             com.gmt2001.Console.err.println("Unable to find userNameDiscriminator [" + userName + "#" + discriminator + "]");
             throw ex;
