@@ -18,7 +18,6 @@ package com.gmt2001.module;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,6 +31,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.gmt2001.datastore2.Datastore2;
+import com.gmt2001.httpclient.URIUtil;
 import com.gmt2001.module.meta.ModuleStatusTable;
 import com.gmt2001.util.Reflect;
 
@@ -94,7 +94,7 @@ public final class ModuleManager implements Listener {
         try (Stream<Path> entries = Files.walk(Paths.get("./modules"), FileVisitOption.FOLLOW_LINKS)) {
             entries.filter(e -> Files.isRegularFile(e) && e.getFileName().toString().toLowerCase().endsWith(".jar")).map(e -> {
                 try {
-                    return new URL("file://" + e.toString());
+                    return URIUtil.create("file://" + e.toString()).toURL();
                 } catch (MalformedURLException ex) {
                     com.gmt2001.Console.err.println("Failed to prep module file " + e.toString());
                     com.gmt2001.Console.err.printStackTrace(ex, Map.of("file", e.toString()));

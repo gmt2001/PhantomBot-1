@@ -47,6 +47,7 @@ import org.jooq.impl.DefaultConfiguration;
 
 import com.gmt2001.datastore.DataStore;
 import com.gmt2001.datastore2.record.AttachableRecord;
+import com.gmt2001.httpclient.URIUtil;
 import com.gmt2001.util.Reflect;
 import com.gmt2001.util.concurrent.ExecutorService;
 
@@ -212,7 +213,7 @@ public abstract class Datastore2 {
             com.gmt2001.Console.debug.println("Preparing to load a custom driver");
             // Set loader to retrieve custom classes from jar files
             try {
-                loader = new URLClassLoader(new URL[] { new URL("file://./datastores/" + className + ".jar") },
+                loader = new URLClassLoader(new URL[] { URIUtil.create("file://./datastores/" + className + ".jar").toURL() },
                         Datastore2.class.getClassLoader());
             } catch (MalformedURLException ex) {
                 com.gmt2001.Console.debug.println("Failed to prepare a URLClassLoader");
