@@ -17,7 +17,7 @@
 
 # Build container
 ARG BUILDER-BASE=eclipse-temurin:21-jdk
-ARG PUBLISH-BASE=eclipse-temurin:21-jre
+ARG PUBLISH-BASE=ubuntu:22.04
 FROM --platform=linux/amd64 ${BUILDER-BASE} as builder
 
 ARG PROJECT_NAME=PhantomBot
@@ -94,7 +94,7 @@ USER root
 
 RUN set -eux;  \
     apt-get update; \
-    apt-get install -y --no-install-recommends util-linux python3; \
+    apt-get install -y --no-install-recommends tzdata ca-certificates fontconfig locales util-linux python3; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/*; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false

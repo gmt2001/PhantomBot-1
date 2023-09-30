@@ -9,24 +9,29 @@ on:
   pull_request:
     branches:
       - '*'
+
+env:
+  java-version: 21-ea
+  java-distribution: 'temurin'
+
 jobs:
   buildtest:
-    name: Test Build on ubuntu-latest with JDK 21
+    name: Test Build on ubuntu-latest
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
-    - name: Set up JDK 21
+    - name: Set up JDK ${{ env.java-version }}
       uses: actions/setup-java@v3
       with:
-        distribution: 'temurin'
-        java-version: 21-ea
+        distribution: ${{ env.java-distribution }}
+        java-version: ${{ env.java-version }}
     - name: Set up Ant
       run: sudo apt-get install ant
     - name: Build with Ant
       run: ant -noinput -buildfile build.xml test
   dockertest:
-    name: Docker test on ubuntu-latest with JDK 21
+    name: Docker test on ubuntu-latest
     runs-on: ubuntu-latest
     needs: buildtest
     timeout-minutes: 5

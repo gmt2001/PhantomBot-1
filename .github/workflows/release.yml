@@ -2,24 +2,29 @@ name: Build/Upload Release
 on:
   release:
     types: [published]
+
+env:
+  java-version: 21-ea
+  java-distribution: 'temurin'
+
 jobs:
   buildtest:
-    name: Test Build on ubuntu-latest with JDK 21
+    name: Test Build on ubuntu-latest
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
-    - name: Set up JDK 21
+    - name: Set up JDK ${{ env.java-version }}
       uses: actions/setup-java@v3
       with:
-        distribution: 'temurin'
-        java-version: 21-ea
+        distribution: ${{ env.java-distribution }}
+        java-version: ${{ env.java-version }}
     - name: Set up Ant
       run: sudo apt-get install ant
     - name: Build with Ant
       run: ant -noinput -buildfile build.xml test
   dockertest:
-    name: Docker test on ubuntu-latest with JDK 21
+    name: Docker test on ubuntu-latest
     runs-on: ubuntu-latest
     needs: buildtest
     timeout-minutes: 5
@@ -239,17 +244,17 @@ jobs:
           echo "missingsecrets=no" >> $GITHUB_OUTPUT
         fi
   build:
-    name: Build and upload on ubuntu-latest with JDK 21
+    name: Build and upload on ubuntu-latest
     runs-on: ubuntu-latest
     needs: [buildtest, dockertest, workflowvars]
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
-    - name: Set up JDK 21
+    - name: Set up JDK ${{ env.java-version }}
       uses: actions/setup-java@v3
       with:
-        distribution: 'temurin'
-        java-version: 21-ea
+        distribution: ${{ env.java-distribution }}
+        java-version: ${{ env.java-version }}
     - name: Set up Ant
       run: sudo apt-get install ant
     - name: Notify Rollbar of Deploy Start
@@ -293,27 +298,27 @@ jobs:
         echo ::endgroup::
         echo ::group::rsync $FOLDERLIN
         mkdir dist/$FOLDERLIN
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERLIN --exclude java-runtime --exclude java-runtime-arm64 --exclude java-runtime-arm32 --exclude java-runtime-macos --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERLIN --exclude java-runtime-windows-amd64 --exclude java-runtime-linux-arm64 --exclude java-runtime-linux-arm --exclude java-runtime-macos-amd64 --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
         echo ::endgroup::
         echo ::group::rsync $FOLDERWIN
         mkdir dist/$FOLDERWIN
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERWIN --exclude java-runtime-linux --exclude java-runtime-arm64 --exclude java-runtime-arm32 --exclude java-runtime-macos --exclude launch.sh --exclude launch-service.sh --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh  --exclude restartbot-systemctl.sh --exclude restartbot-systemv.sh --exclude restartbot-docker.sh
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERWIN --exclude java-runtime-linux-amd64 --exclude java-runtime-linux-arm64 --exclude java-runtime-linux-arm --exclude java-runtime-macos-amd64 --exclude launch.sh --exclude launch-service.sh --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh  --exclude restartbot-systemctl.sh --exclude restartbot-systemv.sh --exclude restartbot-docker.sh
         echo ::endgroup::
         echo ::group::rsync $FOLDERMAC
         mkdir dist/$FOLDERMAC
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERMAC --exclude java-runtime --exclude java-runtime-arm64 --exclude java-runtime-arm32 --exclude java-runtime-linux --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERMAC --exclude java-runtime-windows-amd64 --exclude java-runtime-linux-arm64 --exclude java-runtime-linux-arm --exclude java-runtime-linux-amd64 --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
         echo ::endgroup::
         echo ::group::rsync $FOLDERARM64
         mkdir dist/$FOLDERARM64
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERARM64 --exclude java-runtime --exclude java-runtime-linux --exclude java-runtime-arm32 --exclude java-runtime-macos --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERARM64 --exclude java-runtime-windows-amd64 --exclude java-runtime-linux-amd64 --exclude java-runtime-linux-arm --exclude java-runtime-macos-amd64 --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
         echo ::endgroup::
         echo ::group::rsync $FOLDERARM32
         mkdir dist/$FOLDERARM32
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERARM32 --exclude java-runtime --exclude java-runtime-linux --exclude java-runtime-arm64 --exclude java-runtime-macos --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERARM32 --exclude java-runtime-windows-amd64 --exclude java-runtime-linux-amd64 --exclude java-runtime-linux-arm64 --exclude java-runtime-macos-amd64 --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
         echo ::endgroup::
         echo ::group::rsync $FOLDERBOT
         mkdir dist/$FOLDERBOT
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERBOT --exclude java-runtime --exclude java-runtime-linux --exclude java-runtime-arm64 --exclude java-runtime-arm32 --exclude java-runtime-macos --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-docker.sh
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERBOT --exclude java-runtime-windows-amd64 --exclude java-runtime-linux-amd64 --exclude java-runtime-linux-arm64 --exclude java-runtime-linux-arm --exclude java-runtime-macos-amd64 --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-docker.sh
         echo ::endgroup::
         cd dist
         rm -rf $FOLDERBASE
@@ -415,7 +420,7 @@ jobs:
       run: |
         curl -X POST $URL -H "x-access-token: $ACCESS_TOKEN" -H "Content-Type: application/json; charset=UTF-8" -d "{\"type\":\"stable\",\"version\":\"$VERSION\"}"
   docker:
-    name: Docker build on ubuntu-latest with JDK 21
+    name: Docker build on ubuntu-latest
     runs-on: ubuntu-latest
     needs: [buildtest, dockertest, workflowvars]
     steps:

@@ -97,7 +97,7 @@ if (( success == 0 )); then
 fi
 
 if (( success == 0 && trylinux == 1 )); then
-    JAVA="./java-runtime-linux/bin/java"
+    JAVA="./java-runtime-linux-amd64/bin/java"
     chm=$(chmod u+x $JAVA 2>/dev/null)
     jver=$($JAVA --version 2>/dev/null)
     res=$?
@@ -108,7 +108,7 @@ if (( success == 0 && trylinux == 1 )); then
 fi
 
 if (( success == 0 && tryarm64 == 1 )); then
-    JAVA="./java-runtime-arm64/bin/java"
+    JAVA="./java-runtime-linux-arm64/bin/java"
     chm=$(chmod u+x $JAVA 2>/dev/null)
     jver=$($JAVA --version 2>/dev/null)
     res=$?
@@ -119,7 +119,7 @@ if (( success == 0 && tryarm64 == 1 )); then
 fi
 
 if (( success == 0 && tryarm32 == 1 )); then
-    JAVA="./java-runtime-arm32/bin/java"
+    JAVA="./java-runtime-linux-arm/bin/java"
     chm=$(chmod u+x $JAVA 2>/dev/null)
     jver=$($JAVA --version 2>/dev/null)
     res=$?

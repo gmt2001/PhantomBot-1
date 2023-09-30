@@ -6,6 +6,11 @@ on:
     paths-ignore:
       - 'docs/**'
       - 'resources/java-runtime**'
+
+env:
+  java-version: 21-ea
+  java-distribution: 'temurin'
+
 jobs:
   updateremotepanel:
     name: Update Remote Panel
@@ -125,11 +130,11 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
-    - name: Set up JDK 21
+    - name: Set up JDK ${{ env.java-version }}
       uses: actions/setup-java@v3
       with:
-        distribution: 'temurin'
-        java-version: 21-ea
+        distribution: ${{ env.java-distribution }}
+        java-version: ${{ env.java-version }}
     - name: Set up Python 3.x
       uses: actions/setup-python@v4
       with:

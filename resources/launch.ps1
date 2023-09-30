@@ -56,7 +56,7 @@ param(
 ##### Script Settings #######
 
 # Required Java major version
-$javarequired = 17
+$javarequired = 21
 
 #############################
 
