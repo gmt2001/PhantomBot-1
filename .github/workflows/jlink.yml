@@ -3,6 +3,18 @@ name: Build JLink Binaries
 on:
   workflow_dispatch:
 
+permissions:
+  actions: write
+  contents: read
+
+env:
+  java-version: 21-ea
+  java-distribution: 'temurin'
+  java-version-env: jdk-21+35-ea-beta
+  source-prefix: https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21%2B35-ea-beta/OpenJDK21U-jdk_
+  source-suffix: _hotspot_ea_21-0-35
+  image: eclipse-temurin:21-jdk
+
 jobs:
   updatejlink:
     name: Update JLink Builds
@@ -15,52 +27,44 @@ jobs:
       matrix:
         include:
           - osname: Linux (GCC, x86_64)
-            java-version: 21-ea
-            java-distribution: 'temurin'
             folder: java-runtime-linux
             qemu: false
             os: ubuntu-latest
             script: jlink-jdk-linux.sh
           - osname: Linux (GCC, arm64)
-            java-version: 21-ea
-            java-distribution: 'temurin'
             folder: java-runtime-arm64
             qemu: true
             platform: linux/arm64
-            image: localhost:5000/eclipse-temurin:21-jdk
+            image-prefix: localhost:5000/
             build-image: true
             base: ubuntu:22.04
-            java-version-env: jdk-21+35-ea-beta
-            source: https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21%2B35-ea-beta/OpenJDK21U-jdk_aarch64_linux_hotspot_ea_21-0-35.tar.gz
+            dockerfile-os: linux
+            source-arch-os: aarch64_linux
+            source-ext: .tar.gz
             esum: f541f545c0e8046c2b242a1701e5be4a7abda2ffbc150d7f96b6cd5571f17429
             os: ubuntu-latest
             script: jlink-jdk-docker.sh
             jdk: /opt/java/openjdk
           - osname: Linux (GCC, arm32)
-            java-version: 21-ea
-            java-distribution: 'temurin'
             folder: java-runtime-arm32
             qemu: true
             platform: linux/arm/v7
-            image: localhost:5000/eclipse-temurin:21-jdk
+            image-prefix: localhost:5000/
             build-image: true
             base: ubuntu:22.04
-            java-version-env: jdk-21+35-ea-beta
-            source: https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21%2B35-ea-beta/OpenJDK21U-jdk_arm_linux_hotspot_ea_21-0-35.tar.gz
+            dockerfile-os: linux
+            source-arch-os: arm_linux
+            source-ext: .tar.gz
             esum: f31af20af3a6209e67d51bb21ecc84196d005fa0874b23e60deb1569f84494d0
             os: ubuntu-latest
             script: jlink-jdk-docker.sh
             jdk: /opt/java/openjdk
           - osname: Windows
-            java-version: 21-ea
             os: windows-latest
-            java-distribution: 'temurin'
             folder: java-runtime
             qemu: false
             script: jlink-jdk.bat
           - osname: macOS
-            java-version: 21-ea
-            java-distribution: 'temurin'
             folder: java-runtime-macos
             qemu: false
             os: macos-latest
@@ -79,22 +83,24 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: ./development-resources/docker-base-image-builder
-        file: ./Dockerfile
-        platforms: ${{matrix.platform}}
+        file: ./Dockerfile.${{ matrix.dockerfile-os }}
+        platforms: ${{ matrix.platform }}
         push: true
         build-args: |
-          BASE=${{matrix.base}}
-          JAVA-VERSION=${{matrix.java-version-env}}
-          SOURCE=${{matrix.source}}
-          ESUM=${{matrix.esum}}
-        tags: ${{matrix.image}}
+          BASE=${{ matrix.base }}
+          ESUM=${{ matrix.esum }}
+          JAVA-HOME=${{ matrix.jdk }}
+          JAVA-VERSION=${{ env.java-version-env }}
+          JRE=false
+          SOURCE=${{ env.source-prefix }}${{ matrix.source-arch-os }}${{ env.source-suffix }}${{ matrix.source-ext }}
+        tags: ${{ matrix.image-prefix }}${{ env.image }}
     - name: Set up JDK
       if: matrix.qemu == false
       id: setup-java
       uses: actions/setup-java@v3
       with:
-        distribution: ${{ matrix.java-distribution }}
-        java-version: ${{ matrix.java-version }}
+        distribution: ${{ env.java-distribution }}
+        java-version: ${{ env.java-version }}
         check-latest: true
     - name: Run JLink (Windows)
       if: matrix.os == 'windows-latest'
@@ -122,7 +128,7 @@ jobs:
         SCRIPT: ${{ matrix.script }}
         JDK: ${{ matrix.jdk }}
         PLATFORM: ${{ matrix.platform }}
-        IMAGE: ${{ matrix.image }}
+        IMAGE: ${{ matrix.image-prefix }}${{ env.image }}
       run: |
         cd development-resources
         chmod +x $SCRIPT
@@ -138,6 +144,8 @@ jobs:
     name: Commit Binaries
     runs-on: ubuntu-latest
     needs: updatejlink
+    permissions:
+      contents: write
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4

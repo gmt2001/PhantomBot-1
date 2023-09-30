@@ -1,0 +1,68 @@
+#
+# Copyright (C) 2016-2023 phantombot.github.io/PhantomBot
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# Base Docker Image
+ARG BASE=mcr.microsoft.com/windows/servercore:ltsc2022
+FROM ${BASE}
+
+# (Get-FileHash openjdk.msi -Algorithm sha256).Hash of ${SOURCE}
+ARG ESUM
+# JAVA_HOME
+ARG JAVA-HOME
+# Java version (jdk-21+35)
+ARG JAVA-VERSION
+# Set `true` if this is a JRE; `false` if this is a JDK
+ARG JRE
+# .msi file containing compiled JDK or JRE
+ARG SOURCE
+
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
+ENV JAVA_VERSION ${JAVA-VERSION}
+
+RUN Write-Host ('Downloading ${SOURCE} ...'); \
+    curl.exe -LfsSo openjdk.msi ${SOURCE} ; \
+    Write-Host ('Verifying sha256 (${ESUM}) ...'); \
+    if ((Get-FileHash openjdk.msi -Algorithm sha256).Hash -ne '${ESUM}') { \
+        Write-Host 'FAILED!'; \
+        exit 1; \
+    }; \
+    \
+    New-Item -ItemType Directory -Path C:\temp | Out-Null; \
+    \
+    Write-Host 'Installing using MSI ...'; \
+    $proc = Start-Process -FilePath "msiexec.exe" -ArgumentList '/i', 'openjdk.msi', '/L*V', 'C:\temp\OpenJDK.log', \
+    '/quiet', 'ADDLOCAL=FeatureEnvironment,FeatureJarFileRunWith,FeatureJavaHome', 'INSTALLDIR=${JAVA-HOME}' -Wait -Passthru; \
+    $proc.WaitForExit() ; \
+    if ($proc.ExitCode -ne 0) { \
+        Write-Host 'FAILED installing MSI!' ; \
+        exit 1; \
+    }; \
+    \
+    Remove-Item -Path C:\temp -Recurse | Out-Null; \
+    Write-Host 'Removing openjdk.msi ...'; \
+    Remove-Item openjdk.msi -Force
+
+RUN Write-Host 'Verifying install ...' && \
+    if ('${JRE}' -ne 'true') {
+        Write-Host 'javac --version' && javac --version \
+    } \
+    && Write-Host 'java --version' && java --version && \
+    \
+    Write-Host 'Complete.'
+
+CMD ["jshell"]

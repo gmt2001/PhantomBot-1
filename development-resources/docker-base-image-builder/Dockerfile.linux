@@ -15,14 +15,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+# Base Docker Image
 ARG BASE=ubuntu:latest
 FROM ${BASE}
 
-ARG SOURCE
-ARG JAVA-VERSION
+# SHA256SUM of ${SOURCE}
 ARG ESUM
+# JAVA_HOME
+ARG JAVA-HOME
+# Java version (jdk-21+35)
+ARG JAVA-VERSION
+# Set `true` if this is a JRE; `false` if this is a JDK
+ARG JRE
+# .tar.gz file containing compiled JDK or JRE
+ARG SOURCE
 
-ENV JAVA_HOME /opt/java/openjdk
+ENV JAVA_HOME ${JAVA-HOME}
 ENV PATH $JAVA_HOME/bin:$PATH
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
@@ -50,12 +58,15 @@ RUN set -eux; \
     ldconfig; \
     java -Xshare:dump;
 
+# javac --version is expected to produce an error on JRE
 RUN echo Verifying install ... \
     && fileEncoding="$(echo 'System.out.println(System.getProperty("file.encoding"))' | jshell -s -)"; [ "$fileEncoding" = 'UTF-8' ]; rm -rf ~/.java \
-    && echo javac --version && javac --version \
+    && if [[ "${JRE}" != "true" ]]; then echo javac --version && javac --version; fi \
     && echo java --version && java --version \
     && echo Complete.
+
 COPY entrypoint.sh /__cacert_entrypoint.sh
+
 ENTRYPOINT ["/__cacert_entrypoint.sh"]
 
 CMD ["jshell"]
