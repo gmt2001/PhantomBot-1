@@ -89,7 +89,6 @@ ARG BASEDIR=/opt/${PROJECT_NAME}
 ARG BUILDDIR=${BASEDIR}_build
 ARG LIBDIR=${BASEDIR}_lib
 ARG DATADIR=${BASEDIR}_data
-ARG LAUNCHER=none
 
 USER root
 
@@ -111,7 +110,7 @@ RUN set -eux; \
 
 ENV PATH="${BASEDIR}:$PATH"
 
-COPY --from=builder --chown=phantombot:phantombot "${BUILDDIR}/dist/${PROJECT_NAME}-${PROJECT_VERSION}-launchers/${LAUNCHER}" "${BASEDIR}/"
+COPY --from=builder --chown=phantombot:phantombot "${BUILDDIR}/dist/${PROJECT_NAME}-${PROJECT_VERSION}-launchers/java-runtime-${TARGETOS}-${TARGETARCH}" "${BASEDIR}/"
 
 COPY --from=builder --chown=phantombot:phantombot "${LIBDIR}" "${BASEDIR}/lib"
 
@@ -132,7 +131,6 @@ COPY --from=builder --chown=phantombot:phantombot "${BUILDDIR}/dist/${PROJECT_NA
 
 RUN set -eux; \
     cd "${BASEDIR}"; \
-    rm -rf "${BASEDIR}/none"; \
     mkdir "${DATADIR}/dbbackup"; \
     mkdir "${DATADIR}/gameslist"; \
     ln -s "${DATADIR}/addons"; \

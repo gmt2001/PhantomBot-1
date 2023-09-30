@@ -26,13 +26,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - osname: Linux (GCC, x86_64)
-            folder: java-runtime-linux
+          - osname: Linux (GCC, amd64)
+            folder: java-runtime-linux-amd64
+            docker: false
             qemu: false
             os: ubuntu-latest
             script: jlink-jdk-linux.sh
           - osname: Linux (GCC, arm64)
-            folder: java-runtime-arm64
+            folder: java-runtime-linux-arm64
+            docker: true
             qemu: true
             platform: linux/arm64
             image-prefix: localhost:5000/
@@ -45,8 +47,9 @@ jobs:
             os: ubuntu-latest
             script: jlink-jdk-docker.sh
             jdk: /opt/java/openjdk
-          - osname: Linux (GCC, arm32)
-            folder: java-runtime-arm32
+          - osname: Linux (GCC, arm)
+            folder: java-runtime-linux-arm
+            docker: true
             qemu: true
             platform: linux/arm/v7
             image-prefix: localhost:5000/
@@ -59,13 +62,15 @@ jobs:
             os: ubuntu-latest
             script: jlink-jdk-docker.sh
             jdk: /opt/java/openjdk
-          - osname: Windows
+          - osname: Windows (amd64)
             os: windows-latest
-            folder: java-runtime
+            folder: java-runtime-windows-amd64
+            docker: false
             qemu: false
             script: jlink-jdk.bat
-          - osname: macOS
-            folder: java-runtime-macos
+          - osname: macOS (amd64)
+            folder: java-runtime-macos-amd64
+            docker: false
             qemu: false
             os: macos-latest
             script: jlink-jdk-macos.sh
@@ -74,12 +79,12 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
     - name: Set up QEMU
-      if: matrix.qemu == true
+      if: matrix.docker == true && matrix.qemu == true
       uses: docker/setup-qemu-action@v3
       with:
         platforms: ${{ matrix.platform }}
     - name: Build Image
-      if: matrix.build-image == true
+      if: matrix.docker == true && matrix.build-image == true
       uses: docker/build-push-action@v5
       with:
         context: ./development-resources/docker-base-image-builder
@@ -95,7 +100,7 @@ jobs:
           SOURCE=${{ env.source-prefix }}${{ matrix.source-arch-os }}${{ env.source-suffix }}${{ matrix.source-ext }}
         tags: ${{ matrix.image-prefix }}${{ env.image }}
     - name: Set up JDK
-      if: matrix.qemu == false
+      if: matrix.docker == false
       id: setup-java
       uses: actions/setup-java@v3
       with:
@@ -103,7 +108,7 @@ jobs:
         java-version: ${{ env.java-version }}
         check-latest: true
     - name: Run JLink (Windows)
-      if: matrix.os == 'windows-latest'
+      if: startsWith(matrix.os, 'windows-') == true && matrix.docker == false
       env:
         FOLDER: ${{ matrix.folder }}
         SCRIPT: ${{ matrix.script }}
@@ -112,7 +117,7 @@ jobs:
         cd development-resources
         cmd /C $env:SCRIPT
     - name: Run JLink (Non-Windows)
-      if: matrix.os != 'windows-latest' && !matrix.qemu
+      if: startsWith(matrix.os, 'windows-') == false && matrix.docker == false
       env:
         FOLDER: ${{ matrix.folder }}
         SCRIPT: ${{ matrix.script }}
@@ -122,7 +127,7 @@ jobs:
         chmod +x $SCRIPT
         /bin/bash $SCRIPT
     - name: Run JLink (Docker)
-      if: matrix.qemu == true
+      if: matrix.docker == true
       env:
         FOLDER: ${{ matrix.folder }}
         SCRIPT: ${{ matrix.script }}
