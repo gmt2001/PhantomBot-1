@@ -16,7 +16,9 @@
 #
 
 # Build container
-FROM --platform=linux/amd64 eclipse-temurin:17-jdk as builder
+ARG BUILDER-BASE=eclipse-temurin:21-jdk
+ARG PUBLISH-BASE=eclipse-temurin:21-jre
+FROM --platform=linux/amd64 ${BUILDER-BASE} as builder
 
 ARG PROJECT_NAME=PhantomBot
 ARG PROJECT_VERSION
@@ -53,9 +55,11 @@ RUN set -eux; \
     mv "./lib" "${LIBDIR}"; ln -s "${LIBDIR}" "./lib"
 
 RUN set -eux; \
+    mkdir -p "${BUILDDIR}/dist/${PROJECT_NAME}-${PROJECT_VERSION}-launchers/";
+    mkdir -p "${BUILDDIR}/dist/${PROJECT_NAME}-${PROJECT_VERSION}-launchers/none";
     cd "${BUILDDIR}/dist/${PROJECT_NAME}-${PROJECT_VERSION}/"; \
-    ls | grep java-runtime | xargs --no-run-if-empty rm -rf; \
-    ls | grep launch | grep -v launch-docker.sh | xargs --no-run-if-empty rm -rf; \
+    ls | grep java-runtime | xargs --no-run-if-empty -I % mv % ${BUILDDIR}/dist/${PROJECT_NAME}-${PROJECT_VERSION}-launchers/; \
+    ls | grep launch | grep -v launch-docker.sh | xargs --no-run-if-empty ; \
     ls | grep restartbot | grep -v restartbot-docker.sh | xargs --no-run-if-empty rm -rf; \
     cd "${BUILDDIR}/dist/${PROJECT_NAME}-${PROJECT_VERSION}/config/healthcheck/failurehooks"; \
     ls | grep restart | grep -v restart-docker-internal.py | xargs --no-run-if-empty rm -rf
@@ -77,7 +81,7 @@ RUN set -eux; \
     rm "./lib"
 
 # Application container
-FROM eclipse-temurin:17-jre as publish
+FROM ${PUBLISH-BASE} as publish
 
 ARG PROJECT_NAME=PhantomBot
 ARG PROJECT_VERSION
@@ -85,6 +89,7 @@ ARG BASEDIR=/opt/${PROJECT_NAME}
 ARG BUILDDIR=${BASEDIR}_build
 ARG LIBDIR=${BASEDIR}_lib
 ARG DATADIR=${BASEDIR}_data
+ARG LAUNCHER=none
 
 USER root
 
@@ -106,6 +111,8 @@ RUN set -eux; \
 
 ENV PATH="${BASEDIR}:$PATH"
 
+COPY --from=builder --chown=phantombot:phantombot "${BUILDDIR}/dist/${PROJECT_NAME}-${PROJECT_VERSION}-launchers/${LAUNCHER}" "${BASEDIR}/"
+
 COPY --from=builder --chown=phantombot:phantombot "${LIBDIR}" "${BASEDIR}/lib"
 
 COPY --from=builder "${DATADIR}/config/healthcheck/requirements.txt" "${DATADIR}/config/healthcheck/"
@@ -125,6 +132,7 @@ COPY --from=builder --chown=phantombot:phantombot "${BUILDDIR}/dist/${PROJECT_NA
 
 RUN set -eux; \
     cd "${BASEDIR}"; \
+    rm -rf "${BASEDIR}/none"; \
     mkdir "${DATADIR}/dbbackup"; \
     mkdir "${DATADIR}/gameslist"; \
     ln -s "${DATADIR}/addons"; \
