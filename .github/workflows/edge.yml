@@ -6,8 +6,17 @@ on:
       - 'edge-*'
 
 env:
+  base: ubuntu:22.04
+  build-docker: true
+  dockerfile-os: linux
+  esum: b6586c432948134387b801add3b46048e3fb58390d74eea80e00c539016a54e6
+  image: localhost:5000/eclipse-temurin:21-jdk
   java-version: 21-ea
   java-distribution: 'temurin'
+  java-version-env: jdk-21+35-ea-beta
+  jdk: /opt/java/openjdk
+  platform: linux/amd64
+  source: https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21%2B35-ea-beta/OpenJDK21U-jdk_x64_linux_hotspot_ea_21-0-35.tar.gz
 
 jobs:
   buildtest:
@@ -47,6 +56,23 @@ jobs:
       with:
         version: latest
         driver-opts: network=host
+    - name: Build Builder Image
+      if: env.build-docker == true
+      uses: docker/build-push-action@v5
+      with:
+        context: ./development-resources/docker-base-image-builder
+        file: ./Dockerfile.${{ env.dockerfile-os }}
+        platforms: ${{ env.platform }}
+        push: true
+        cache-from: type=gha,scope=master
+        build-args: |
+          BASE=${{ env.base }}
+          ESUM=${{ env.esum }}
+          JAVA-HOME=${{ env.jdk }}
+          JAVA-VERSION=${{ env.java-version-env }}
+          JRE=false
+          SOURCE=${{ env.source }}
+        tags: ${{ env.image }}
     - name: Build Docker
       uses: docker/build-push-action@v5
       with:
@@ -56,6 +82,7 @@ jobs:
         push: true
         cache-from: type=gha,scope=master
         build-args: |
+          BUILDER-BASE=${{ env.image }}
           PROJECT_VERSION=0.0.0
           ANT_ARGS=-Dbuildtype=test -Dversion=0.0.0
         tags: localhost:5000/tester/phantombot:test
