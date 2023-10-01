@@ -8,12 +8,12 @@ permissions:
   contents: read
 
 env:
+  image: localhost:5000/eclipse-temurin:21-jdk
   java-version: 21-ea
   java-distribution: 'temurin'
   java-version-env: jdk-21+35-ea-beta
   source-prefix: https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21%2B35-ea-beta/OpenJDK21U-jdk_
   source-suffix: _hotspot_ea_21-0-35
-  image: eclipse-temurin:21-jdk
 
 jobs:
   updatejlink:
@@ -37,7 +37,6 @@ jobs:
             docker: true
             qemu: true
             platform: linux/arm64
-            image-prefix: localhost:5000/
             build-image: true
             base: ubuntu:22.04
             dockerfile-os: linux
@@ -52,7 +51,6 @@ jobs:
             docker: true
             qemu: true
             platform: linux/arm/v7
-            image-prefix: localhost:5000/
             build-image: true
             base: ubuntu:22.04
             dockerfile-os: linux
@@ -98,7 +96,7 @@ jobs:
           JAVA-VERSION=${{ env.java-version-env }}
           JRE=false
           SOURCE=${{ env.source-prefix }}${{ matrix.source-arch-os }}${{ env.source-suffix }}${{ matrix.source-ext }}
-        tags: ${{ matrix.image-prefix }}${{ env.image }}
+        tags: ${{ env.image }}
     - name: Set up JDK
       if: matrix.docker == false
       id: setup-java
@@ -133,7 +131,7 @@ jobs:
         SCRIPT: ${{ matrix.script }}
         JDK: ${{ matrix.jdk }}
         PLATFORM: ${{ matrix.platform }}
-        IMAGE: ${{ matrix.image-prefix }}${{ env.image }}
+        IMAGE: ${{ env.image }}
       run: |
         cd development-resources
         chmod +x $SCRIPT
