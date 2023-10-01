@@ -9,6 +9,7 @@ on:
   pull_request:
     branches:
       - '*'
+  workflow_dispatch:
 
 env:
   base: ubuntu:22.04
