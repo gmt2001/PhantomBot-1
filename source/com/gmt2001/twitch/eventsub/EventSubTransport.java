@@ -56,7 +56,7 @@ public final class EventSubTransport {
     /**
      * Creates a new transport from a JSONObject
      *
-     * @param transportJson the JSOn object to process
+     * @param transportJson the JSON object to process
      * @return
      */
     static EventSubTransport fromJSON(JSONObject transportJson) {
