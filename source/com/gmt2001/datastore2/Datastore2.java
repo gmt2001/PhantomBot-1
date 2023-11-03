@@ -303,7 +303,9 @@ public abstract class Datastore2 {
             @Override
             public Connection acquire() throws DataAccessException {
                 try {
-                    return jooqConnectionPoolManager.getConnection();
+                    Connection connection = jooqConnectionPoolManager.getConnection();
+                    prepareConnection(connection);
+                    return connection;
                 } catch (SQLException ex) {
                     throw new DataAccessException("failed to acquire connection", ex);
                 }
