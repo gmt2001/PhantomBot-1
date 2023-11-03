@@ -46,3 +46,5 @@ popd  > '/dev/null'
 pushd "$SCRIPT_PATH"
 
 ./launch.sh --daemon "$@"
+
+popd

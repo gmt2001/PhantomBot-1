@@ -13,16 +13,16 @@ on:
 
 env:
   base: ubuntu:22.04
-  build-docker: true
+  build-docker: false
   dockerfile-os: linux
-  esum: b6586c432948134387b801add3b46048e3fb58390d74eea80e00c539016a54e6
+  esum: 62e12510b0097bd784b14b035013a32c65e7da334220c3ddfcc90d87440d240c
   image: localhost:5000/eclipse-temurin:21-jdk
-  java-version: 21-ea
+  java-version: 21
   java-distribution: 'temurin'
-  java-version-env: jdk-21+35-ea-beta
+  java-version-env: jdk-21.0.1+12
   jdk: /opt/java/openjdk
   platform: linux/amd64
-  source: https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21%2B35-ea-beta/OpenJDK21U-jdk_x64_linux_hotspot_ea_21-0-35.tar.gz
+  source: https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.1%2B12/OpenJDK21U-jdk_x64_linux_hotspot_21.0.1_12.tar.gz
 
 jobs:
   buildtest:

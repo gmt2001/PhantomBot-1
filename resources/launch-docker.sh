@@ -75,12 +75,9 @@ success=0
 hwname="$( uname -m )"
 trylinux=0
 tryarm64=0
-tryarm32=0
 
 if [[ "$hwname" =~ "arm64" || "$hwname" =~ "aarch64" ]]; then
     tryarm64=1
-elif [[ "$hwname" =~ "arm" ]]; then
-    tryarm32=1
 fi
 if [[ "$hwname" =~ "x86_64" || "$MACHTYPE" =~ "x86_64" ]]; then
     trylinux=1
@@ -109,17 +106,6 @@ fi
 
 if (( success == 0 && tryarm64 == 1 )); then
     JAVA="./java-runtime-linux-arm64/bin/java"
-    chm=$(chmod u+x $JAVA 2>/dev/null)
-    jver=$($JAVA --version 2>/dev/null)
-    res=$?
-    jvermaj=$(echo "$jver" | awk 'FNR == 1 { print $2 }' | cut -d . -f 1)
-    if (( res == 0 && jvermaj == javarequired )); then
-        success=1
-    fi
-fi
-
-if (( success == 0 && tryarm32 == 1 )); then
-    JAVA="./java-runtime-linux-arm/bin/java"
     chm=$(chmod u+x $JAVA 2>/dev/null)
     jver=$($JAVA --version 2>/dev/null)
     res=$?

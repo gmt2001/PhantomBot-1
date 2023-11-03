@@ -9,11 +9,11 @@ permissions:
 
 env:
   image: localhost:5000/eclipse-temurin:21-jdk
-  java-version: 21-ea
+  java-version: 21
   java-distribution: 'temurin'
-  java-version-env: jdk-21+35-ea-beta
-  source-prefix: https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21%2B35-ea-beta/OpenJDK21U-jdk_
-  source-suffix: _hotspot_ea_21-0-35
+  java-version-env: jdk-21.0.1+12
+  source-prefix: https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.1%2B12/OpenJDK21U-jdk_
+  source-suffix: _hotspot_21.0.1_12
 
 jobs:
   updatejlink:
@@ -42,21 +42,7 @@ jobs:
             dockerfile-os: linux
             source-arch-os: aarch64_linux
             source-ext: .tar.gz
-            esum: f541f545c0e8046c2b242a1701e5be4a7abda2ffbc150d7f96b6cd5571f17429
-            os: ubuntu-latest
-            script: jlink-jdk-docker.sh
-            jdk: /opt/java/openjdk
-          - osname: Linux (GCC, arm)
-            folder: java-runtime-linux-arm
-            docker: true
-            qemu: true
-            platform: linux/arm/v7
-            build-image: true
-            base: ubuntu:22.04
-            dockerfile-os: linux
-            source-arch-os: arm_linux
-            source-ext: .tar.gz
-            esum: f31af20af3a6209e67d51bb21ecc84196d005fa0874b23e60deb1569f84494d0
+            esum: e184dc29a6712c1f78754ab36fb48866583665fa345324f1a79e569c064f95e9
             os: ubuntu-latest
             script: jlink-jdk-docker.sh
             jdk: /opt/java/openjdk

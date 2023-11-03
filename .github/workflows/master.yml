@@ -8,7 +8,7 @@ on:
       - 'resources/java-runtime**'
 
 env:
-  java-version: 21-ea
+  java-version: 21
   java-distribution: 'temurin'
 
 jobs:

@@ -5,16 +5,16 @@ on:
 
 env:
   base: ubuntu:22.04
-  build-docker: true
+  build-docker: false
   dockerfile-os: linux
-  esum: b6586c432948134387b801add3b46048e3fb58390d74eea80e00c539016a54e6
+  esum: 62e12510b0097bd784b14b035013a32c65e7da334220c3ddfcc90d87440d240c
   image: localhost:5000/eclipse-temurin:21-jdk
-  java-version: 21-ea
+  java-version: 21
   java-distribution: 'temurin'
-  java-version-env: jdk-21+35-ea-beta
+  java-version-env: jdk-21.0.1+12
   jdk: /opt/java/openjdk
   platform: linux/amd64
-  source: https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21%2B35-ea-beta/OpenJDK21U-jdk_x64_linux_hotspot_ea_21-0-35.tar.gz
+  source: https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.1%2B12/OpenJDK21U-jdk_x64_linux_hotspot_21.0.1_12.tar.gz
 
 jobs:
   buildtest:
@@ -317,7 +317,6 @@ jobs:
         FOLDERWIN: ${{ format('PhantomBot-{0}-win', needs.workflowvars.outputs.version) }}
         FOLDERMAC: ${{ format('PhantomBot-{0}-mac', needs.workflowvars.outputs.version) }}
         FOLDERARM64: ${{ format('PhantomBot-{0}-arm64-apple_silicon', needs.workflowvars.outputs.version) }}
-        FOLDERARM32: ${{ format('PhantomBot-{0}-arm32', needs.workflowvars.outputs.version) }}
         FOLDERBOT: ${{ format('PhantomBot-{0}-bot_only', needs.workflowvars.outputs.version) }}
       run: |
         echo ::group::rsync $FOLDERFULL
@@ -326,27 +325,23 @@ jobs:
         echo ::endgroup::
         echo ::group::rsync $FOLDERLIN
         mkdir dist/$FOLDERLIN
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERLIN --exclude java-runtime-windows-amd64 --exclude java-runtime-linux-arm64 --exclude java-runtime-linux-arm --exclude java-runtime-macos-amd64 --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERLIN --exclude java-runtime-windows-amd64 --exclude java-runtime-linux-arm64 --exclude java-runtime-macos-amd64 --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
         echo ::endgroup::
         echo ::group::rsync $FOLDERWIN
         mkdir dist/$FOLDERWIN
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERWIN --exclude java-runtime-linux-amd64 --exclude java-runtime-linux-arm64 --exclude java-runtime-linux-arm --exclude java-runtime-macos-amd64 --exclude launch.sh --exclude launch-service.sh --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh  --exclude restartbot-systemctl.sh --exclude restartbot-systemv.sh --exclude restartbot-docker.sh
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERWIN --exclude java-runtime-linux-amd64 --exclude java-runtime-linux-arm64 --exclude java-runtime-macos-amd64 --exclude launch.sh --exclude launch-service.sh --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh  --exclude restartbot-systemctl.sh --exclude restartbot-systemv.sh --exclude restartbot-docker.sh
         echo ::endgroup::
         echo ::group::rsync $FOLDERMAC
         mkdir dist/$FOLDERMAC
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERMAC --exclude java-runtime-windows-amd64 --exclude java-runtime-linux-arm64 --exclude java-runtime-linux-arm --exclude java-runtime-linux-amd64 --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERMAC --exclude java-runtime-windows-amd64 --exclude java-runtime-linux-arm64 --exclude java-runtime-linux-amd64 --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
         echo ::endgroup::
         echo ::group::rsync $FOLDERARM64
         mkdir dist/$FOLDERARM64
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERARM64 --exclude java-runtime-windows-amd64 --exclude java-runtime-linux-amd64 --exclude java-runtime-linux-arm --exclude java-runtime-macos-amd64 --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
-        echo ::endgroup::
-        echo ::group::rsync $FOLDERARM32
-        mkdir dist/$FOLDERARM32
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERARM32 --exclude java-runtime-windows-amd64 --exclude java-runtime-linux-amd64 --exclude java-runtime-linux-arm64 --exclude java-runtime-macos-amd64 --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERARM64 --exclude java-runtime-windows-amd64 --exclude java-runtime-linux-amd64 --exclude java-runtime-macos-amd64 --exclude launch.bat --exclude launch.ps1 --exclude launch-bsd.sh --exclude launch-bsd-service.sh --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-windows.bat --exclude restartbot-docker.sh
         echo ::endgroup::
         echo ::group::rsync $FOLDERBOT
         mkdir dist/$FOLDERBOT
-        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERBOT --exclude java-runtime-windows-amd64 --exclude java-runtime-linux-amd64 --exclude java-runtime-linux-arm64 --exclude java-runtime-linux-arm --exclude java-runtime-macos-amd64 --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-docker.sh
+        rsync -rav --progress dist/$FOLDERBASE dist/$FOLDERBOT --exclude java-runtime-windows-amd64 --exclude java-runtime-linux-amd64 --exclude java-runtime-linux-arm64 --exclude java-runtime-macos-amd64 --exclude launch-docker.sh --exclude docker-entrypoint.sh --exclude restartbot-docker.sh
         echo ::endgroup::
         cd dist
         rm -rf $FOLDERBASE
@@ -390,14 +385,6 @@ jobs:
         mv -v $FOLDERBASE/$FOLDERARM64.zip ./$FOLDERARM64.zip
         rm -rf $FOLDERBASE
         echo ::endgroup::
-        echo ::group::zip $FOLDERARM32
-        mv -v $FOLDERARM32 $FOLDERBASE
-        cd $FOLDERBASE
-        zip -m -9 -X -r $FOLDERARM32.zip $FOLDERBASE
-        cd ..
-        mv -v $FOLDERBASE/$FOLDERARM32.zip ./$FOLDERARM32.zip
-        rm -rf $FOLDERBASE
-        echo ::endgroup::
         echo ::group::zip $FOLDERBOT
         mv -v $FOLDERBOT $FOLDERBASE
         cd $FOLDERBASE
@@ -415,7 +402,6 @@ jobs:
           ${{ format('dist/PhantomBot-{0}-win.zip', needs.workflowvars.outputs.version) }}
           ${{ format('dist/PhantomBot-{0}-mac.zip', needs.workflowvars.outputs.version) }}
           ${{ format('dist/PhantomBot-{0}-arm64-apple_silicon.zip', needs.workflowvars.outputs.version) }}
-          ${{ format('dist/PhantomBot-{0}-arm32.zip', needs.workflowvars.outputs.version) }}
           ${{ format('dist/PhantomBot-{0}-bot_only.zip', needs.workflowvars.outputs.version) }}
     - name: Notify Rollbar of Deploy Failure
       if: ${{ contains(needs.workflowvars.outputs.rollbarmissing, 'no') && (failure() || cancelled()) }}
@@ -457,7 +443,7 @@ jobs:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
       with:
-        platforms: linux/amd64,linux/arm64,linux/arm/v7
+        platforms: linux/amd64,linux/arm64
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
       with:
@@ -500,7 +486,7 @@ jobs:
       with:
         context: .
         file: ./Dockerfile
-        platforms: linux/amd64,linux/arm64,linux/arm/v7
+        platforms: linux/amd64,linux/arm64
         push: true
         cache-from: type=gha,scope=master
         cache-to: type=gha,mode=max,scope=master
@@ -516,7 +502,7 @@ jobs:
       with:
         context: .
         file: ./Dockerfile
-        platforms: linux/amd64,linux/arm64,linux/arm/v7
+        platforms: linux/amd64,linux/arm64
         push: true
         cache-from: type=gha,scope=master
         cache-to: type=gha,mode=max,scope=master
