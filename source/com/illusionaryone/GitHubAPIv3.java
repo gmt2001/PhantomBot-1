@@ -63,7 +63,7 @@ public final class GitHubAPIv3 {
     /*
      * Pulls release information from GitHub.
      *
-     * @return  JSONObject  JSONObject from GitHub
+     * @return  jSONObject  JSONObject from GitHub
      */
     public static JSONObject GetReleases() throws JSONException {
         return readJsonFromUrl("/releases", true);
@@ -72,7 +72,7 @@ public final class GitHubAPIv3 {
     /*
      * Pulls release information from GitHub.
      *
-     * @return  JSONObject  JSONObject from GitHub
+     * @return  jSONObject  JSONObject from GitHub
      */
     public static JSONObject GetLatestRelease() throws JSONException {
         return readJsonFromUrl("/releases/latest", false);
@@ -125,7 +125,7 @@ public final class GitHubAPIv3 {
     /*
      * Pulls release information from GitHub and checks to see if there is a new release.
      *
-     * @return  String  null if no new version detected else the version and URL to download the release
+     * @return  string  null if no new version detected else the version and URL to download the release
      */
     public static String[] CheckNewRelease() throws JSONException {
         JSONObject jsonObject = GetLatestRelease();

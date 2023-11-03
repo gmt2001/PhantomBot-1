@@ -2565,14 +2565,14 @@ public class Helix {
      * Gets a list of polls that the broadcaster created.
      * Polls are available for 90 days after they’re created.
      *
-     * @param pollIds A list of IDs that identify the polls to return. You may specify a maximum of 20 IDs.
+     * @param pollIds a list of IDs that identify the polls to return. You may specify a maximum of 20 IDs.
      *                Specify this parameter only if you want to filter the list that the request returns.
      *                The endpoint ignores duplicate IDs and those not owned by this broadcaster.
-     * @param first   The maximum number of items to return per page in the response.
+     * @param first   the maximum number of items to return per page in the response.
      *                The minimum page size is 1 item per page and the maximum is 20 items per page. The default is 20.
-     * @param after   The cursor used to get the next page of results. The Pagination object in the response contains
+     * @param after   the cursor used to get the next page of results. The Pagination object in the response contains
      *                the cursor’s value.
-     * @return A list of polls. The list is empty if the broadcaster hasn’t created polls.
+     * @return a list of polls. The list is empty if the broadcaster hasn’t created polls.
      * @throws JSONException            when the result object could not be parsed
      * @throws IllegalArgumentException when more ids are passed than the API allows
      */
@@ -2584,14 +2584,14 @@ public class Helix {
      * Gets a list of polls that the broadcaster created.
      * Polls are available for 90 days after they’re created.
      *
-     * @param pollIds A list of IDs that identify the polls to return. You may specify a maximum of 20 IDs.
+     * @param pollIds a list of IDs that identify the polls to return. You may specify a maximum of 20 IDs.
      *                Specify this parameter only if you want to filter the list that the request returns.
      *                The endpoint ignores duplicate IDs and those not owned by this broadcaster.
-     * @param first   The maximum number of items to return per page in the response.
+     * @param first   the maximum number of items to return per page in the response.
      *                The minimum page size is 1 item per page and the maximum is 20 items per page. The default is 20.
-     * @param after   The cursor used to get the next page of results. The Pagination object in the response contains
+     * @param after   the cursor used to get the next page of results. The Pagination object in the response contains
      *                the cursor’s value.
-     * @return A list of polls. The list is empty if the broadcaster hasn’t created polls.
+     * @return a list of polls. The list is empty if the broadcaster hasn’t created polls.
      * @throws JSONException            when the result object could not be parsed
      * @throws IllegalArgumentException when more ids are passed than the API allows
      */
@@ -2621,15 +2621,15 @@ public class Helix {
      * Creates a poll that viewers in the broadcaster’s channel can vote on.
      * The poll begins as soon as it’s created. You may run only one poll at a time.
      *
-     * @param title                The question that viewers will vote on. For example, What game should I play next? The question
+     * @param title                the question that viewers will vote on. For example, What game should I play next? The question
      *                             may contain a maximum of 60 characters.
-     * @param choices              A list of choices each with a maximum of 25 characters, that viewers may choose from.
+     * @param choices              a list of choices each with a maximum of 25 characters, that viewers may choose from.
      *                             The list must contain a minimum of 2 choices and up to a maximum of 5 choices.
-     * @param durationSec          The length of time (in seconds) that the poll will run for. The minimum is 15 seconds and
+     * @param durationSec          the length of time (in seconds) that the poll will run for. The minimum is 15 seconds and
      *                             the maximum is 1800 seconds (30 minutes).
-     * @param channelPointsPerVote The number of points that the viewer must spend to cast one additional vote.
+     * @param channelPointsPerVote the number of points that the viewer must spend to cast one additional vote.
      *                             The minimum is 1 and the maximum is 1000000. 0 and smaller disables this option.
-     * @return A list that contains the single poll that you created.
+     * @return a list that contains the single poll that you created.
      * @throws JSONException            when the result object could not be parsed
      * @throws IllegalArgumentException when more ids are passed than the API allows
      */
@@ -2642,15 +2642,15 @@ public class Helix {
      * Creates a poll that viewers in the broadcaster’s channel can vote on.
      * The poll begins as soon as it’s created. You may run only one poll at a time.
      *
-     * @param title                The question that viewers will vote on. For example, What game should I play next? The question
+     * @param title                the question that viewers will vote on. For example, What game should I play next? The question
      *                             may contain a maximum of 60 characters.
-     * @param choices              A list of choices each with a maximum of 25 characters, that viewers may choose from.
+     * @param choices              a list of choices each with a maximum of 25 characters, that viewers may choose from.
      *                             The list must contain a minimum of 2 choices and up to a maximum of 5 choices.
-     * @param durationSec          The length of time (in seconds) that the poll will run for. The minimum is 15 seconds and
+     * @param durationSec          the length of time (in seconds) that the poll will run for. The minimum is 15 seconds and
      *                             the maximum is 1800 seconds (30 minutes).
-     * @param channelPointsPerVote The number of points that the viewer must spend to cast one additional vote.
+     * @param channelPointsPerVote the number of points that the viewer must spend to cast one additional vote.
      *                             The minimum is 1 and the maximum is 1000000. 0 and smaller disables this option.
-     * @return A list that contains the single poll that you created.
+     * @return a list that contains the single poll that you created.
      * @throws JSONException            when the result object could not be parsed
      * @throws IllegalArgumentException when more ids are passed than the API allows
      */
@@ -2703,11 +2703,11 @@ public class Helix {
     /**
      * Ends an active poll. You have the option to end it or end it and archive it.
      *
-     * @param id     The ID of the poll to update.
-     * @param status The status to set the poll to. Possible case-sensitive values are:
+     * @param id     the ID of the poll to update.
+     * @param status the status to set the poll to. Possible case-sensitive values are:
      *               TERMINATED — Ends the poll before the poll is scheduled to end. The poll remains publicly visible.
      *               ARCHIVED — Ends the poll before the poll is scheduled to end, and then archives it, so it's no longer publicly visible.
-     * @return A list that contains the poll that you ended.
+     * @return a list that contains the poll that you ended.
      * @throws JSONException            when the result object could not be parsed
      * @throws IllegalArgumentException when more ids are passed than the API allows
      */
@@ -2719,11 +2719,11 @@ public class Helix {
     /**
      * Ends an active poll. You have the option to end it or end it and archive it.
      *
-     * @param id     The ID of the poll to update.
-     * @param status The status to set the poll to. Possible case-sensitive values are:
+     * @param id     the ID of the poll to update.
+     * @param status the status to set the poll to. Possible case-sensitive values are:
      *               TERMINATED — Ends the poll before the poll is scheduled to end. The poll remains publicly visible.
      *               ARCHIVED — Ends the poll before the poll is scheduled to end, and then archives it, so it's no longer publicly visible.
-     * @return A list that contains the poll that you ended.
+     * @return a list that contains the poll that you ended.
      * @throws JSONException            when the result object could not be parsed
      * @throws IllegalArgumentException when more ids are passed than the API allows
      */

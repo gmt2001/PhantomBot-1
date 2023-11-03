@@ -283,7 +283,7 @@ public class YouTubeAPIv3 {
     /*
      * Checks the database for data and returns a long.
      *
-     * @param   String   Database key to inspect.
+     * @param   String   database key to inspect.
      * @return  long     defaultVal if no value in database else value from database.
      */
     private long getDBLong(String dbKey, long defaultVal) {
@@ -297,8 +297,8 @@ public class YouTubeAPIv3 {
     /*
      * Checks the database for data and returns a String.
      *
-     * @param   String   Database key to inspect.
-     * @return  String   defaultVal is no value in database else value from database.
+     * @param   String   database key to inspect.
+     * @return  string   defaultVal is no value in database else value from database.
      */
     private String getDBString(String dbKey, String defaultVal) {
         String dbData = PhantomBot.instance().getDataStore().GetString("youtubePlayer", "", dbKey);
@@ -311,8 +311,8 @@ public class YouTubeAPIv3 {
     /*
      * Places a long into the database.
      *
-     * @param  String  Database key to insert into.
-     * @param  long    Value to update into the database.
+     * @param  String  database key to insert into.
+     * @param  long    value to update into the database.
      */
     private void updateDBLong(String dbKey, long dbValue) {
         PhantomBot.instance().getDataStore().SetString("youtubePlayer", "", dbKey, Long.toString(dbValue));
@@ -321,8 +321,8 @@ public class YouTubeAPIv3 {
     /*
      * Places a string into the database.
      *
-     * @param  String  Database key to insert into.
-     * @param  String  Value to update into the database.
+     * @param  String  database key to insert into.
+     * @param  String  value to update into the database.
      */
     private void updateDBString(String dbKey, String dbValue) {
         PhantomBot.instance().getDataStore().SetString("youtubePlayer", "", dbKey, dbValue);

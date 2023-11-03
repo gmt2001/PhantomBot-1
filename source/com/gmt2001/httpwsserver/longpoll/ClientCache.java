@@ -80,11 +80,11 @@ public final class ClientCache {
     /**
      * Constructor
      *
-     * @param ctxTimeout    The timeout until a WS client is sent a PING frame or an
+     * @param ctxTimeout    the timeout until a WS client is sent a PING frame or an
      *                      HTTP client is sent an empty response
-     * @param strongTimeout The duration after which the strong reference to an
+     * @param strongTimeout the duration after which the strong reference to an
      *                      outbound message will be dropped
-     * @param softTimeout   The duration after which the soft reference to an
+     * @param softTimeout   the duration after which the soft reference to an
      *                      outbound message, and the entire message, will be
      *                      dropped
      */
@@ -113,7 +113,7 @@ public final class ClientCache {
     /**
      * Removes a client
      *
-     * @param client The client to remove
+     * @param client the client to remove
      */
     void remove(Client client) {
         this.clients.remove(client);
@@ -122,7 +122,7 @@ public final class ClientCache {
     /**
      * Returns an unmodifiable list of current clients
      *
-     * @return A list of {@link Client}
+     * @return a list of {@link Client}
      */
     public List<Client> clients() {
         return Collections.unmodifiableList(this.clients);
@@ -133,13 +133,13 @@ public final class ClientCache {
      * and sequence, then replays any missed soft messages and sends any pending
      * strong messages
      *
-     * @param ctx                         The context
+     * @param ctx                         the context
      * @param isWs                        {@code true} if the context is a WS socket
-     * @param lastClientReceivedTimestamp The timestamp to start at
-     * @param lastClientReceivedSequence  The sequence to start at, exclusive
-     * @param sessionId                   The session ID provided in the headers
-     * @param sessionIdSupplier           A supplier of unique session IDs
-     * @return An optional that contains the client; empty optional if the
+     * @param lastClientReceivedTimestamp the timestamp to start at
+     * @param lastClientReceivedSequence  the sequence to start at, exclusive
+     * @param sessionId                   the session ID provided in the headers
+     * @param sessionIdSupplier           a supplier of unique session IDs
+     * @return an optional that contains the client; empty optional if the
      *         {@link PanelUser} is {@code null}
      */
     public Optional<Client> addOrUpdateClient(ChannelHandlerContext ctx, boolean isWs,
@@ -171,7 +171,7 @@ public final class ClientCache {
     /**
      * Indicates if the provided session ID is already in use
      *
-     * @param sessionId The session ID
+     * @param sessionId the session ID
      * @return {@code true} if any existing client is using the provided session ID
      */
     boolean sessionIdExists(String sessionId) {
@@ -181,8 +181,8 @@ public final class ClientCache {
     /**
      * Gets the {@link Client} associated with the context
      *
-     * @param ctx The context
-     * @return An optional that contains the client; empty optional if the client
+     * @param ctx the context
+     * @return an optional that contains the client; empty optional if the client
      *         was not found, or the {@link PanelUser} or Session ID is
      *         {@code null}
      */
@@ -193,8 +193,8 @@ public final class ClientCache {
     /**
      * Gets the {@link Client} associated with the channel
      *
-     * @param channel The channel
-     * @return An optional that contains the client; empty optional if the client
+     * @param channel the channel
+     * @return an optional that contains the client; empty optional if the client
      *         was not found, or the {@link PanelUser} or Session ID is
      *         {@code null}
      */
@@ -209,9 +209,9 @@ public final class ClientCache {
      * Gets the {@link Client} associated with the {@link ChannelHandlerContext} and
      * Session ID
      *
-     * @param ctx       The context
-     * @param sessionId The session ID
-     * @return An optional that contains the client; empty optional if the client
+     * @param ctx       the context
+     * @param sessionId the session ID
+     * @return an optional that contains the client; empty optional if the client
      *         was not found, or the {@link PanelUser} or Session ID is
      *         {@code null}
      */
@@ -223,9 +223,9 @@ public final class ClientCache {
     /**
      * Gets the {@link Client} associated with the {@link PanelUser} and Session ID
      *
-     * @param user      The panel user
-     * @param sessionId The session ID
-     * @return An optional that contains the client; empty optional if the client
+     * @param user      the panel user
+     * @param sessionId the session ID
+     * @return an optional that contains the client; empty optional if the client
      *         was not found, or the {@link PanelUser} or Session ID is
      *         {@code null}
      */
@@ -241,8 +241,8 @@ public final class ClientCache {
     /**
      * Gets a list of all {@link Client} associated with the provided username
      *
-     * @param username The username
-     * @return A list of clients
+     * @param username the username
+     * @return a list of clients
      */
     public List<Client> clients(String username) {
         return this.clients.stream().filter(c -> c.user().getUsername().equalsIgnoreCase(username)).toList();
@@ -252,8 +252,8 @@ public final class ClientCache {
      * Gets a list of all {@link Client} associated with the provided
      * {@link PanelUser}
      *
-     * @param user The panel user
-     * @return A list of clients
+     * @param user the panel user
+     * @return a list of clients
      */
     public List<Client> clients(PanelUser user) {
         return this.clients.stream().filter(c -> c.user().equals(user)).toList();
@@ -263,9 +263,9 @@ public final class ClientCache {
      * Sets the last received sequence from the {@link Client} of the given
      * {@link ChannelHandlerContext}
      *
-     * @param ctx       The context
-     * @param timestamp The message timestamp
-     * @param sequence  The message sequence
+     * @param ctx       the context
+     * @param timestamp the message timestamp
+     * @param sequence  the message sequence
      */
     public void lastReceived(ChannelHandlerContext ctx, Instant timestamp, long sequence) {
         this.client(ctx).ifPresent(c -> this.lastReceived(c, timestamp, sequence));
@@ -274,9 +274,9 @@ public final class ClientCache {
     /**
      * Sets the last received sequence from the given {@link Client}
      *
-     * @param client    The client
-     * @param timestamp The message timestamp
-     * @param sequence  The message sequence
+     * @param client    the client
+     * @param timestamp the message timestamp
+     * @param sequence  the message sequence
      */
     public void lastReceived(Client client, Instant timestamp, long sequence) {
         client.lastReceived(timestamp, sequence);
@@ -285,8 +285,8 @@ public final class ClientCache {
     /**
      * Enqueues a message
      *
-     * @param clients The clients to enqueue the message with
-     * @param jso     The message to enqueue
+     * @param clients the clients to enqueue the message with
+     * @param jso     the message to enqueue
      * @return {@code this}
      */
     public ClientCache enqueue(Iterable<Client> clients, JSONStringer jso) {
@@ -296,8 +296,8 @@ public final class ClientCache {
     /**
      * Enqueues a message
      *
-     * @param clients The clients to enqueue the message with
-     * @param data    The message to enqueue
+     * @param clients the clients to enqueue the message with
+     * @param data    the message to enqueue
      * @return {@code this}
      */
     public ClientCache enqueue(Iterable<Client> clients, Object data) {
@@ -335,7 +335,7 @@ public final class ClientCache {
     /**
      * Broadcasts a message to all connected clients
      *
-     * @param jso A {@link JSONStringer} containing the message to send
+     * @param jso a {@link JSONStringer} containing the message to send
      */
     public void broadcast(JSONStringer jso) {
         this.enqueue(this.clients, jso);
@@ -344,7 +344,7 @@ public final class ClientCache {
     /**
      * Broadcasts a message to all connected clients
      *
-     * @param message The message to send
+     * @param message the message to send
      */
     public void broadcast(Object message) {
         this.enqueue(this.clients, message);
@@ -353,8 +353,8 @@ public final class ClientCache {
     /**
      * Sends a message to all clients which match a given username
      *
-     * @param username The username
-     * @param jso      A {@link JSONStringer} containing the message to send
+     * @param username the username
+     * @param jso      a {@link JSONStringer} containing the message to send
      */
     public void send(String username, JSONStringer jso) {
         this.enqueue(this.clients(username), jso);
@@ -363,8 +363,8 @@ public final class ClientCache {
     /**
      * Sends a message to all clients which match a given username
      *
-     * @param username The username
-     * @param message  The message to send
+     * @param username the username
+     * @param message  the message to send
      */
     public void send(String username, Object message) {
         this.enqueue(this.clients, message);
@@ -373,8 +373,8 @@ public final class ClientCache {
     /**
      * Sends a message to all clients which match a given {@link PanelUser}
      *
-     * @param user The user
-     * @param jso  A {@link JSONStringer} containing the message to send
+     * @param user the user
+     * @param jso  a {@link JSONStringer} containing the message to send
      */
     public void send(PanelUser user, JSONStringer jso) {
         this.enqueue(this.clients(user), jso);
@@ -383,8 +383,8 @@ public final class ClientCache {
     /**
      * Sends a message to all clients which match a given {@link PanelUser}
      *
-     * @param user    The user
-     * @param message The message to send
+     * @param user    the user
+     * @param message the message to send
      */
     public void send(PanelUser user, Object message) {
         this.enqueue(this.clients(user), message);
@@ -394,8 +394,8 @@ public final class ClientCache {
      * Sends a message to the {@link Client} associated with the specified
      * {@link ChannelHandlerContext}
      *
-     * @param ctx The context
-     * @param jso A {@link JSONStringer} containing the message to send
+     * @param ctx the context
+     * @param jso a {@link JSONStringer} containing the message to send
      */
     public void send(ChannelHandlerContext ctx, JSONStringer jso) {
         this.client(ctx).ifPresent(c -> this.send(c, jso));
@@ -405,8 +405,8 @@ public final class ClientCache {
      * Sends a message to the {@link Client} associated with the specified
      * {@link ChannelHandlerContext}
      *
-     * @param ctx     The context
-     * @param message The message to send
+     * @param ctx     the context
+     * @param message the message to send
      */
     public void send(ChannelHandlerContext ctx, Object message) {
         this.client(ctx).ifPresent(c -> this.send(c, message));
@@ -415,8 +415,8 @@ public final class ClientCache {
     /**
      * Sends a message to the specified {@link Client}
      *
-     * @param client The client
-     * @param jso    A {@link JSONStringer} containing the message to send
+     * @param client the client
+     * @param jso    a {@link JSONStringer} containing the message to send
      */
     public void send(Client client, JSONStringer jso) {
         this.enqueue(List.of(client), jso);
@@ -425,8 +425,8 @@ public final class ClientCache {
     /**
      * Sends a message to the specified {@link Client}
      *
-     * @param client  The client
-     * @param message The message to send
+     * @param client  the client
+     * @param message the message to send
      */
     public void send(Client client, Object message) {
         this.enqueue(List.of(client), message);

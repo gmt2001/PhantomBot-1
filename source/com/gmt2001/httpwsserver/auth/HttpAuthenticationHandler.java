@@ -34,8 +34,8 @@ public interface HttpAuthenticationHandler {
      * When returning {@code false}, this method MUST also send either an {@code 401 Unauthorized}, a {@code Header Location}, or an error page back
      * to the client
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param req The {@link FullHttpRequest} to check
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param req the {@link FullHttpRequest} to check
      * @return {@code true} if authorized
      */
     boolean checkAuthorization(ChannelHandlerContext ctx, FullHttpRequest req);
@@ -69,8 +69,8 @@ public interface HttpAuthenticationHandler {
      * <p>
      * When returning {@code false}, this method MUST NOT send a response to the client
      *
-     * @param user The username
-     * @param pass The password
+     * @param user the username
+     * @param pass the password
      * @return {@code true} if authorized
      */
     boolean isAuthorized(String user, String pass);

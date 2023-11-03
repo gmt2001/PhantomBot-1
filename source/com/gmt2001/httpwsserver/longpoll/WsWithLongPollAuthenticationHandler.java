@@ -154,10 +154,10 @@ public final class WsWithLongPollAuthenticationHandler
     /**
      * Constructor
      *
-     * @param authenticatedCallback Optional callback to run when a client
+     * @param authenticatedCallback optional callback to run when a client
      *                              successfully authenticates via an authentication
      *                              frame
-     * @param sessionIdSupplier     Function which provides a session ID or
+     * @param sessionIdSupplier     function which provides a session ID or
      *                              validates one provided in the headers. See
      *                              {@link #sessionIdSupplier}
      */
@@ -179,10 +179,10 @@ public final class WsWithLongPollAuthenticationHandler
     /**
      * Generate an auth result object
      *
-     * @param ctx        The {@link ChannelHandlerContext} of the session
+     * @param ctx        the {@link ChannelHandlerContext} of the session
      * @param authorized {@code true} if authorized
      * @param jsonArray  {@code true} to enclose the JSON object in a JSON array
-     * @return A {@link JSONStringer} with the auth result
+     * @return a {@link JSONStringer} with the auth result
      */
     private JSONStringer authResult(ChannelHandlerContext ctx, boolean authorized, boolean jsonArray) {
         JSONStringer jss = new JSONStringer();
@@ -275,9 +275,9 @@ public final class WsWithLongPollAuthenticationHandler
     /**
      * Sends an HTTP authentication result
      *
-     * @param ctx        The {@link ChannelHandlerContext}
-     * @param req        The request
-     * @param status     The response status
+     * @param ctx        the {@link ChannelHandlerContext}
+     * @param req        the request
+     * @param status     the response status
      * @param authorized {@code true} if authorized
      */
     private void httpResult(ChannelHandlerContext ctx, FullHttpRequest req, HttpResponseStatus status,
@@ -295,9 +295,9 @@ public final class WsWithLongPollAuthenticationHandler
     /**
      * Processes an authentication frame sent via HTTP
      *
-     * @param ctx    The context
-     * @param req    The request
-     * @param jso    The data frame
+     * @param ctx    the context
+     * @param req    the request
+     * @param jso    the data frame
      * @param doFail {@code true} to also send fail result
      * @return {@code true} on success
      */
@@ -368,10 +368,10 @@ public final class WsWithLongPollAuthenticationHandler
      * Sets {@link PanelUserAuthenticationHandler.ATTR_AUTH_USER} if authorization
      * is successful and not already set
      *
-     * @param ctx        The {@link ChannelHandlerContext} of the session
-     * @param requestUri The request URI
+     * @param ctx        the {@link ChannelHandlerContext} of the session
+     * @param requestUri the request URI
      * @param isWs       {@code true} if the connection is a Web Socket
-     * @param jso        The data frame to check
+     * @param jso        the data frame to check
      * @return {@code true} if authorized
      */
     public boolean isAuthorized(ChannelHandlerContext ctx, String requestUri, boolean isWs, JSONObject jso) {
@@ -410,9 +410,9 @@ public final class WsWithLongPollAuthenticationHandler
      * When returning {@code false}, this method MUST NOT send a response to the
      * client
      *
-     * @param ctx        The {@link ChannelHandlerContext} of the session
-     * @param headers    The {@link HttpHeaders} to check
-     * @param requestUri The request URI
+     * @param ctx        the {@link ChannelHandlerContext} of the session
+     * @param headers    the {@link HttpHeaders} to check
+     * @param requestUri the request URI
      * @param isGet      {@code true} if HTTP GET or WS; {@code false} for any other
      *                   HTTP method
      * @return {@code true} if authorized

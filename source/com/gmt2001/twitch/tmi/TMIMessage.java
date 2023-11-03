@@ -110,7 +110,7 @@ public final class TMIMessage {
      * rawParametersComponent - The IRC parameters component, if present, with the leading {@code :} removed
      *
      * @param message a single raw IRC line conforming to the BNF in RFC1459
-     * @return String[] { rawTagsComponent, nick, host, command, channel, rawParametersComponent };
+     * @return string[] { rawTagsComponent, nick, host, command, channel, rawParametersComponent };
      */
     private String[] parseMessage(String message) {
         int idx = 0;

@@ -863,7 +863,7 @@ public class TwitchAPIv5 {
      *
      * @param channel the channel requesting data for
      * @param type the type of data: current, highlights, archives
-     * @return String List of Twitch VOD URLs (as a JSON String) or empty String in failure.
+     * @return string List of Twitch VOD URLs (as a JSON String) or empty String in failure.
      */
     public String GetChannelVODs(String channel, String type) throws JSONException {
         JSONStringer jsonOutput = new JSONStringer();
@@ -1052,7 +1052,7 @@ public class TwitchAPIv5 {
      * Returns when a Twitch account was created.
      *
      * @param channel
-     * @return String date-time representation (2015-05-09T00:08:04Z)
+     * @return string date-time representation (2015-05-09T00:08:04Z)
      */
     public String getChannelCreatedDate(String channel) throws JSONException {
         List<String> user_login = new ArrayList<>();
@@ -1180,7 +1180,7 @@ public class TwitchAPIv5 {
      * Get the clips from today for a channel.
      *
      * @param channel
-     * @return JSONObject clips object.
+     * @return jSONObject clips object.
      */
     public JSONObject getClipsToday(String channel) throws JSONException {
         ZonedDateTime started_at = ZonedDateTime.now().withHour(0).withMinute(0).withSecond(0);
@@ -1252,7 +1252,7 @@ public class TwitchAPIv5 {
      * some delay. We only update the followed table if the user has an entry in the time table. This way we do not potentially enter thousands, or
      * tens of thousands, or even more, entries into the followed table for folks that do not visit the stream.
      *
-     * @param JSONArray JSON array object containing the followers data
+     * @param JSONArray jSON array object containing the followers data
      * @param DataStore copy of database object for writing
      * @return int How many objects were inserted into the database
      */
@@ -1358,7 +1358,7 @@ public class TwitchAPIv5 {
      * Returns a username when given an Oauth.
      *
      * @param userOauth oauth to check with.
-     * @return String The name of the user or null to indicate that there was an error.
+     * @return string The name of the user or null to indicate that there was an error.
      */
     public String GetUserFromOauth(String userOauth) throws JSONException {
         throw new UnsupportedOperationException("The oauth parameter in is no longer supported");

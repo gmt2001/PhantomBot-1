@@ -103,7 +103,7 @@ public class StreamElementsAPIv2 {
     /*
      * Pulls the 5 last donations from the API.
      *
-     * @return  The last 5 donations from the api.
+     * @return  the last 5 donations from the api.
      */
     public JSONObject GetDonations() throws URISyntaxException {
         return readJsonFromUrl("/tips/" + getID()+ "?limit=" + getLimit());

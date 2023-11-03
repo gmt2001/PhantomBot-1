@@ -45,7 +45,7 @@ public interface WsClientFrameHandler {
     /**
      * Handles the channel closing for any reason
      *
-     * @param channel The channel that was closed
+     * @param channel the channel that was closed
      */
     void onClose(Channel channel);
 }

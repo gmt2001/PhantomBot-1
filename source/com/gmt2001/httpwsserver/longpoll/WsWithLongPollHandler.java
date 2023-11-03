@@ -183,15 +183,15 @@ public abstract class WsWithLongPollHandler implements HttpRequestHandler, WsFra
     /**
      * Constructor
      *
-     * @param authenticatedCallback Optional callback to run when a client
+     * @param authenticatedCallback optional callback to run when a client
      *                              successfully authenticates via an authentication
      *                              frame
-     * @param ctxTimeout            The timeout until a WS client is sent a PING
+     * @param ctxTimeout            the timeout until a WS client is sent a PING
      *                              frame or an HTTP client is sent an empty
      *                              response
-     * @param strongTimeout         The duration after which the strong reference to
+     * @param strongTimeout         the duration after which the strong reference to
      *                              an outbound message will be dropped
-     * @param softTimeout           The duration after which the soft reference to
+     * @param softTimeout           the duration after which the soft reference to
      *                              an outbound message, and the entire message,
      *                              will be dropped
      */
@@ -215,9 +215,9 @@ public abstract class WsWithLongPollHandler implements HttpRequestHandler, WsFra
     /**
      * Returns the session ID for the client
      *
-     * @param params A tuple containing the params. See
+     * @param params a tuple containing the params. See
      *               {@link WsWithLongPollAuthenticationHandler#sessionIdSupplier}
-     * @return The session ID; {@code null} if the {@link PanelUser} is {@code null}
+     * @return the session ID; {@code null} if the {@link PanelUser} is {@code null}
      */
     protected final String clientSessionId(Tuple5<ChannelHandlerContext, Boolean, Boolean, String, String> params) {
         Tuple2<Instant, Long> after = this.lastReceivedParams(params.getT4());
@@ -239,7 +239,7 @@ public abstract class WsWithLongPollHandler implements HttpRequestHandler, WsFra
     /**
      * Provides a unique session ID
      *
-     * @return A session ID
+     * @return a session ID
      */
     protected final String sessionIdSupplier() {
         byte[] b = new byte[SESSION_ID_ENTROPY / 8];
@@ -256,8 +256,8 @@ public abstract class WsWithLongPollHandler implements HttpRequestHandler, WsFra
     /**
      * Checks the request URI for query params denoting the last received message
      *
-     * @param requestUri The request URI
-     * @return A tuple containing the last received Instant and Sequence
+     * @param requestUri the request URI
+     * @return a tuple containing the last received Instant and Sequence
      */
     private Tuple2<Instant, Long> lastReceivedParams(String requestUri) {
         QueryStringDecoder qsd = new QueryStringDecoder(requestUri);
@@ -286,8 +286,8 @@ public abstract class WsWithLongPollHandler implements HttpRequestHandler, WsFra
      * updates the last received from client values. Also processes skip parameters,
      * if present
      *
-     * @param ctx The context
-     * @param jso The frame
+     * @param ctx the context
+     * @param jso the frame
      * @return {@code true} if the frame is valid
      */
     private boolean validateFrameUpdateClientReceived(ChannelHandlerContext ctx, JSONObject jso) {
@@ -393,8 +393,8 @@ public abstract class WsWithLongPollHandler implements HttpRequestHandler, WsFra
      * <p>
      * Only gets called if the {@link WsAuthenticationHandler} returned {@code true}
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param frame The {@link WebSocketFrame} to process
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param frame the {@link WebSocketFrame} to process
      *
      * @Deprecated Frames which do not have the new wrapper JSONObject are
      *             deprecated for removal
@@ -422,8 +422,8 @@ public abstract class WsWithLongPollHandler implements HttpRequestHandler, WsFra
     /**
      * Handles a message frame
      *
-     * @param ctx The context
-     * @param jso The {@code data} field of the frame
+     * @param ctx the context
+     * @param jso the {@code data} field of the frame
      */
     public abstract void handleMessage(ChannelHandlerContext ctx, JSONObject jso);
 

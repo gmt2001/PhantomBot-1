@@ -33,7 +33,7 @@ public interface PanelUserAuthenticationHandler {
     /**
      * Returns the authenticated {@link PanelUser}
      *
-     * @param ctx The context
+     * @param ctx the context
      * @return {@code null} if not authenticated with a PanelUser
      */
     public PanelUser getUser(ChannelHandlerContext ctx);

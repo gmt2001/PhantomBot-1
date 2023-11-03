@@ -54,9 +54,9 @@ public interface WsAuthenticationHandler {
      * <p>
      * When returning {@code false}, this method MUST NOT send any frames back to the client
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param headers The {@link HttpHeaders} to check
-     * @param requestUri The request URI
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param headers the {@link HttpHeaders} to check
+     * @param requestUri the request URI
      * @return {@code true} if authorized
      */
     boolean checkAuthorizationHeaders(ChannelHandlerContext ctx, HttpHeaders headers, String requestUri);

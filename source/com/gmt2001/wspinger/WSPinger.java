@@ -313,15 +313,15 @@ public abstract class WSPinger {
     /**
      * Sends the frame to the remote endpoint
      *
-     * @param frame The frame to send
+     * @param frame the frame to send
      */
     protected abstract void send(WebSocketFrame frame);
 
     /**
      * Closes the socket
      *
-     * @param status The close code
-     * @param reason The reason for closing
+     * @param status the close code
+     * @param reason the reason for closing
      */
     protected abstract void close(WebSocketCloseStatus status, String reason);
 }

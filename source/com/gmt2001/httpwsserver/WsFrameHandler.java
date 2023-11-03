@@ -58,23 +58,23 @@ public interface WsFrameHandler {
     /**
      * Handles the handshake complete event
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param hc The handshake parameters
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param hc the handshake parameters
      */
     default void handshakeComplete(ChannelHandlerContext ctx, HandshakeComplete hc) {}
 
     /**
      * Handles the channel closing for any reason
      *
-     * @param channel The channel that was closed
+     * @param channel the channel that was closed
      */
     default void onClose(Channel channel) {}
 
     /**
      * Returns a {@link WSServerPinger} to check for connectivity
      *
-     * @param ctx The context
-     * @return A pinger; {@code null} if not used
+     * @param ctx the context
+     * @return a pinger; {@code null} if not used
      */
     default WSServerPinger pinger(ChannelHandlerContext ctx) {
         return null;

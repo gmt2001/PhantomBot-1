@@ -159,7 +159,7 @@ public final class PhantomBot implements Listener {
     /**
      * PhantomBot Instance.
      *
-     * @return PhantomBot The current instance of PhantomBot
+     * @return phantomBot The current instance of PhantomBot
      */
     public static PhantomBot instance() {
         return instance;
@@ -168,7 +168,7 @@ public final class PhantomBot implements Listener {
     /**
      * Current Repo Of PhantomBot.
      *
-     * @return String The current GitHub repository version of PhantomBot.
+     * @return string The current GitHub repository version of PhantomBot.
      */
     public String repoVersion() {
         return RepoVersion.getRepoVersion();
@@ -177,7 +177,7 @@ public final class PhantomBot implements Listener {
     /**
      * Current Version Of PhantomBot.
      *
-     * @return String Display version of PhantomBot.
+     * @return string Display version of PhantomBot.
      */
     public String botVersion() {
         return "PhantomBot Version: " + RepoVersion.getPhantomBotVersion() + " (" + RepoVersion.getBuildType() + (RepoVersion.isDocker() ? ", Docker" : "") + ")";
@@ -186,7 +186,7 @@ public final class PhantomBot implements Listener {
     /**
      * Used by the panel on the informations tab.
      *
-     * @return String PhantomBot information for the Panel.
+     * @return string PhantomBot information for the Panel.
      */
     public String getBotInfo() {
         return botVersion() + " (Revision: " + this.repoVersion() + ")";
@@ -195,7 +195,7 @@ public final class PhantomBot implements Listener {
     /**
      * Current Build Revision
      *
-     * @return String The build revision of PhantomBot.
+     * @return string The build revision of PhantomBot.
      */
     public String botRevision() {
         return "Build Revision: " + this.repoVersion();

@@ -353,8 +353,8 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     /**
      * Returns a queue containing all authenticated WS session channels that match the given URI
      *
-     * @param uri The URI to match
-     * @return The matching channels
+     * @param uri the URI to match
+     * @return the matching channels
      */
     public static Queue<Channel> getWsSessions(String uri) {
         Queue<Channel> sessions = new ConcurrentLinkedQueue<>();

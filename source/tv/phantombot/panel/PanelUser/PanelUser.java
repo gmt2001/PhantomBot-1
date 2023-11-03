@@ -121,8 +121,8 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
     /**
      * Constructor used for new database user creations
      *
-     * @param username The username
-     * @param permissions The permission set
+     * @param username the username
+     * @param permissions the permission set
      * @param enabled {@code true} to enable login
      * @param canManageUsers {@code true} to enable CRUD on other panel users (including self)
      * @param canRestartBot {@code true} to enable triggering bot restart, if configured
@@ -136,9 +136,9 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
      * <p>
      * Gives full access to panel sections
      *
-     * @param username The username
-     * @param password The password
-     * @param token The webauth token
+     * @param username the username
+     * @param password the password
+     * @param token the webauth token
      * @param canManage {@code true} to enable CRUD on panel users and triggering bot restart
      * @param full {@code true} for {@link Permission#READ_WRITE}; otherwise {@link Permission#READ_ONLY}
      */
@@ -149,11 +149,11 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
     /**
      * Constructor used for the users/tokens defined in botlogin.txt {@link Type#CONFIG}
      *
-     * @param username The username
-     * @param password The password
-     * @param token The webauth token
+     * @param username the username
+     * @param password the password
+     * @param token the webauth token
      * @param canManage {@code true} to enable CRUD on panel users and triggering bot restart
-     * @param permissions The permission set
+     * @param permissions the permission set
      */
     PanelUser(String username, String password, String token, boolean canManage, Map<String, Permission> permissions) {
         this(username, permissions, Type.CONFIG, true, true, canManage, canManage);
@@ -164,9 +164,9 @@ public final class PanelUser extends Record8<PanelUser, String, String, String, 
     /**
      * Internal constructor
      *
-     * @param username The username
-     * @param permissions The permission set
-     * @param userType The user type
+     * @param username the username
+     * @param permissions the permission set
+     * @param userType the user type
      * @param enabled {@code true} to enable login
      * @param hasSetPassword {@code false} to force password change on next login
      * @param canManageUsers {@code true} to enable CRUD on other panel users (including self if not {@link Type#CONFIG})

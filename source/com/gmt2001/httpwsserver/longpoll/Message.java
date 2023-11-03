@@ -51,11 +51,11 @@ final class Message {
     /**
      * Constructor
      *
-     * @param message       The message
-     * @param timestamp     The timestamp when the message was enqueued
-     * @param sequence      The sequence number within the timestamp
-     * @param strongTimeout The timestamp when the strong reference will be dropped
-     * @param softTimeout   The timestamp when the soft reference will be dropped
+     * @param message       the message
+     * @param timestamp     the timestamp when the message was enqueued
+     * @param sequence      the sequence number within the timestamp
+     * @param strongTimeout the timestamp when the strong reference will be dropped
+     * @param softTimeout   the timestamp when the soft reference will be dropped
      */
     Message(JSONObject message, Instant timestamp, long sequence, Instant strongTimeout, Instant softTimeout) {
         this.message = message;
@@ -68,7 +68,7 @@ final class Message {
     /**
      * The message
      *
-     * @return The message
+     * @return the message
      */
     JSONObject message() {
         return this.message;
@@ -77,7 +77,7 @@ final class Message {
     /**
      * The timestamp when the message was enqueued
      *
-     * @return The timestamp
+     * @return the timestamp
      */
     Instant timestamp() {
         return this.timestamp;
@@ -86,7 +86,7 @@ final class Message {
     /**
      * The sequence number within the {@link #timestamp()}
      *
-     * @return The sequence number
+     * @return the sequence number
      */
     long sequence() {
         return this.sequence;
@@ -95,7 +95,7 @@ final class Message {
     /**
      * The timestamp when the strong reference will be dropped
      *
-     * @return The timestamp
+     * @return the timestamp
      */
     Instant strongTimeout() {
         return this.strongTimeout;
@@ -104,7 +104,7 @@ final class Message {
     /**
      * The timestamp when the soft reference will be dropped
      *
-     * @return The timestamp
+     * @return the timestamp
      */
     Instant softTimeout() {
         return this.softTimeout;

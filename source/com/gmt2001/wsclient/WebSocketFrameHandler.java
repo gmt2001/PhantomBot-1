@@ -68,9 +68,9 @@ class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> 
     /**
      * Handles incoming WebSocket frames
      *
-     * @param ctx   The {@link ChannelHandlerContext} of the session
-     * @param frame The {@link WebSocketFrame} containing the request frame
-     * @throws Exception Passes any thrown exceptions up the stack
+     * @param ctx   the {@link ChannelHandlerContext} of the session
+     * @param frame the {@link WebSocketFrame} containing the request frame
+     * @throws Exception passes any thrown exceptions up the stack
      */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
@@ -111,8 +111,8 @@ class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> 
     /**
      * Handles exceptions that are thrown up the stack
      *
-     * @param ctx   The {@link ChannelHandlerContext} of the session
-     * @param cause The exception
+     * @param ctx   the {@link ChannelHandlerContext} of the session
+     * @param cause the exception
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -186,9 +186,9 @@ class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> 
     /**
      * Transmits a {@link WebSocketFrame} back to the client
      *
-     * @param ctx      The {@link ChannelHandlerContext} of the session
-     * @param reqframe The {@link WebSocketFrame} containing the request
-     * @param resframe The {@link WebSocketFrame} to transmit
+     * @param ctx      the {@link ChannelHandlerContext} of the session
+     * @param reqframe the {@link WebSocketFrame} containing the request
+     * @param resframe the {@link WebSocketFrame} to transmit
      */
     static void sendWsFrame(ChannelHandlerContext ctx, WebSocketFrame reqframe, WebSocketFrame resframe) {
         WebSocketFrameHandler.sendWsFrame(ctx.channel(), reqframe, resframe);
@@ -197,9 +197,9 @@ class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> 
     /**
      * Transmits a {@link WebSocketFrame} back to the client
      *
-     * @param ch       The {@link Channel} of the session
-     * @param reqframe The {@link WebSocketFrame} containing the request
-     * @param resframe The {@link WebSocketFrame} to transmit
+     * @param ch       the {@link Channel} of the session
+     * @param reqframe the {@link WebSocketFrame} containing the request
+     * @param resframe the {@link WebSocketFrame} to transmit
      */
     static void sendWsFrame(Channel ch, WebSocketFrame reqframe, WebSocketFrame resframe) {
         try {
@@ -225,10 +225,10 @@ class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> 
     /**
      * Sends a Close frame, then closes the connection
      *
-     * @param ctx        The {@link ChannelHandlerContext} of the session
-     * @param closeFrame An optional close {@link WebSocketFrame} to transmit. Sends
+     * @param ctx        the {@link ChannelHandlerContext} of the session
+     * @param closeFrame an optional close {@link WebSocketFrame} to transmit. Sends
      *                   NORMAL_CLOSURE if null
-     * @return A {@link ChannelFuture} that can be awaited
+     * @return a {@link ChannelFuture} that can be awaited
      */
     static ChannelFuture close(ChannelHandlerContext ctx, WebSocketFrame closeFrame) {
         return WebSocketFrameHandler.close(ctx.channel(), closeFrame);
@@ -237,10 +237,10 @@ class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> 
     /**
      * Sends a Close frame, then closes the connection
      *
-     * @param ch         The {@link Channel} of the session
-     * @param closeFrame An optional close {@link WebSocketFrame} to transmit. Sends
+     * @param ch         the {@link Channel} of the session
+     * @param closeFrame an optional close {@link WebSocketFrame} to transmit. Sends
      *                   NORMAL_CLOSURE if null
-     * @return A {@link ChannelFuture} that can be awaited
+     * @return a {@link ChannelFuture} that can be awaited
      */
     static ChannelFuture close(Channel ch, WebSocketFrame closeFrame) {
         if (ch == null) {

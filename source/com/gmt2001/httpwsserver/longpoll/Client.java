@@ -93,9 +93,9 @@ public final class Client {
     /**
      * Constructor
      *
-     * @param sessionId   The session ID
-     * @param user        The authenticated user
-     * @param lockTimeout The timeout when waiting for write access to the context
+     * @param sessionId   the session ID
+     * @param user        the authenticated user
+     * @param lockTimeout the timeout when waiting for write access to the context
      *                    fails
      */
     Client(String sessionId, PanelUser user, Duration lockTimeout) {
@@ -107,7 +107,7 @@ public final class Client {
     /**
      * The session ID
      *
-     * @return The session ID
+     * @return the session ID
      */
     public String sessionId() {
         return this.sessionId;
@@ -116,7 +116,7 @@ public final class Client {
     /**
      * The authenticated user
      *
-     * @return The authenticated user
+     * @return the authenticated user
      */
     public PanelUser user() {
         return this.user;
@@ -134,7 +134,7 @@ public final class Client {
     /**
      * Updates the next timeout of the context
      *
-     * @param timeout The duration after which the timeout will elapse
+     * @param timeout the duration after which the timeout will elapse
      * @return {@code this}
      */
     Client timeout(Duration timeout) {
@@ -145,7 +145,7 @@ public final class Client {
     /**
      * The timestamp of the next timeout of the context
      *
-     * @return The timestamp
+     * @return the timestamp
      */
     public Instant timeout() {
         return this.nextTimeout;
@@ -154,8 +154,8 @@ public final class Client {
     /**
      * Sets the last received sequence from this client
      *
-     * @param timestamp The message timestamp
-     * @param sequence  The message sequence
+     * @param timestamp the message timestamp
+     * @param sequence  the message sequence
      * @return {@code this}
      */
     Client lastReceived(Instant timestamp, long sequence) {
@@ -181,7 +181,7 @@ public final class Client {
     /**
      * The last received message timestamp, to the nearest millisecond
      *
-     * @return The timestamp
+     * @return the timestamp
      */
     public Instant lastReceivedTimestamp() {
         return this.lastReceivedTimestamp;
@@ -190,7 +190,7 @@ public final class Client {
     /**
      * The last received message sequence within {@link #lastReceivedTimestamp()}
      *
-     * @return The sequence
+     * @return the sequence
      */
     public long lastReceivedSequence() {
         return this.lastReceivedSequence;
@@ -199,7 +199,7 @@ public final class Client {
     /**
      * Enqueues a message with this client
      *
-     * @param m The message
+     * @param m the message
      * @return {@code this}
      */
     Client enqueue(Message m) {
@@ -248,8 +248,8 @@ public final class Client {
      * specified sequence
      *
      *
-     * @param lastClientReceivedTimestamp The latest timestamp to remove
-     * @param lastClientReceivedSequence  The latest sequence within the timestamp
+     * @param lastClientReceivedTimestamp the latest timestamp to remove
+     * @param lastClientReceivedSequence  the latest sequence within the timestamp
      *                                    to remove
      * @return {@code this}
      */
@@ -273,10 +273,10 @@ public final class Client {
      * reaching the first strongly enqueued message
      *
      *
-     * @param ctx                         The context
+     * @param ctx                         the context
      * @param isWs                        {@code true} if the context is a WS socket
-     * @param lastClientReceivedTimestamp The timestamp to start at
-     * @param lastClientReceivedSequence  The sequence to start at, exclusive
+     * @param lastClientReceivedTimestamp the timestamp to start at
+     * @param lastClientReceivedSequence  the sequence to start at, exclusive
      * @return {@code this}
      */
     Client setContextAndReplay(ChannelHandlerContext ctx, boolean isWs, Instant lastClientReceivedTimestamp,

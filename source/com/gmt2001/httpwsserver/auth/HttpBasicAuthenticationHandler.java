@@ -68,11 +68,11 @@ public final class HttpBasicAuthenticationHandler implements HttpAuthenticationH
     /**
      * Constructor
      *
-     * @param realm    The realm to present to the user
-     * @param user     The username required for valid authentication
-     * @param pass     The password required for valid authentication
-     * @param loginUri The login page URI
-     * @throws IllegalArgumentException If {@code realm} contains any double quotes
+     * @param realm    the realm to present to the user
+     * @param user     the username required for valid authentication
+     * @param pass     the password required for valid authentication
+     * @param loginUri the login page URI
+     * @throws IllegalArgumentException if {@code realm} contains any double quotes
      *                                  or {@code user} contains any colons
      */
     public HttpBasicAuthenticationHandler(String realm, String user, String pass, String loginUri) {
@@ -82,13 +82,13 @@ public final class HttpBasicAuthenticationHandler implements HttpAuthenticationH
     /**
      * Constructor
      *
-     * @param realm          The realm to present to the user
-     * @param user           The username required for valid authentication
-     * @param pass           The password required for valid authentication
-     * @param loginUri       The login page URI
-     * @param allowPanelUser Whether this instance is allow to authenticate headers
+     * @param realm          the realm to present to the user
+     * @param user           the username required for valid authentication
+     * @param pass           the password required for valid authentication
+     * @param loginUri       the login page URI
+     * @param allowPanelUser whether this instance is allow to authenticate headers
      *                       against {@link PanelUser}
-     * @throws IllegalArgumentException If {@code realm} contains any double quotes
+     * @throws IllegalArgumentException if {@code realm} contains any double quotes
      *                                  or {@code user} contains any colons
      */
     public HttpBasicAuthenticationHandler(String realm, String user, String pass, String loginUri,
@@ -109,8 +109,8 @@ public final class HttpBasicAuthenticationHandler implements HttpAuthenticationH
      * Checks if the given {@link FullHttpRequest} has the correct header with valid
      * credentials
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param req The {@link FullHttpRequest} to check
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param req the {@link FullHttpRequest} to check
      *            @return, this method will also reply with {@code 401 Unauthorized}
      *            and then close the channel
      */
@@ -198,8 +198,8 @@ public final class HttpBasicAuthenticationHandler implements HttpAuthenticationH
      * Checks if the user is authorized and returns the {@link PanelUser} using the
      * Base64-encoded login and request URI
      *
-     * @param auth       The Base64-encoded login
-     * @param requestUri The request URI
+     * @param auth       the Base64-encoded login
+     * @param requestUri the request URI
      * @return {@code null} if panel login is not allowed by this handler or the
      *         login fails
      */
@@ -211,9 +211,9 @@ public final class HttpBasicAuthenticationHandler implements HttpAuthenticationH
      * Checks if the user is authorized, using {@link PanelUser} with the
      * Base64-encoded login and request URI
      *
-     * @param ctx        The context
-     * @param auth       The Base64-encoded login
-     * @param requestUri The request URI
+     * @param ctx        the context
+     * @param auth       the Base64-encoded login
+     * @param requestUri the request URI
      * @return {@code false} if panel login is not allowed by this handler or the
      *         login fails
      */
@@ -227,8 +227,8 @@ public final class HttpBasicAuthenticationHandler implements HttpAuthenticationH
      * Checks if the user is authorized, using {@link PanelUser} with a plaintext
      * user and password
      *
-     * @param user The username
-     * @param pass The password
+     * @param user the username
+     * @param pass the password
      * @return {@code false} if panel login is not allowed by this handler or the
      *         login fails
      */
@@ -240,8 +240,8 @@ public final class HttpBasicAuthenticationHandler implements HttpAuthenticationH
      * Checks if the user is authorized, using the username and password passed to
      * the constructor
      *
-     * @param user The username
-     * @param pass The password
+     * @param user the username
+     * @param pass the password
      * @return {@code false} if the username passed to the constructor was
      *         {@code null} or the login fails
      */

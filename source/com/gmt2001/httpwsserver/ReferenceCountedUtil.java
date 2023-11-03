@@ -58,7 +58,7 @@ public final class ReferenceCountedUtil {
     /**
      * Fully releases a {@link ReferenceCounted} object at least 30 seconds into the future
      *
-     * @param obj The object to release
+     * @param obj the object to release
      */
     public static void releaseAuto(ReferenceCounted obj) {
         if (obj != null && obj.refCnt() > 0) {
@@ -104,7 +104,7 @@ public final class ReferenceCountedUtil {
     /**
      * Releases a {@link ReferenceCounted} object
      *
-     * @param obj The object to release
+     * @param obj the object to release
      */
     public static void releaseObj(ReferenceCounted obj) {
         releaseObj(obj, false);
@@ -113,7 +113,7 @@ public final class ReferenceCountedUtil {
     /**
      * Releases a {@link ReferenceCounted} object
      *
-     * @param obj The object to release
+     * @param obj the object to release
      * @param all {@code true} to release until 0; {@code false} to only release 1
      *            time
      */

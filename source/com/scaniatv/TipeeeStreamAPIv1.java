@@ -96,7 +96,7 @@ public class TipeeeStreamAPIv1 {
     /*
      * Pulls the 5 last donations from the API.
      *
-     * @return  The last 5 donations from the api.
+     * @return  the last 5 donations from the api.
      */
     public JSONObject GetDonations() throws JSONException, URISyntaxException {
         return readJsonFromUrl(URL + "?apiKey=" + getOauth() + "&type[]=donation&limit=" + getLimit());

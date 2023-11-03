@@ -42,9 +42,9 @@ public final class WSClientPinger extends WSPinger implements WsClientFrameHandl
     /**
      * Constructor that uses RFC6455 PING/PONG frames
      *
-     * @param interval A {@link Duration} indicating the interval at which to send PING frames
-     * @param timeout A {@link Duration} indicating the timeout during which a PONG must be received before the PING fails
-     * @param failureLimit The number of timeouts before the connection is considered failing and is closed
+     * @param interval a {@link Duration} indicating the interval at which to send PING frames
+     * @param timeout a {@link Duration} indicating the timeout during which a PONG must be received before the PING fails
+     * @param failureLimit the number of timeouts before the connection is considered failing and is closed
      * @throws IllegalArgumentException interval or timeout was less than 5 seconds; failureLimit was less than 1
      */
     public WSClientPinger(Duration interval, Duration timeout, int failureLimit) {
@@ -54,11 +54,11 @@ public final class WSClientPinger extends WSPinger implements WsClientFrameHandl
     /**
      * Constructor
      *
-     * @param interval A {@link Duration} indicating the interval at which to send PING frames
-     * @param timeout A {@link Duration} indicating the timeout during which a PONG must be received before the PING fails
-     * @param failureLimit The number of timeouts before the connection is considered failing and is closed
-     * @param pingFrameFactory A factory method that emits a {@link WebSocketFrame} that can be sent as a PING
-     * @param pongParser A method that determines if a given frame is a valid PONG
+     * @param interval a {@link Duration} indicating the interval at which to send PING frames
+     * @param timeout a {@link Duration} indicating the timeout during which a PONG must be received before the PING fails
+     * @param failureLimit the number of timeouts before the connection is considered failing and is closed
+     * @param pingFrameFactory a factory method that emits a {@link WebSocketFrame} that can be sent as a PING
+     * @param pongParser a method that determines if a given frame is a valid PONG
      * @throws IllegalArgumentException interval or timeout was less than 5 seconds; failureLimit was less than 1; Any value was null
      */
     public WSClientPinger(Duration interval, Duration timeout, int failureLimit,
@@ -69,10 +69,10 @@ public final class WSClientPinger extends WSPinger implements WsClientFrameHandl
     /**
      * Constructor
      *
-     * @param interval A {@link Duration} indicating the interval at which to send PING frames
-     * @param timeout A {@link Duration} indicating the timeout during which a PONG must be received before the PING fails
-     * @param failureLimit The number of timeouts before the connection is considered failing and is closed
-     * @param supplierPredicate An object implementing both the PING supplier and the PONG predicate. Defaults to {@link RFC6455PingPong} if
+     * @param interval a {@link Duration} indicating the interval at which to send PING frames
+     * @param timeout a {@link Duration} indicating the timeout during which a PONG must be received before the PING fails
+     * @param failureLimit the number of timeouts before the connection is considered failing and is closed
+     * @param supplierPredicate an object implementing both the PING supplier and the PONG predicate. Defaults to {@link RFC6455PingPong} if
      * {@code null}
      * @throws IllegalArgumentException interval or timeout was less than 5 seconds; failureLimit was less than 1; Any value was null
      */

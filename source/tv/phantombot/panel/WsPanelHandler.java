@@ -989,19 +989,19 @@ public class WsPanelHandler extends WsWithLongPollHandler {
      * The notification is sent to all currently authenticated users on the panel if
      * the parameter ctx is {@code null}
      *
-     * @param ctx             The {@link ChannelHandlerContext}
-     * @param type            The type of notification to show. Valid values:
+     * @param ctx             the {@link ChannelHandlerContext}
+     * @param type            the type of notification to show. Valid values:
      *                        {@code success}, {@code error}, {@code warning},
      *                        {@code info}. Invalid values are
      *                        treated as {@code info}
-     * @param message         The message content of the notification
-     * @param title           The title of the notification. {@code null} or empty
+     * @param message         the message content of the notification
+     * @param title           the title of the notification. {@code null} or empty
      *                        string for no title
-     * @param timeout         The timeout before the notification automatically
+     * @param timeout         the timeout before the notification automatically
      *                        closes. {@code null} for default; {@code 0} to not
      *                        close until the {@code X}
      *                        is clicked
-     * @param extendedTimeout The timeout before the notification automatically
+     * @param extendedTimeout the timeout before the notification automatically
      *                        closes, if the user hover over it with their mouse.
      *                        This should be
      *                        longer than {@code timeout} because the timer is
@@ -1035,7 +1035,7 @@ public class WsPanelHandler extends WsWithLongPollHandler {
     /**
      * Sends an ack response to a WS query
      *
-     * @param uniqueID The ID the callback is registered under, sent by the
+     * @param uniqueID the ID the callback is registered under, sent by the
      *                 requester
      */
     public void sendAck(String uniqueID) {
@@ -1047,9 +1047,9 @@ public class WsPanelHandler extends WsWithLongPollHandler {
     /**
      * Sends an object response to a WS query
      *
-     * @param uniqueID The ID the callback is registered under, sent by the
+     * @param uniqueID the ID the callback is registered under, sent by the
      *                 requester
-     * @param obj      A map of key/value pairs to send
+     * @param obj      a map of key/value pairs to send
      */
     public void sendObject(String uniqueID, Map<String, Object> obj) {
         JSONStringer jsonObject = new JSONStringer();
@@ -1065,9 +1065,9 @@ public class WsPanelHandler extends WsWithLongPollHandler {
     /**
      * Sends an array response to a WS query
      *
-     * @param uniqueID The ID the callback is registered under, sent by the
+     * @param uniqueID the ID the callback is registered under, sent by the
      *                 requester
-     * @param obj      A list of values to send
+     * @param obj      a list of values to send
      */
     public void sendArray(String uniqueID, List<Object> obj) {
         JSONStringer jsonObject = new JSONStringer();

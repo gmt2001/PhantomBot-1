@@ -120,8 +120,8 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
     /**
      * Handles exceptions that are thrown up the stack
      *
-     * @param ctx   The {@link ChannelHandlerContext} of the session
-     * @param cause The exception
+     * @param ctx   the {@link ChannelHandlerContext} of the session
+     * @param cause the exception
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -138,8 +138,8 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
      * <p>
      * {@code Authorization: Basic} takes priority
      *
-     * @param headers The {@link HttpHeaders} to check
-     * @return The authorization string, still encoded with Base64, giving
+     * @param headers the {@link HttpHeaders} to check
+     * @return the authorization string, still encoded with Base64, giving
      *         preference to {@code Authorization Basic}; {@code null} if neither is
      *         found
      */
@@ -158,7 +158,7 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
      * {@link Tuple2#getT2()} Checks the given {@link HttpHeaders} for a
      * {@code SessionID} header
      *
-     * @param headers The {@link HttpHeaders} to check
+     * @param headers the {@link HttpHeaders} to check
      * @return {@link Tuple2#getT1()} The authorization string, still encoded with
      *         Base64, giving preference to {@code Authorization Basic};
      *         {@link Tuple2#getT2()} A session id; Either value may be {@code null}
@@ -181,8 +181,8 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
     /**
      * Determines the best {@link HttpRequestHandler} to use for a given URI
      *
-     * @param uri The URI to check
-     * @return The {@link HttpRequestHandler} to use, or {@code null} if none were
+     * @param uri the URI to check
+     * @return the {@link HttpRequestHandler} to use, or {@code null} if none were
      *         found
      */
     static HttpRequestHandler determineHttpRequestHandler(String uri) {
@@ -290,8 +290,8 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
      * {@code SERVER ERROR 5xx}, or an unknown class, then the standard name of the
      * status code is appended to the beginning of the HTML response
      *
-     * @param status The {@link HttpResponseStatus} to return
-     * @return A {@link FullHttpResponse} that is ready to transmit
+     * @param status the {@link HttpResponseStatus} to return
+     * @return a {@link FullHttpResponse} that is ready to transmit
      */
     public static FullHttpResponse prepareHttpResponse(HttpResponseStatus status) {
         return prepareHttpResponse(status, (byte[]) null, null);
@@ -310,9 +310,9 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
      * line breaks and the MIME type is set to {@code text/html}, unless
      * {@code fileNameOrType} ends with {@code json} or {@code xml}
      *
-     * @param status  The {@link HttpResponseStatus} to return
-     * @param content The content to send
-     * @return A {@link FullHttpResponse} that is ready to transmit
+     * @param status  the {@link HttpResponseStatus} to return
+     * @param content the content to send
+     * @return a {@link FullHttpResponse} that is ready to transmit
      */
     public static FullHttpResponse prepareHttpResponse(HttpResponseStatus status, String content) {
         return prepareHttpResponse(status, content.getBytes(CharsetUtil.UTF_8), null);
@@ -330,10 +330,10 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
      * line breaks and the MIME type is set to {@code text/html}, unless
      * {@code fileNameOrType} ends with {@code json} or {@code xml}
      *
-     * @param status         The {@link HttpResponseStatus} to return
-     * @param content        The content to send
-     * @param fileNameOrType The filename or type extension for MIME type detection
-     * @return A {@link FullHttpResponse} that is ready to transmit
+     * @param status         the {@link HttpResponseStatus} to return
+     * @param content        the content to send
+     * @param fileNameOrType the filename or type extension for MIME type detection
+     * @return a {@link FullHttpResponse} that is ready to transmit
      */
     public static FullHttpResponse prepareHttpResponse(HttpResponseStatus status, String content,
             String fileNameOrType) {
@@ -352,10 +352,10 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
      * line breaks and the MIME type is set to {@code text/html}, unless
      * {@code fileNameOrType} ends with {@code json} or {@code xml}
      *
-     * @param status         The {@link HttpResponseStatus} to return
-     * @param content        The content to send
-     * @param fileNameOrType The filename or type extension for MIME type detection
-     * @return A {@link FullHttpResponse} that is ready to transmit
+     * @param status         the {@link HttpResponseStatus} to return
+     * @param content        the content to send
+     * @param fileNameOrType the filename or type extension for MIME type detection
+     * @return a {@link FullHttpResponse} that is ready to transmit
      */
     public static FullHttpResponse prepareHttpResponse(HttpResponseStatus status, byte[] content,
             String fileNameOrType) {
@@ -408,12 +408,12 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
      * Creates and prepares a CORS preflight {@link FullHttpResponse} for
      * transmission
      *
-     * @param req            The preflight request
-     * @param allowedMethods The allowed {@link HttpMethod}
-     * @param allowedHeaders The allowed {@link HttpHeaderNames}
-     * @param cacheTime      The maximum time the browser is allowed to cache the
+     * @param req            the preflight request
+     * @param allowedMethods the allowed {@link HttpMethod}
+     * @param allowedHeaders the allowed {@link HttpHeaderNames}
+     * @param cacheTime      the maximum time the browser is allowed to cache the
      *                       preflight response
-     * @return A {@link FullHttpResponse} that is ready to transmit
+     * @return a {@link FullHttpResponse} that is ready to transmit
      */
     public static FullHttpResponse preparePreflightResponse(FullHttpRequest req, List<HttpMethod> allowedMethods,
             List<String> allowedHeaders, Duration cacheTime) {
@@ -455,10 +455,10 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
     /**
      * Transmits a {@link FullHttpResponse} back to the client
      *
-     * @param ctx        The {@link ChannelHandlerContext} of the session
-     * @param req        The {@link FullHttpRequest} containing the request
-     * @param res        The {@link FullHttpResponse} to transmit
-     * @param forceclose If true, connection is closed regardless of status code;
+     * @param ctx        the {@link ChannelHandlerContext} of the session
+     * @param req        the {@link FullHttpRequest} containing the request
+     * @param res        the {@link FullHttpResponse} to transmit
+     * @param forceclose if true, connection is closed regardless of status code;
      *                   otherwise, only errors or unknown status codes will
      *                   explicitly close
      *                   the connection
@@ -495,9 +495,9 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
      * Transmits a {@link FullHttpResponse} back to the client that lists the
      * contents of the directory pointed to by {@code p}
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param req The {@link FullHttpRequest} containing the request
-     * @param p   The {@link Path} to the directory to list
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param req the {@link FullHttpRequest} containing the request
+     * @param p   the {@link Path} to the directory to list
      */
     public static void listDirectory(ChannelHandlerContext ctx, FullHttpRequest req, Path p) {
         try {
@@ -522,10 +522,10 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
      * <p>
      * Sends back a {@code 404 NOT FOUND} or {@code 403 FORBIDDEN} on failure
      *
-     * @param ctx              The {@link ChannelHandlerContext} of the session
-     * @param req              The {@link FullHttpRequest} containing the request
-     * @param p                The {@link Path} to the file or directory to check
-     * @param directoryAllowed Indicates if directories are allowed. If set to
+     * @param ctx              the {@link ChannelHandlerContext} of the session
+     * @param req              the {@link FullHttpRequest} containing the request
+     * @param p                the {@link Path} to the file or directory to check
+     * @param directoryAllowed indicates if directories are allowed. If set to
      *                         {@code false}, will cause a {@code 403 FORBIDDEN} if
      *                         {@code p} is a
      *                         directory
@@ -551,9 +551,9 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
     /**
      * Registers a HTTP URI path to a {@link HttpRequestHandler}
      *
-     * @param path    The URI path to bind the handler to
-     * @param handler The {@link HttpRequestHandler} that will handle the requests
-     * @throws IllegalArgumentException If {@code path} is either already
+     * @param path    the URI path to bind the handler to
+     * @param handler the {@link HttpRequestHandler} that will handle the requests
+     * @throws IllegalArgumentException if {@code path} is either already
      *                                  registered, or illegal
      * @see validateUriPath
      */
@@ -583,8 +583,8 @@ public class HttpServerPageHandler extends SimpleChannelInboundHandler<FullHttpR
     /**
      * Parses out cookies and converts them to a Map
      *
-     * @param headers The headers of the request
-     * @return A Map of cookies
+     * @param headers the headers of the request
+     * @return a Map of cookies
      */
     public static Map<String, String> parseCookies(HttpHeaders headers) {
         Map<String, String> cookies = new HashMap<>();

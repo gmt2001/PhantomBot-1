@@ -85,7 +85,7 @@ public class WSClient {
      * @param uri the URI to connect to
      * @param handler an object implementing {@link WsClientFrameHandler} which will receive frames
      * @throws SSLException failed to create the {@link SslContext}
-     * @throws IllegalArgumentException URI scheme is not ws or wss
+     * @throws IllegalArgumentException uRI scheme is not ws or wss
      */
     public WSClient(URI uri, WsClientFrameHandler handler) throws SSLException, IllegalArgumentException {
         this(uri, handler, null);
@@ -94,11 +94,11 @@ public class WSClient {
     /**
      * Constructor
      *
-     * @param uri The URI to connect to
-     * @param handler An object implementing {@link WsClientFrameHandler} which will receive frames
-     * @param pinger The {@link WSClientPinger} that will send PING on an interval, or {@code null} if this is not desired
-     * @throws SSLException Failed to create the {@link SslContext}
-     * @throws IllegalArgumentException URI scheme is not ws or wss
+     * @param uri the URI to connect to
+     * @param handler an object implementing {@link WsClientFrameHandler} which will receive frames
+     * @param pinger the {@link WSClientPinger} that will send PING on an interval, or {@code null} if this is not desired
+     * @throws SSLException failed to create the {@link SslContext}
+     * @throws IllegalArgumentException uRI scheme is not ws or wss
      */
     public WSClient(URI uri, WsClientFrameHandler handler, WSClientPinger pinger) throws SSLException, IllegalArgumentException {
         try {

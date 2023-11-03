@@ -74,9 +74,9 @@ public final class WsSharedRWTokenAuthenticationHandler
     /**
      * Constructor
      *
-     * @param readOnlyToken  The authorization token that grants read-only access
-     * @param readWriteToken The authorization token that grants read-write access
-     * @param maxAttempts    The maximum allowed auth failure responses before the
+     * @param readOnlyToken  the authorization token that grants read-only access
+     * @param readWriteToken the authorization token that grants read-write access
+     * @param maxAttempts    the maximum allowed auth failure responses before the
      *                       connection is shut down
      */
     public WsSharedRWTokenAuthenticationHandler(String readOnlyToken, String readWriteToken, int maxAttempts) {
@@ -86,11 +86,11 @@ public final class WsSharedRWTokenAuthenticationHandler
     /**
      * Constructor
      *
-     * @param readOnlyToken  The authorization token that grants read-only access
-     * @param readWriteToken The authorization token that grants read-write access
-     * @param maxAttempts    The maximum allowed auth failure responses before the
+     * @param readOnlyToken  the authorization token that grants read-only access
+     * @param readWriteToken the authorization token that grants read-write access
+     * @param maxAttempts    the maximum allowed auth failure responses before the
      *                       connection is shut down
-     * @param allowPaneluser Whether to allow authenticating via HTTP Headers to a
+     * @param allowPaneluser whether to allow authenticating via HTTP Headers to a
      *                       {@link PanelUser}
      */
     public WsSharedRWTokenAuthenticationHandler(String readOnlyToken, String readWriteToken, int maxAttempts,
@@ -101,13 +101,13 @@ public final class WsSharedRWTokenAuthenticationHandler
     /**
      * Constructor
      *
-     * @param readOnlyToken         The authorization token that grants read-only
+     * @param readOnlyToken         the authorization token that grants read-only
      *                              access
-     * @param readWriteToken        The authorization token that grants read-write
+     * @param readWriteToken        the authorization token that grants read-write
      *                              access
-     * @param maxAttempts           The maximum allowed auth failure responses
+     * @param maxAttempts           the maximum allowed auth failure responses
      *                              before the connection is shut down
-     * @param authenticatedCallback A callback to run when a connection
+     * @param authenticatedCallback a callback to run when a connection
      *                              authenticates successfully
      */
     public WsSharedRWTokenAuthenticationHandler(String readOnlyToken, String readWriteToken, int maxAttempts,
@@ -118,15 +118,15 @@ public final class WsSharedRWTokenAuthenticationHandler
     /**
      * Constructor
      *
-     * @param readOnlyToken         The authorization token that grants read-only
+     * @param readOnlyToken         the authorization token that grants read-only
      *                              access
-     * @param readWriteToken        The authorization token that grants read-write
+     * @param readWriteToken        the authorization token that grants read-write
      *                              access
-     * @param maxAttempts           The maximum allowed auth failure responses
+     * @param maxAttempts           the maximum allowed auth failure responses
      *                              before the connection is shut down
-     * @param authenticatedCallback A callback to run when a connection
+     * @param authenticatedCallback a callback to run when a connection
      *                              authenticates successfully
-     * @param allowPaneluser        Whether to allow authenticating via HTTP Headers
+     * @param allowPaneluser        whether to allow authenticating via HTTP Headers
      *                              to a {@link PanelUser}
      */
     public WsSharedRWTokenAuthenticationHandler(String readOnlyToken, String readWriteToken, int maxAttempts,
@@ -150,8 +150,8 @@ public final class WsSharedRWTokenAuthenticationHandler
      * {@code {"authresult": string:"true" or "false", "authtype": string:"none" or
      * "read" or "read/write"}}
      *
-     * @param ctx   The {@link ChannelHandlerContext} of the session
-     * @param frame The {@link WebSocketFrame} to check
+     * @param ctx   the {@link ChannelHandlerContext} of the session
+     * @param frame the {@link WebSocketFrame} to check
      *              @return, this method will also reply with the appropriate frames
      *              to continue the authentication sequence, or an
      *              {@code Unauthorized} frame if
@@ -264,8 +264,8 @@ public final class WsSharedRWTokenAuthenticationHandler
     /**
      * Invalidates the authentication of the specified {@link ChannelHandlerContext}
      *
-     * @param ctx The {@link ChannelHandlerContext} of the session
-     * @param frame The {@link WebSocketFrame}
+     * @param ctx the {@link ChannelHandlerContext} of the session
+     * @param frame the {@link WebSocketFrame}
      */
     public void invalidateAuthorization(ChannelHandlerContext ctx, WebSocketFrame frame) {
         ctx.channel().attr(ATTR_AUTHENTICATED).set(Boolean.FALSE);
@@ -277,8 +277,8 @@ public final class WsSharedRWTokenAuthenticationHandler
      * Checks if the given {@link HttpHeaders} contains a valid login for a panel
      * user, if enabled
      *
-     * @param ctx     The {@link ChannelHandlerContext} of the session
-     * @param headers The {@link HttpHeaders} to check
+     * @param ctx     the {@link ChannelHandlerContext} of the session
+     * @param headers the {@link HttpHeaders} to check
      * @return {@code true} if authorized
      */
     @Override
