@@ -18,18 +18,18 @@
  */
 package tv.phantombot.twitch.emotes;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.gmt2001.httpclient.HttpClient;
 import com.gmt2001.httpclient.HttpClientResponse;
 import com.gmt2001.httpclient.URIUtil;
 import com.gmt2001.twitch.cache.ViewerCache;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 /*
  * Communicates with the BetterTwitchTV v3 API server.
