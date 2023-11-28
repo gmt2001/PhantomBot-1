@@ -45,13 +45,13 @@ loadScripts(document, 'script');</script>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
 <li><a href="#nested-class-summary">Nested</a>&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
@@ -107,6 +107,23 @@ loadScripts(document, 'script');</script>
 <code><a href="https://netty.io/4.1/api/io/netty/channel/ChannelHandler.Sharable.html" title="class or interface in io.netty.channel" class="external-link">ChannelHandler.Sharable</a></code></div>
 </section>
 </li>
+<!-- =========== FIELD SUMMARY =========== -->
+<li>
+<section class="field-summary" id="field-summary">
+<h2>Field Summary</h2>
+<div class="caption"><span>Fields</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Field</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>static final <a href="https://netty.io/4.1/api/io/netty/util/AttributeKey.html" title="class or interface in io.netty.util" class="external-link">AttributeKey</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-second even-row-color"><code><a href="#ATTR_ORIGIN" class="member-name-link">ATTR_ORIGIN</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">The Origin header</div>
+</div>
+</div>
+</section>
+</li>
 <!-- ========== METHOD SUMMARY =========== -->
 <li>
 <section class="method-summary" id="method-summary">
@@ -119,8 +136,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#addCORSResponse(io.netty.handler.codec.http.FullHttpRequest,io.netty.handler.codec.http.FullHttpResponse,java.util.List,java.util.List,java.time.Duration)" class="member-name-link">addCORSResponse</a><wbr>(<a href="https://netty.io/4.1/api/io/netty/handler/codec/http/FullHttpRequest.html" title="class or interface in io.netty.handler.codec.http" class="external-link">FullHttpRequest</a>&nbsp;req,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#addCORSResponse(io.netty.handler.codec.http.FullHttpRequest,io.netty.handler.codec.http.FullHttpResponse,java.lang.String,java.util.List,java.util.List,java.time.Duration)" class="member-name-link">addCORSResponse</a><wbr>(<a href="https://netty.io/4.1/api/io/netty/handler/codec/http/FullHttpRequest.html" title="class or interface in io.netty.handler.codec.http" class="external-link">FullHttpRequest</a>&nbsp;req,
  <a href="https://netty.io/4.1/api/io/netty/handler/codec/http/FullHttpResponse.html" title="class or interface in io.netty.handler.codec.http" class="external-link">FullHttpResponse</a>&nbsp;res,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;origin,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://netty.io/4.1/api/io/netty/handler/codec/http/HttpMethod.html" title="class or interface in io.netty.handler.codec.http" class="external-link">HttpMethod</a>&gt;&nbsp;allowedMethods,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;allowedHeaders,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html" title="class or interface in java.time" class="external-link">Duration</a>&nbsp;cacheTime)</code></div>
@@ -294,6 +312,21 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="details">
 <ul class="details-list">
+<!-- ============ FIELD DETAIL =========== -->
+<li>
+<section class="field-details" id="field-detail">
+<h2>Field Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="ATTR_ORIGIN">
+<h3>ATTR_ORIGIN</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://netty.io/4.1/api/io/netty/util/AttributeKey.html" title="class or interface in io.netty.util" class="external-link">AttributeKey</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">ATTR_ORIGIN</span></div>
+<div class="block">The Origin header</div>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <!-- ============ METHOD DETAIL ========== -->
 <li>
 <section class="method-details" id="method-detail">
@@ -516,10 +549,11 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="addCORSResponse(io.netty.handler.codec.http.FullHttpRequest,io.netty.handler.codec.http.FullHttpResponse,java.util.List,java.util.List,java.time.Duration)">
+<section class="detail" id="addCORSResponse(io.netty.handler.codec.http.FullHttpRequest,io.netty.handler.codec.http.FullHttpResponse,java.lang.String,java.util.List,java.util.List,java.time.Duration)">
 <h3>addCORSResponse</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addCORSResponse</span><wbr><span class="parameters">(<a href="https://netty.io/4.1/api/io/netty/handler/codec/http/FullHttpRequest.html" title="class or interface in io.netty.handler.codec.http" class="external-link">FullHttpRequest</a>&nbsp;req,
  <a href="https://netty.io/4.1/api/io/netty/handler/codec/http/FullHttpResponse.html" title="class or interface in io.netty.handler.codec.http" class="external-link">FullHttpResponse</a>&nbsp;res,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;origin,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://netty.io/4.1/api/io/netty/handler/codec/http/HttpMethod.html" title="class or interface in io.netty.handler.codec.http" class="external-link">HttpMethod</a>&gt;&nbsp;allowedMethods,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;allowedHeaders,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html" title="class or interface in java.time" class="external-link">Duration</a>&nbsp;cacheTime)</span></div>
@@ -528,6 +562,7 @@ loadScripts(document, 'script');</script>
 <dt>Parameters:</dt>
 <dd><code>req</code> - The request</dd>
 <dd><code>res</code> - The response</dd>
+<dd><code>origin</code> - The <code>Origin</code> header value</dd>
 <dd><code>allowedMethods</code> - The allowed <a href="https://netty.io/4.1/api/io/netty/handler/codec/http/HttpMethod.html" title="class or interface in io.netty.handler.codec.http" class="external-link"><code>HttpMethod</code></a></dd>
 <dd><code>allowedHeaders</code> - The allowed <a href="https://netty.io/4.1/api/io/netty/handler/codec/http/HttpHeaderNames.html" title="class or interface in io.netty.handler.codec.http" class="external-link"><code>HttpHeaderNames</code></a></dd>
 <dd><code>cacheTime</code> - The maximum time the browser is allowed to cache the
