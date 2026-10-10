@@ -9,3 +9,4 @@ paths-ignore:
   - docs/panel-stable
   - docs/javadoc
   - docs/javadoc-stable
+  - docs/guides/markdown-toc.js
