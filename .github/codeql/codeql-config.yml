@@ -3,6 +3,7 @@ paths-ignore:
   - dist
   - resources/java-runtime*
   - resources/web/common/js/jquery-ui
+  - resources/web/common/reconnecting-websocket
   - resources/web/panel/vendors
   - docs/common
   - docs/panel
